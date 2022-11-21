@@ -1,0 +1,22 @@
+@use "../abstract/mixins" as *;
+@use "../vendors/mixins-vendor" as *;
+
+@include breakpointer;
+body.breakpointer::before {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 80px;
+  width: 80px;
+  height: 80px;
+  top: 30px;
+  right: 30px;
+  color: var(--white);
+  font-family: jumble, sans-serif;
+  font-size: 1em;
+  background-color: #668f80;
+  z-index: 2000;
+  box-shadow: 0 0 0 10px rgb(102 143 128 / 30%);
+  box-sizing: inherit;
+}

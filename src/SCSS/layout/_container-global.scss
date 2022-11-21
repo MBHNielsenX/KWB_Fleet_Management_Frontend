@@ -1,0 +1,32 @@
+.ct-section {
+  width: 100%;
+  background-size: cover;
+  background-repeat: repeat;
+}
+.ct-section > .ct-section-inner-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ct-div-block {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ct-section-inner-wrap {
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+.ct-section-inner-wrap,
+.oxy-header-container {
+  max-width: 1280px;
+}
+.ct-section-inner-wrap {
+  padding: 6rem 2.4rem;
+  padding: calc(7.2rem + (4.8 * ((100vw - 32rem) / 96)))
+    calc(2.4rem + (0.6 * ((100vw - 32rem) / 96)));
+  padding: clamp(7.2rem, calc(5vw + 5.6rem), 12rem)
+    clamp(2.4rem, calc(0.625vw + 2.2rem), 3rem);
+}

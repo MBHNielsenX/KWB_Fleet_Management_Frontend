@@ -1,0 +1,541 @@
+@use "../abstract/global-second" as *;
+@use "../abstract/global" as *;
+@import "../abstract/utils";
+
+/* Utility mixin components  https://gerillass.com/*/
+
+/* AFTER
+https://docs.gerillass.com/docs/after/
+*/
+
+@mixin after($content: null) {
+  &::after {
+    @if $content == null {
+      @content;
+    } @else if $content != null {
+      $data: str-slice($content, 1, 5);
+      @if $data == "data-" {
+        content: attr(#{$content});
+        @content;
+      } @else {
+        content: "#{$content}";
+        @content;
+      }
+    }
+  }
+}
+
+/* ALL BUTTONS 
+https://docs.gerillass.com/docs/all-buttons/
+*/
+
+@mixin all-buttons($pseudo: null) {
+  $list: "hover", "focus", "active", "disabled";
+  @if not $pseudo {
+    #{$list-of-buttons} {
+      @content;
+    }
+  } @else if index($list, $pseudo) {
+    $all-buttons: __pseudoSelector($list-of-buttons, $pseudo);
+    #{$all-buttons} {
+      @content;
+    }
+  } @else {
+    @error "The argument must be `null` or one of the followings: #{quote($list)}.";
+  }
+}
+
+/* ALL TEXT INPUTS
+https://docs.gerillass.com/docs/all-text-inputs/
+*/
+@mixin all-text-inputs($pseudo: null) {
+  $list: "hover", "focus", "active", "invalid", "required", "disabled";
+  @if not $pseudo {
+    #{$list-of-text-inputs} {
+      @content;
+    }
+  } @else if index($list, $pseudo) {
+    $all-text-inputs: __pseudoSelector($list-of-text-inputs, $pseudo);
+    #{$all-text-inputs} {
+      @content;
+    }
+  } @else {
+    @error "The argument must be `null` or one of the followings: #{quote($list)}";
+  }
+}
+
+/* BACKGROUND IMAGE 
+https://docs.gerillass.com/docs/background-image/
+*/
+
+@mixin background-image(
+  $image-url: null,
+  $filter-color: null,
+  $filter-direction: null
+) {
+  @if $image-url {
+    @if $filter-color {
+      @if length($filter-color) == 1 {
+        background-image: linear-gradient(to top, $filter-color, $filter-color),
+          url($image-url);
+      } @else if length($filter-color) > 1 {
+        $color-list: ();
+        @for $i from 1 through length($filter-color) {
+          $color-list: append($color-list, nth($filter-color, $i), comma);
+        }
+        @if $filter-direction {
+          @if map-has-key($map-for-directions, $filter-direction) {
+            background-image: linear-gradient(
+                map-get($map-for-directions, $filter-direction),
+                $color-list
+              ),
+              url($image-url);
+          } @else {
+            @if index("deg", unit($filter-direction)) {
+              background-image: linear-gradient($filter-direction, $color-list),
+                url($image-url);
+            } @else {
+              @error "#{$filter-direction} is a wrong value for the $filter-direction parameter. The value must be either a number followed by the 'deg' unit or one of the following pre-defined values: #{quote(map-keys($map-for-directions))}.";
+            }
+          }
+        } @else {
+          background-image: linear-gradient(to top, $color-list),
+            url($image-url);
+        }
+      }
+    } @else {
+      background-image: url($image-url);
+    }
+  } @else {
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      @if length($filter-color) == 1 {
+        background: $filter-color;
+      } @else if length($filter-color) > 1 {
+        @include gls-linear-gradient(
+          if(not $filter-direction, "top", $filter-direction),
+          $filter-color
+        );
+      }
+    }
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* BEFORE 
+https://docs.gerillass.com/docs/before/
+*/
+
+@mixin before($content: null) {
+  &::before {
+    @if $content == null {
+      @content;
+    } @else if $content != null {
+      $data: str-slice($content, 1, 5);
+      @if $data == "data-" {
+        content: attr(#{$content});
+        @content;
+      } @else {
+        content: "#{$content}";
+        @content;
+      }
+    }
+  }
+}
+
+/*  @FONT FACE 
+https://docs.gerillass.com/docs/font-face/
+*/
+@mixin font-face(
+  $font-family,
+  $file-path,
+  $font-style: normal,
+  $font-weight: 400,
+  $file-formats: eot woff2 woff ttf svg
+) {
+  @if & {
+    @error "You must call the mixin at the root level of your style sheet, not in the `#{&+'{'+'}'}` selector.";
+  } @else {
+    $list: ();
+
+    @if index(100 200 300 400 500 600 700 800 900, $font-style) {
+      $font-weight: $font-style;
+      $font-style: normal;
+    } @else if not
+      index("normal" "italic" "oblique", $font-style) and
+      type-of($font-style) !=
+      "number"
+    {
+      $font-style-list: ();
+      @for $i from 1 through length($font-style) {
+        $font-style-list: append($font-style-list, nth($font-style, $i), comma);
+      }
+      @for $i from 1 through length($font-style-list) {
+        @if index("eot" "woff2" "woff" "ttf" "svg", nth($font-style-list, $i)) {
+          $file-formats: $font-style-list;
+          $font-style: normal;
+        }
+      }
+    }
+
+    @font-face {
+      font-family: $font-family;
+      @if index($file-formats, eot) {
+        src: url("#{$file-path}.eot");
+      }
+      @for $i from 1 through length($file-formats) {
+        $list: append(
+          $list,
+          __fontSource($font-family, $file-path, nth($file-formats, $i)),
+          comma
+        );
+      }
+      src: $list;
+      font-style: $font-style;
+      font-weight: $font-weight;
+      @content;
+    }
+  }
+}
+
+/* ELLIPSIS ...  
+https://docs.gerillass.com/docs/ellipsis/
+*/
+@mixin ellipsis($width: 100%, $display: inline-block) {
+  display: $display;
+  max-width: $width;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  word-wrap: normal;
+}
+
+/* BREAKPOINTER - Show which screen size for dev phase only
+https://docs.gerillass.com/docs/breakpointer/  */
+
+@mixin breakpointer($selector: null) {
+  @if & {
+    &::before {
+      @content;
+      @each $key, $value in $map-for-breakpoints {
+        @media (min-width: #{$value}) {
+          content: "#{$key}";
+        }
+      }
+    }
+  } @else {
+    @if $selector {
+      #{$selector}::before {
+        @content;
+        @each $key, $value in $map-for-breakpoints {
+          @media (min-width: #{$value}) {
+            content: "#{$key}";
+          }
+        }
+      }
+    } @else {
+      body::before {
+        @content;
+        @each $key, $value in $map-for-breakpoints {
+          @media (min-width: #{$value}) {
+            content: "#{$key}";
+          }
+        }
+      }
+    }
+  }
+}
+
+/*  EXCEPT -- For when to not apply style to an element, but keeping the others 
+https://docs.gerillass.com/docs/except/ */
+@mixin except($params...) {
+  @if length($params) == 0 {
+    @error "Please pass an argument. The argument must be either a negative or positive number or list of numbers. Or pass one of the following predefined string values: 'first', 'last', 'odd', 'even'.";
+  } @else if length($params) == 1 {
+    $value: nth($params, 1);
+    @if type-of($value) == "number" {
+      @if $value < 0 {
+        &:not(:nth-last-of-type(#{$value * -1})) {
+          @content;
+        }
+      } @else {
+        &:not(:nth-of-type(#{$value})) {
+          @content;
+        }
+      }
+    } @else if type-of($value) == "string" {
+      @if $value == "odd" {
+        &:not(:nth-of-type(odd)) {
+          @content;
+        }
+      } @else if $value == "even" {
+        &:not(:nth-of-type(even)) {
+          @content;
+        }
+      } @else if $value == "first" {
+        &:not(:first-of-type) {
+          @content;
+        }
+      } @else if $value == "last" {
+        &:not(:last-of-type) {
+          @content;
+        }
+      } @else {
+        &:not(#{$value}) {
+          @content;
+        }
+      }
+    }
+  } @else if length($params) > 1 {
+    $items: "";
+    @for $i from 1 through length($params) {
+      $items: $items +
+        if(
+          nth($params, $i) < 0,
+          unquote(":not(:nth-last-of-type(#{nth($params, $i) * -1}))"),
+          unquote(":not(:nth-of-type(#{nth($params, $i)}))")
+        );
+    }
+    &#{$items} {
+      @content;
+    }
+  }
+}
+
+/* ONLY -- For when to apply style to an element, but keeping the others 
+https://docs.gerillass.com/docs/only/  */
+@mixin only($params...) {
+  @if length($params) == 0 {
+    @error "Please pass an argument. The argument must be either a negative or positive number or list of numbers. Or pass one of the following predefined string values: 'first', 'last', 'odd', 'even'.";
+  } @else if length($params) == 1 {
+    $value: nth($params, 1);
+    @if type-of($value) == "number" {
+      @if $value < 0 {
+        &:nth-last-of-type(#{$value * -1}) {
+          @content;
+        }
+      } @else {
+        &:nth-of-type(#{$value}) {
+          @content;
+        }
+      }
+    } @else if type-of($value) == "string" {
+      @if $value == "odd" {
+        &:nth-of-type(odd) {
+          @content;
+        }
+      } @else if $value == "even" {
+        &:nth-of-type(even) {
+          @content;
+        }
+      } @else if $value == "first" {
+        &:first-of-type {
+          @content;
+        }
+      } @else if $value == "last" {
+        &:last-of-type {
+          @content;
+        }
+      } @else {
+        // For class, id or attribute selectors.
+        &#{$value} {
+          @content;
+        }
+      }
+    }
+  } @else if length($params) > 1 {
+    $list: ();
+    @for $i from 1 through length($params) {
+      $list: append(
+        $list,
+        if(
+          nth($params, $i) < 0,
+          unquote("&:nth-last-of-type(#{nth($params, $i) * -1})"),
+          unquote("&:nth-of-type(#{nth($params, $i)})")
+        ),
+        comma
+      );
+    }
+    #{$list} {
+      @content;
+    }
+  }
+}
+
+/* LOADIFY  -- To delay loads of images, videos, lists, elements . Just For looks 
+https://docs.gerillass.com/docs/loadify/ */
+
+@mixin loadify($params...) {
+  @if not & {
+    @if length($params) ==
+      0 or
+      (length($params) == 1 and nth($params, 1) == "init")
+    {
+      @keyframes loadify {
+        to {
+          opacity: 1;
+          visibility: visible;
+          backface-visibility: visible;
+        }
+      }
+      %loadify {
+        opacity: 0;
+        visibility: hidden;
+        backface-visibility: hidden;
+        animation-name: loadify;
+        animation-fill-mode: forwards;
+      }
+    } @else if
+      (length($params) == 1 and nth($params, 1) != "init") or
+      (length($params) == 1 and type-of(nth($params, 1)) != "string")
+    {
+      @error "#{nth($params, 1)} is not a valid argument. Please pass `init` as an argument to initialize the effect or do not pass any argument at all.";
+    } @else if length($params) > 1 {
+      @error "Only one argument is allowed when you call this mixin at the root of your stylesheet! Please pass `init` as an argument to initialize the effect or do not pass any argument at all.";
+    }
+  } @else if & {
+    @extend %loadify;
+    @if length($params) == 0 {
+      animation-delay: 0.2s;
+      animation-duration: 0.5s;
+    } @else if length($params) == 1 {
+      animation-delay: #{__isTime(nth($params, 1))};
+      animation-duration: 0.5s;
+    } @else if length($params) == 2 {
+      animation-delay: #{__isTime(nth($params, 1))};
+      animation-duration: #{__isTime(nth($params, 2))};
+    } @else if length($params) > 2 {
+      @error "You cannot pass more than two arguments.";
+    }
+  }
+}
+
+/* PLACEHOLDER - For styling placeholder text from inputs with cross browser compatibility
+https://docs.gerillass.com/docs/placeholder/
+*/
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::placeholder {
+    @content;
+  }
+}
+
+/* POSITION 
+https://docs.gerillass.com/docs/position/
+*/
+
+@mixin position($position: absolute, $offsets: 0) {
+  $offsets: __shorthandProperty($offsets);
+  $positioning-offsets: (
+    top: nth($offsets, 1),
+    right: nth($offsets, 2),
+    bottom: nth($offsets, 3),
+    left: nth($offsets, 4),
+  );
+  position: $position;
+  @each $offset, $value in $positioning-offsets {
+    @if __validateLength($value) {
+      #{$offset}: $value;
+    }
+  }
+}
+
+/*  STRETCHED LINK
+https://docs.gerillass.com/docs/stretched-link/ 
+ */
+@mixin stretched-link($value: "before") {
+  @if index("before" "after", $value) {
+    &#{"::" + $value} {
+      content: "";
+      position: absolute;
+      pointer-events: auto;
+      background-color: rgba(0, 0, 0, 0);
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+  } @else {
+    @error "'#{$value}' is a wrong argument. This mixin accepts 'before' or 'after' as an argument. If you don't pass any argument default it will target the '::before' pseudo-element of the selected element.";
+  }
+}
+
+/* TEXT SELECTION 
+https://docs.gerillass.com/docs/text-selection/
+*/
+
+@mixin text-selection($value: null) {
+  // If background color is primary
+
+  @if not & and $value == null {
+    ::selection {
+      @content;
+    }
+  } @else if & and $value == "only" {
+    &::selection {
+      @content;
+    }
+  } @else if & and $value == null {
+    &::selection,
+    *::selection {
+      @content;
+    }
+  }
+}
+
+/* SCISSOR
+https://docs.gerillass.com/docs/scissors/
+*/
+
+@mixin scissors($corners) {
+  @if length($corners) == 1 {
+    $corners: __validateScissors($corners);
+    clip-path: polygon(
+      0 #{nth($corners, 1)},
+      #{nth($corners, 1)} 0,
+      calc(100% - #{nth($corners, 1)}) 0,
+      100% #{nth($corners, 1)},
+      100% calc(100% - #{nth($corners, 1)}),
+      calc(100% - #{nth($corners, 1)}) 100%,
+      #{nth($corners, 1)} 100%,
+      0 calc(100% - #{nth($corners, 1)})
+    );
+  } @else if length($corners) == 4 {
+    $corners: __validateScissors($corners);
+    clip-path: polygon(
+      0 #{nth($corners, 1)},
+      #{nth($corners, 1)} 0,
+      calc(100% - #{nth($corners, 2)}) 0,
+      100% #{nth($corners, 2)},
+      100% calc(100% - #{nth($corners, 3)}),
+      calc(100% - #{nth($corners, 3)}) 100%,
+      #{nth($corners, 4)} 100%,
+      0 calc(100% - #{nth($corners, 4)})
+    );
+  }
+}

@@ -1,0 +1,334 @@
+@charset "UTF-8";
+@use "sass:math";
+
+
+@function __pixelify($value) {
+  @if unit($value) == "px" {
+    @return $value;
+  } @else if unit($value) != "px" {
+    @return __clearUnit($value) * 1px;
+  } @else if unitless($value) == true {
+    @return $value * 1px;
+  }
+}
+@function __isTime($value) {
+  @for $i from 1 through length($value) {
+    @if (
+        type-of($value) == "number" and index("ms" "s", unit($value)) != null
+      ) or
+      $value ==
+      0
+    {
+      @return $value;
+    } @else {
+      @error "'#{$value}' is not a valid time value. Time values must be specified in either seconds (s) or milliseconds (ms). Please try one of the following forms: '1s', '0.2s', or '3ms'";
+    }
+  }
+}
+
+@function __pseudoSelector($elements, $pseudo: null) {
+  $list: ();
+  @each $element in $elements {
+    $element: if($pseudo, $element + ":" + $pseudo, $element);
+    $list: append($list, $element, comma);
+  }
+  @return $list;
+}
+
+@function __clearUnit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+@function __null($value, $seperation: comma, $skip: false) {
+  $list: ();
+  @for $i from 1 through length($value) {
+    @if nth($value, $i) == null {
+      $list: append($list, if($skip, null, 0), $seperation);
+    } @else {
+      $list: append($list, nth($value, $i), $seperation);
+    }
+  }
+  @return $list;
+}
+
+@function __validateScissors($value) {
+  $list: ();
+  @for $i from 1 through length($value) {
+    @if nth($value, $i) == null {
+      $list: append($list, 0px, comma);
+    } @else if unitless(nth($value, $i)) {
+      $pixelified: __pixelify(nth($value, $i));
+      $list: append($list, $pixelified, comma);
+    } @else {
+      $list: append($list, nth($value, $i), comma);
+    }
+  }
+  @return $list;
+}
+
+@function __convertToEm($value) {
+  $base-value: 16px;
+  $rem-value: math.div($value, $base-value);
+  @return $rem-value + unquote("em");
+}
+
+@function __convertToNumber($value) {
+  $string-numerals: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9";
+  $calc: 0;
+
+  @for $i from 1 through str-length($value) {
+    //Takes every digits in the $value
+    $digit: str-slice($value, $i, $i);
+
+    //Finds the index position of $digit in the $value
+    $index-of-digit: index($string-numerals, $digit);
+
+    // That is because SASS strings are not "0" based but "1", the index position of every digits will be more by one. Here is the simple calculation to find the actual number.
+    $actual-digit: $index-of-digit - 1;
+
+    // Calculates the actual number.
+    $calc: $calc * 10 + $actual-digit;
+  }
+  @return $calc;
+}
+
+@function __fontSizer($size, $time) {
+  @return $size * $time;
+}
+
+@function __mapDeepGet($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+@function __remify($value) {
+  $base-value: 16px;
+  $rem-value: math.div($value, $base-value);
+  @return $rem-value * 1rem;
+}
+
+@function __shorthandProperty($value) {
+  @if length($value) == 1 {
+    @return nth($value, 1) nth($value, 1) nth($value, 1) nth($value, 1);
+  } @else if length($value) == 2 {
+    @return nth($value, 1) nth($value, 2) nth($value, 1) nth($value, 2);
+  } @else if length($value) == 3 {
+    @return nth($value, 1) nth($value, 2) nth($value, 3) nth($value, 2);
+  } @else if length($value) == 4 {
+    @return nth($value, 1) nth($value, 2) nth($value, 3) nth($value, 4);
+  } @else if length($value) > 4 {
+    @error "You've passed #{length($value)} arguments. Please do not pass more than 4.";
+  }
+}
+
+@function __validateLength($value) {
+  $list: ("auto", "inherit", "initial", 0);
+  @if index($list, $value) {
+    @return $value;
+  } @else if type-of($value) == "number" and not unitless($value) {
+    @return $value;
+  } @else {
+    @warn "Please pass some values with unit like `#{$value}px`, `#{$value}em`, or `#{$value}%` etc. or pass one of the following arguments: `auto`, ìnherit`, ìnitial` or `0`.";
+    @return $value;
+  }
+}
+@function __fontSource($font-family, $file-path, $file-formats) {
+  $list: ();
+  @if map-has-key($map-for-font-formats, $file-formats) {
+    @if index(eot woff2 woff ttf, $file-formats) {
+      $src-value: url('#{$file-path}.#{if(not index(eot, $file-formats), $file-formats, $file-formats+"?#iefix")}')
+        #{map-get($map-for-font-formats, $file-formats)};
+      $list: append($list, $src-value, comma);
+    } @else if index(svg, $file-formats) {
+      $font-family: __clearWhitespace($font-family);
+      $src-value: url('#{$file-path}.#{$file-formats + "#" + $font-family}')
+        #{map-get($map-for-font-formats, $file-formats)};
+      $list: append($list, $src-value, comma);
+    }
+  }
+  @return $list;
+}
+
+@mixin gls-linear-gradient($direction, $colors) {
+  $list: ();
+  @for $i from 1 through length($colors) {
+    $list: append($list, nth($colors, $i), comma);
+  }
+  @if map-has-key($map-for-directions, $direction) {
+    background: linear-gradient(
+      map-get($map-for-directions, $direction),
+      $list
+    );
+  } @else if not map-has-key($map-for-directions, $direction) {
+    @if not index("deg", unit($direction)) {
+      @error "#{$direction} is a wrong value for the $direction parameter. The value must be eighter a number followed by the 'deg' unit or one of the followings: #{map-keys($map-for-directions)}.";
+    } @else {
+      background: linear-gradient($direction, $list);
+    }
+  }
+}
+$map-for-font-formats: (
+  "eot": format("embedded-opentype"),
+  "woff2": format("woff2"),
+  "woff": format("woff"),
+  "ttf": format("truetype"),
+  "svg": format("svg"),
+) !default;
+
+$map-for-positions: (
+  "top": at top,
+  "top-right": at top right,
+  "right": at right,
+  "bottom-right": at bottom right,
+  "bottom": at bottom,
+  "bottom-left": at bottom left,
+  "left": at left,
+  "top-left": at top left,
+  "center": at center,
+) !default;
+
+$map-for-directions: (
+  "top": to top,
+  "top-right": to top right,
+  "right": to right,
+  "bottom-right": to bottom right,
+  "bottom": to bottom,
+  "bottom-left": to bottom left,
+  "left": to left,
+  "top-left": to top left,
+) !default;
+
+$list-of-directions: (
+  "top",
+  "top-right",
+  "right",
+  "bottom-right",
+  "bottom",
+  "bottom-left",
+  "left",
+  "top-left"
+) !default;
+
+$list-of-anchor-pseudo-classes: (
+  "link",
+  "visited",
+  "hover",
+  "active",
+  "focus"
+) !default;
+
+$list-of-buttons: (
+  "button",
+  "[type='button']",
+  "[type='reset']",
+  "[type='submit']"
+) !default;
+
+$list-of-counter-styles: (
+  "arabic-indic",
+  "armenian",
+  "bengali",
+  "cambodian",
+  "circle",
+  "cjk-decimal",
+  "cjk-earthly-branch",
+  "cjk-heavenly-stem",
+  "decimal",
+  "decimal-leading-zero",
+  "devanagari",
+  "disc",
+  "disclosure-closed",
+  "disclosure-open",
+  "ethiopic-numeric",
+  "georgian",
+  "gujarati",
+  "gurmukhi",
+  "hebrew",
+  "hiragana",
+  "hiragana-iroha",
+  "japanese-formal",
+  "japanese-informal",
+  "kannada",
+  "katakana",
+  "katakana-iroha",
+  "khmer",
+  "korean-hangul-formal",
+  "korean-hanja-formal",
+  "korean-hanja-informal",
+  "lao",
+  "lower-alpha",
+  "lower-alpha",
+  "lower-armenian",
+  "lower-greek",
+  "lower-latin",
+  "lower-roman",
+  "malayalam",
+  "mongolian",
+  "myanmar",
+  "oriya",
+  "persian",
+  "simp-chinese-formal",
+  "simp-chinese-informal",
+  "square",
+  "tamil",
+  "telugu",
+  "thai",
+  "tibetan",
+  "trad-chinese-formal",
+  "trad-chinese-informal",
+  "upper-alpha",
+  "upper-armenian",
+  "upper-latin",
+  "upper-roman"
+) !default;
+
+$list-of-absolute-length-units: (
+  "cm",
+  "mm",
+  "Q",
+  "in",
+  "pc",
+  "pt",
+  "px"
+) !default;
+
+$list-of-relative-length-units: (
+  "em",
+  "ex",
+  "ch",
+  "rem",
+  "lh",
+  "vw",
+  "vh",
+  "vmin",
+  "vmax"
+) !default;
+
+$list-of-text-inputs: (
+  "[type='color']",
+  "[type='date']",
+  "[type='datetime']",
+  "[type='datetime-local']",
+  "[type='email']",
+  "[type='month']",
+  "[type='number']",
+  "[type='password']",
+  "[type='search']",
+  "[type='tel']",
+  "[type='text']",
+  "[type='time']",
+  "[type='url']",
+  "[type='week']",
+  "input:not([type])",
+  "textarea"
+) !default;
+
+$map-for-breakpoints: (
+  "xsmall": 0,
+  "small": 480px,
+  "medium": 768px,
+  "large": 992px,
+  "xlarge": 1280px,
+) !default;

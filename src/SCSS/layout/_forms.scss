@@ -1,0 +1,35 @@
+@use "../abstract/mixins" as *;
+@use "../vendors/mixins-vendor" as *;
+@use "../base/root" as *;
+
+@include all-text-inputs {
+  background-color: var(--white);
+  border: solid 1.5px var(--black);
+  @extend .rounded--s;
+  @extend .pad--xs;
+  margin: var(--space-xs) 0;
+  width: 100%;
+  font-size: var(--text-m);
+  height: fit-content;
+  @include placeholder {
+    color: var(--black);
+    font-size: var(--text-m);
+  }
+  &:focus:valid {
+    @include input-validation(valid);
+  }
+  &:valid {
+    @include input-validation(valid);
+  }
+  &:focus:invalid {
+    @include input-validation(invalid);
+  }
+  &:invalid {
+    @include input-validation(invalid);
+  }
+}
+
+@include all-text-inputs(focus) {
+  outline: 1px solid var(--primary);
+  outline-offset: 0;
+}

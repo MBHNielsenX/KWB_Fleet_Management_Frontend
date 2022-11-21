@@ -1,0 +1,52 @@
+@use "../abstract/mixins" as *;
+@use "../vendors/mixins-vendor" as *;
+@use "../base/root" as *;
+
+@include all-buttons {
+  background-color: $white;
+  border: solid 1px $black;
+  color: $black;
+  font-weight: 600;
+  outline: 0;
+  padding: var(--space-xs) var(--space-l);
+  font-size: var(--text-m);
+  letter-spacing: 0.08rem;
+  border-radius: 0.35rem;
+  position: relative;
+  cursor: pointer;
+  margin: var(--space-xs) 0;
+  @include after {
+    background-color: var(--secondary);
+    box-shadow: 0 0 0 1px var(--black);
+
+    content: "";
+    @include position(absolute, 0 0 0 0);
+
+    z-index: -1;
+    border-radius: 0.35rem;
+    transition: all 0.3s ease-in-out;
+    border: 0;
+    width: calc(100%);
+    height: calc(100%);
+  }
+  &:hover {
+    @include after {
+      top: -0.5rem;
+      left: -0.5rem;
+      width: calc(100% + 0.5rem * 2);
+      height: calc(100% + 0.5rem * 2);
+      border: 1px solid var(--black-trans-10);
+    }
+  }
+  &:focus {
+    background-color: rgb(232, 240, 254);
+    @include after {
+      background-color: #23afaf;
+      top: 0.1rem;
+      left: -0.1rem;
+      width: calc(100% + 0.1rem * 2);
+      height: calc(100% + 0.5rem * 2);
+      border: 1px solid var(--black);
+    }
+  }
+}

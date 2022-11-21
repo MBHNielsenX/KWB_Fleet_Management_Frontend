@@ -1,0 +1,12 @@
+@use "../abstract/mixins" as *;
+@use "../vendors/mixins-vendor" as *;
+
+// enables the use of the @include loadify() mixin from vendor-mixins
+@include loadify(init);
+
+// Text Selection
+
+@include text-selection {
+  color: var(--black);
+  background-color: var(--secondary-light);
+}

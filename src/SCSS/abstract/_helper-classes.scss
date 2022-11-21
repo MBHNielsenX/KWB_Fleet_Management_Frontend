@@ -1,0 +1,88 @@
+@use "../vendors/mixins-vendor" as *;
+@import "../abstract/scss-variables";
+
+.css-init-table {
+  table-layout: fixed;
+  border-collapse: separate;
+  width: 100%;
+  border-spacing: 0 0.7em;
+
+  & tr {
+    width: $width-full;
+    font-size: $text-m;
+    background: $white;
+    box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px,
+    rgb(27 31 35 / 15%) 0px 0px 0px 1px;
+  }
+  & th {
+    padding: $space-s;
+    text-align: center;
+    color: var(--white);
+    font-weight: bold;
+    background-color: $primary;
+  }
+  & td {
+    font-size: $text-s;
+    font-weight: 600;
+    padding: $space-xs;
+    text-align: center;
+    height: $space-xl;
+    max-height: $space-xl;
+    min-height: $space-s;
+  }
+}
+.css-init-table-trans-th {
+  table-layout: fixed;
+  border-collapse: separate;
+  width: 100%;
+  border-spacing: 0 0.7em;
+
+  & tr {
+    width: $width-full;
+    font-size: $text-m;
+    background: $white;
+    box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px,
+    rgb(27 31 35 / 15%) 0px 0px 0px 1px;
+  }
+  & thead tr {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  & th {
+    padding: $space-s;
+    text-align: center;
+    color: var(--black);
+    font-weight: bold;
+  }
+  & td {
+    font-size: $text-s;
+    font-weight: 600;
+    padding: $space-xs;
+    text-align: center;
+    height: $space-xl;
+    max-height: $space-xl;
+    min-height: $space-s;
+  }
+}
+
+.css-init-table__multi {
+  & td {
+    @include only(1, 2) {
+      padding: revert;
+      height: calc($space-xl / 2);
+      max-height: calc($space-xl / 2);
+      min-height: calc($space-s / 2);
+    }
+    @include only(1) {
+      display: block;
+      padding-top: $space-xs;
+      padding-bottom: 0;
+    }
+    @include only(2) {
+      display: block;
+
+      padding-top: 0;
+    }
+  }
+}

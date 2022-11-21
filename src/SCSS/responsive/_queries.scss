@@ -1,0 +1,19 @@
+@use "../abstract/mixins" as *;
+@use "../vendors/mixins-vendor" as *;
+@use "../base/root" as *;
+
+@include breakpoint-to(wide) {
+
+}
+
+@include breakpoint-to(large) {
+
+}
+
+@include breakpoint-to(medium) {
+
+}
+
+@include breakpoint-to(small) {
+
+}
