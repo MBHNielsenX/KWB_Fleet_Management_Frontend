@@ -1,5 +1,5 @@
 # Bil - Auktion - Frontend
-Dette er Frontend koden til vores projekt.
+Dette er Frontend-koden til vores projekt.
 
 ---------------------------
 - Mohammad Adel Murtada
