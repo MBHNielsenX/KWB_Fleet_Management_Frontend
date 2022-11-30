@@ -1,3 +1,4 @@
+
 export function renderTemplate(template, contentId) {
   const content = document.getElementById(contentId)
   if (!content) {

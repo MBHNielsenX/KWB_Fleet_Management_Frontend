@@ -1,157 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Fleet Management</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/src/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/src/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/src/images/favicon-16x16.png">
-    <link rel="mask-icon" href="/src/images/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <link href="/src/SCSS/main.css" rel="stylesheet"/>
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
-    <script src="index.js" type="module"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fleet Management</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/src/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/src/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/src/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/src/images/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <link href="/src/SCSS/main.css" rel="stylesheet"/>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+  <script src="index.js" type="module"></script>
 </head>
 <body>
-<div class="sidebar">
+<div>
+  <div id="topnav" class="sidebar">
     <div class="logo-details">
-        <img style="display: flex" class="icon" src="/src/images/logo-icon.png" alt="">
-        <div class="logo_name">K.W.Bruun</div>
-        <i class='bx bx-menu' id="btn"></i>
+      <img style="display: flex" class="icon" src="/src/images/logo-icon.png" alt="">
+      <div class="logo_name">K.W.Bruun</div>
+      <i class='bx bx-menu' id="btn"></i>
     </div>
     <ul class="nav-list">
-        <li>
-            <a href="/dashboard">
-                <i class='bx bxs-dashboard'></i>
-                <span class="links_name">Dashboard</span>
-            </a>
-            <span class="tooltip">Buyer Dashboard</span>
-        </li>
-        <li>
-            <a href="/admin-dashboard">
-                <i class='bx bxs-dashboard'></i>
-                <span class="links_name">Admin Dashboard</span>
-            </a>
-            <span class="tooltip">Admin Dashboard</span>
-        </li>
-        <li>
-            <a href="/addEmployee">
-                <i class='bx bxs-user-detail'></i>
-                <span class="links_name">Admin</span>
-            </a>
-            <span class="tooltip">Administrer Brugere</span>
-        </li>
+      <li>
+        <a href="/" data-navigo>
+          <i class='bx bxs-dashboard'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Buyer Dashboard</span>
+      </li>
+      <li>
+        <a href="/admin-dashboard">
+          <i class='bx bxs-dashboard'></i>
+          <span class="links_name">Admin Dashboard</span>
+        </a>
+        <span class="tooltip">Admin Dashboard</span>
+      </li>
+      <li>
+        <a href="/addEmployee">
+          <i class='bx bxs-user-detail'></i>
+          <span class="links_name">Admin</span>
+        </a>
+        <span class="tooltip">Administrer Brugere</span>
+      </li>
+      <li>
+        <a href="/all-offers">
+          <i class='bx bxs-cart'></i>
+          <span class="links_name">Alle Udbud</span>
+        </a>
+        <span class="tooltip">Alle Udbud</span>
+      </li>
+      <li>
+        <a href="/create-offer">
+          <i class='bx bxs-cart-add'></i>
+          <span class="links_name">Opret Udbud</span>
+        </a>
+        <span class="tooltip">Opret Udbud</span>
+      </li>
+      <li>
+        <a href="/all-specific-cars" data-navigo>
+          <i class='bx bxs-car-garage'></i>
+          <span class="links_name">All Cars</span>
+        </a>
+        <span class="tooltip">All Cars</span>
+      </li>
+      <li>
+        <a href="/cars" data-navigo>
+          <i class='bx bxs-car-garage'></i>
+          <span class="links_name">Alle Biler - Admin</span>
+        </a>
+        <span class="tooltip">Alle Biler - Admin</span>
+      </li>
+      <li>
+        <a href="/create-cars">
+          <i class='bx bx-car'></i>
+          <span class="links_name">Opret Biler</span>
+        </a>
+        <span class="tooltip">Opret Biler</span>
+      </li>
+      <li>
+        <a href="/cars-blacklist">
+          <i class='bx bxs-skull'></i>
+          <span class="links_name">Blacklist</span>
+        </a>
+        <span class="tooltip">Blacklist af biler</span>
+      </li>
+      <li>
+        <a href="/final-flow">
+          <i class='bx bx-list-ol'></i>
+          <span class="links_name">Endeligt Flow</span>
+        </a>
+        <span class="tooltip">Endeligt Flow</span>
+      </li>
+      <li>
+        <a href="/buyer">
+          <i class='bx bxs-business'></i>
+          <span class="links_name">Købere</span>
+        </a>
+        <span class="tooltip">Købere</span>
+      </li>
+      <li>
+        <a href="/brands">
+          <i class='bx bx-sort-a-z'></i>
+          <span class="links_name">Brands</span>
+        </a>
+        <span class="tooltip">Brands</span>
+      </li>
+      <li>
+        <a href="/colorMix">
+          <i class='bx bxs-palette'></i>
+          <span class="links_name">Farvemix</span>
+        </a>
+        <span class="tooltip">Farvemix</span>
+      </li>
 
-        <li>
-            <a href="/all-offers">
-                <i class='bx bxs-cart' ></i>
-                <span class="links_name">Alle Udbud</span>
-            </a>
-            <span class="tooltip">Alle Udbud</span>
-        </li>
-        <li>
-            <a href="/create-offer">
-                <i class='bx bxs-cart-add' ></i>
-                <span class="links_name">Opret Udbud</span>
-            </a>
-            <span class="tooltip">Opret Udbud</span>
-        </li>
-        <li>
-            <a href="/all-cars">
-                <i class='bx bxs-car-garage'></i>
-                <span class="links_name">All Cars</span>
-            </a>
-            <span class="tooltip">All Cars</span>
-        </li>
-        <li>
-            <a href="/all-cars-admin">
-                <i class='bx bxs-car-garage'></i>
-                <span class="links_name">Alle Biler - Admin</span>
-            </a>
-            <span class="tooltip">Alle Biler - Admin</span>
-        </li>
-        <li>
-            <a href="/create-cars">
-                <i class='bx bx-car'></i>
-                <span class="links_name">Opret Biler</span>
-            </a>
-            <span class="tooltip">Opret Biler</span>
-        </li>
-        <li>
-            <a href="/cars-blacklist">
-                <i class='bx bxs-skull' ></i>
-                <span class="links_name">Blacklist</span>
-            </a>
-            <span class="tooltip">Blacklist af biler</span>
-        </li>
-        <li>
-            <a href="/final-flow">
-                <i class='bx bx-list-ol' ></i>
-                <span class="links_name">Endeligt Flow</span>
-            </a>
-            <span class="tooltip">Endeligt Flow</span>
-        </li>
-        <li>
-            <a href="/buyer">
-                <i class='bx bxs-business'></i>
-                <span class="links_name">Købere</span>
-            </a>
-            <span class="tooltip">Købere</span>
-        </li>
-        <li>
-            <a href="/brands">
-                <i class='bx bx-sort-a-z'></i>
-                <span class="links_name">Brands</span>
-            </a>
-            <span class="tooltip">Brands</span>
-        </li>
-        <li>
-            <a href="/colorMix">
-                <i class='bx bxs-palette'></i>
-                <span class="links_name">Farvemix</span>
-            </a>
-            <span class="tooltip">Farvemix</span>
-        </li>
+      <li>
+        <a href="/settings">
+          <i class='bx bx-cog'></i>
+          <span class="links_name">Stamdata</span>
+        </a>
+        <span class="tooltip">Opret Nyt Stamdata</span>
+      </li>
 
-        <li>
-            <a href="/settings">
-                <i class='bx bx-cog'></i>
-                <span class="links_name">Stamdata</span>
+      <li class="profile">
+        <div class="profile-details">
+          <!--<img src="profile.jpg" alt="profileImg">-->
+          <div class="name_job">
+            <a href="/profile" id="profileAnchor">
+
+              <div class="name">User Name</div>
+              <div class="job">Admin</div>
             </a>
-            <span class="tooltip">Opret Nyt Stamdata</span>
-        </li>
-
-        <li class="profile">
-            <div class="profile-details">
-                <!--<img src="profile.jpg" alt="profileImg">-->
-                <div class="name_job">
-                    <a href="/profile" id="profileAnchor">
-
-                        <div class="name">User Name</div>
-                        <div class="job">Admin</div>
-                    </a>
-                </div>
-            </div>
-
-            <a href="/logout" id="logOutAnchor"> <i class='bx bx-log-out' id="log_out"></i></a>
-        </li>
+          </div>
+        </div>
+        <a href="/logout" id="logOutAnchor"> <i class='bx bx-log-out' id="log_out"></i></a>
+      </li>
     </ul>
+  </div>
+  <div id="content" class="container"></div>
 </div>
-
-<script>
-    let searchInput = document.getElementById("search-input");
-
-    searchInput.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            document.getElementById("submit-button").click();
-        }
-    });
-</script>
-
-
 </body>
 </html>
