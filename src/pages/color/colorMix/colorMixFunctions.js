@@ -46,13 +46,14 @@ async function editColorMix() {
     const colorTypeId = document.getElementById("if3").value;
 
     const editedColorMix = {
+        colorMixId,
         colorCode,
         colorTypeId,
         colorName
     };
 
     console.log(editedColorMix)
-    const id = await fetch(URL + "/" + colorMixId, {
+    const id = await fetch(URL, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
