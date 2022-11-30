@@ -1,4 +1,4 @@
-import {SERVER_URL} from "utils.js"
+import {SERVER_URL} from "settings.js"
 
 export async function initCreateBrand(){
     document.getElementById("btn-create-brand").onclick = addBrand
@@ -13,7 +13,7 @@ async function addBrand(){
 
     const opts = {
         method: "POST",
-        headers: "application/json",
+        headers: {"Content-type": "application/json"},
         body: JSON.stringify(newBrand)
     };
 
