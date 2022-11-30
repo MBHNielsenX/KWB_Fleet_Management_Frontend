@@ -24,8 +24,7 @@ window.addEventListener("load", async () => {
       "/all-specific-cars": () => {
         renderTemplate(templateViewAllCars, "content")
         initViewAllSpecificCars()
-      },
-
+      }
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))
     .resolve()
