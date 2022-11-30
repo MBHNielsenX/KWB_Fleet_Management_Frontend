@@ -1,4 +1,5 @@
 import {SERVER_URL} from "settings.js"
+SERVER_URL += "/specific-car-model"
 
 export async function initCreateBrand(){
     document.getElementById("btn-create-brand").onclick = addBrand
