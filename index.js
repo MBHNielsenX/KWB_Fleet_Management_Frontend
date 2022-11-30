@@ -8,6 +8,7 @@ window.addEventListener("load", async () => {
   const templateHome = await loadHtml("./src/pages/home/home.html")
   const templateViewAllCars = await loadHtml("./src/pages/viewAllSpecificCars/viewAllSpecificCars.html")
   const templateCreateBrand = await loadHtml("./src/pages/create-brand/create-brand.html")
+  const templateAllBrands = await loadHtml("./src/pages/all-brands/all-brands.html")
 
   const router = new Navigo("/", { hash: true });
   window.router = router
@@ -29,6 +30,9 @@ window.addEventListener("load", async () => {
       "/create-brand": () => {
         renderTemplate(templateCreateBrand, "content")
         initCreateBrand()
+      },
+      "/all-brands": () => {
+        renderTemplate(templateAllBrands, "content")
       }
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))

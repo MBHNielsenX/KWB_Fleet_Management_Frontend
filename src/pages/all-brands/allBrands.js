@@ -1,12 +1,9 @@
 import {SERVER_URL} from "../../../settings";
 
-export async function initAllBrands(){
-
-}
-
 let specificCarModels = [];
 
-async function displayAllBrands(){
+export async function initAllBrands(){
+
     try{
         specificCarModels = await fetch(SERVER_URL+"specific-car-model")
             .then(res => res.json())
@@ -23,4 +20,5 @@ async function displayAllBrands(){
         .join("")
 
     document.getElementById("table-body").innerHTML=rows
+
 }
