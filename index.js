@@ -2,7 +2,6 @@ import "https://unpkg.com/navigo"  //Will create the global Navigo object used b
 import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./utils.js"
 
 import { initViewAllSpecificCars } from "./src/pages/viewAllSpecificCars/viewAllSpecificCars.js"
-import { initCreateBrand } from "./src/pages/create-brand/createBrand.js";
 
 window.addEventListener("load", async () => {
   const templateHome = await loadHtml("./src/pages/home/home.html")
@@ -26,10 +25,7 @@ window.addEventListener("load", async () => {
         renderTemplate(templateViewAllCars, "content")
         initViewAllSpecificCars()
       },
-      "/create-brand": () => {
-        renderTemplate(templateCreateBrand,"content");
-        initCreateBrand();
-      }
+
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))
     .resolve()
