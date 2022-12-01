@@ -22080,30 +22080,30 @@ https://docs.gerillass.com/docs/scissors/
   min-height: var(--space-s);
 }
 
-.css-init-table-trans-th {
+.css-init-table-trans-th, .table {
   table-layout: fixed;
   border-collapse: separate;
   width: 100%;
   border-spacing: 0 0.7em;
 }
-.css-init-table-trans-th tr {
+.css-init-table-trans-th tr, .table tr {
   width: var(--width-full);
   font-size: var(--text-m);
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
-.css-init-table-trans-th thead tr {
+.css-init-table-trans-th thead tr, .table thead tr {
   background-color: transparent;
   border: none;
   box-shadow: none;
 }
-.css-init-table-trans-th th {
+.css-init-table-trans-th th, .table th {
   padding: var(--space-s);
   text-align: center;
   color: var(--black);
   font-weight: bold;
 }
-.css-init-table-trans-th td {
+.css-init-table-trans-th td, .table td {
   font-size: var(--text-s);
   font-weight: 600;
   padding: var(--space-xs);
@@ -22326,6 +22326,10 @@ body.breakpointer::before {
   z-index: 2000;
   box-shadow: 0 0 0 10px rgba(102, 143, 128, 0.3);
   box-sizing: inherit;
+}
+
+.table td {
+  color: #000;
 }
 
 .ct-section {
