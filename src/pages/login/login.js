@@ -79,7 +79,7 @@ async function loginLogoutClick(evt) {
     }
 }
 
-export async function checkToken() {
+export async function checkToken1() {
     const options = {
         method: "GET",
         headers: {"Accept": "application/json"}
