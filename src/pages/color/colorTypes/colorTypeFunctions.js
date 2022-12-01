@@ -25,7 +25,7 @@ async function getAllColorTypes() {
         <tr>
             <td>${colorType.id}</td>
             <td>${colorType.type}</td>
-            <button id="delete${colorType.id}">Delete</button>
+            <td><button id="delete${colorType.id}">Delete</button></td>
         `
         );
         const tableRowsString = tableRowsArray.join("\n");
@@ -62,12 +62,11 @@ async function deleteColorType(idToDelete) {
     console.log(idToDelete)
     if(idToDelete.includes("delete")){
         idToDelete = idToDelete.split('delete')[1]
-        URL = URL + "/" + idToDelete
-        console.log(URL)
-        await fetch(URL, {
+        const response = await fetch(URL + "/" + idToDelete, {
             method: "DELETE",
 
         }).then((res) => res.json())
+        console.log(response)
         location.reload();
     }
 
