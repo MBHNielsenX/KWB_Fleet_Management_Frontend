@@ -2,13 +2,15 @@ import "https://unpkg.com/navigo"  //Will create the global Navigo object used b
 import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./utils.js"
 
 import { initViewAllSpecificCars } from "./src/pages/viewAllSpecificCars/viewAllSpecificCars.js"
-import { initColorMix } from "./src/pages/color/colorMix/colorMixFunctions.js"
+import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js"
+
+
 
 window.addEventListener("load", async () => {
   const templateHome = await loadHtml("./src/pages/home/home.html")
   const templateViewAllCars = await loadHtml("./src/pages/viewAllSpecificCars/viewAllSpecificCars.html")
-
-  const templateColorMix = await loadHtml("./src/pages/colorMix/tester.html")
+  const templateColorMix = await loadHtml("./src/pages/color/colorMix/color-mix.html")
+  const templateColorTypes = await loadHtml("./src/pages/color/colorTypes/color-types.html")
 
   const router = new Navigo("/", { hash: true });
   window.router = router
@@ -27,9 +29,9 @@ window.addEventListener("load", async () => {
         renderTemplate(templateViewAllCars, "content")
         initViewAllSpecificCars()
       },
-      "/tester": () => {
-        renderTemplate(templateColorMix, "content")
-        initColorMix()
+      "/color-types": () => {
+        renderTemplate(templateColorTypes, "content")
+        initColorTypes(router)
       }
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))

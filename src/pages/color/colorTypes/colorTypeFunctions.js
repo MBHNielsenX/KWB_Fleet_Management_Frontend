@@ -3,23 +3,29 @@ let router;
 
 export function initColorTypes(navigoRouter) {
 
-    document.getElementById("submit").onclick = getAllColorMixes;
+    document.getElementById("submit").onclick = addColorType;
+    getAllColorTypes();
     router = navigoRouter
+    document.getElementById("table").onclick = (element) =>{
+        let id = element.target.id
+        deleteColorType(id);
+    }
 }
 
 
 
-async function getAllColorMixes() {
+async function getAllColorTypes() {
+    document.getElementById("tbody-all").innerHTML = ""
     try{
         const data = await fetch(URL).then(res => res.json());
+        console.log(data)
         const tableRowsArray = data.map(
-            (colorMix) =>
+            (colorType) =>
                 `
         <tr>
-            <td>${colorMix.id}</td>
-            <td>${colorMix.colorName}</td>
-            <td>${colorMix.colorCode}</td>
-            <td>${colorMix.colorTypeId}</td>
+            <td>${colorType.id}</td>
+            <td>${colorType.type}</td>
+            <button id="delete${colorType.id}">Delete</button>
         `
         );
         const tableRowsString = tableRowsArray.join("\n");
@@ -29,18 +35,46 @@ async function getAllColorMixes() {
     }
 }
 
-/*
-async function deleteColorMix() {
-    const id = document.getElementById("if1").value;
-    URL = URL + "/" + id
-    console.log(URL)
-    await fetch(URL, {
-        method: "DELETE",
 
-    }).then((res) => res.json()).then
+async function addColorType() {
+    const type = document.getElementById("if1").value;
+    console.log(type)
+    const newColorType = {
+        type
+    };
+
+    await fetch(URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newColorType),
+    })
+        .then((res) => res.json())
+    getAllColorTypes()
+
 }
 
- */
+
+
+
+async function deleteColorType(idToDelete) {
+    console.log(idToDelete)
+    if(idToDelete.includes("delete")){
+        idToDelete = idToDelete.split('delete')[1]
+        URL = URL + "/" + idToDelete
+        console.log(URL)
+        await fetch(URL, {
+            method: "DELETE",
+
+        }).then((res) => res.json())
+        location.reload();
+    }
+
+
+}
+
+
 
 /*
 async function editColorMix() {
@@ -68,26 +102,4 @@ async function editColorMix() {
 }
 */
 
-/*
-async function addColorMix() {
-    const colorCode = document.getElementById("if1").value;
-    const colorName = document.getElementById("if2").value;
-    const colorTypeId = document.getElementById("if3").value;
 
-    const newColorMix = {
-        colorCode,
-        colorTypeId,
-        colorName
-    };
-    console.log(newColorMix)
-
-    const id = await fetch(URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newColorMix),
-    })
-        .then((res) => res.json())
-}
-*/
