@@ -31,10 +31,6 @@ function toggleLoginStatus(loggedIn) {
     loginStatus.style.color = loggedIn ? "green" : "red"
     loginStatus.innerText = loggedIn ? "Logged in" : "Not logged in"
 
-    /*
-    loginContainer.style.display = loggedIn ? "none" : "block"
-    logoutContainer.style.display = loggedIn ? "block" : "none"
-     */
 }
 
 function storeLoginDetails(res) {
