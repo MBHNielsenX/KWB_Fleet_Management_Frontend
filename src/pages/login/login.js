@@ -4,15 +4,11 @@ let URL = AUTH_URL + "/login"
 
 let router;
 
-
 export async function initLogin(navigoRouter) {
     router = navigoRouter
     document.getElementById("login-btn").onclick = loginLogoutClick
     document.getElementById("logout-btn").onclick = loginLogoutClick
 }
-
-
-
 
 async function handleHttpErrors(res) {
     if (!res.ok) {
