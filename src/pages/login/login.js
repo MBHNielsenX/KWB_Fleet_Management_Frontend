@@ -33,6 +33,8 @@ function storeLoginDetails(res) {
     localStorage.setItem("token", res.token)
     localStorage.setItem("user", res.username)
     localStorage.setItem("roles", res.roles)
+    localStorage.setItem("userId", res.userId)
+    localStorage.setItem("eMail", res.email)
     //Update UI
     toggleLoginStatus(true)
 }
@@ -41,6 +43,8 @@ function clearLoginDetails() {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     localStorage.removeItem("roles")
+    localStorage.removeItem("userId")
+    localStorage.removeItem("eMail")
     //Update UI
     toggleLoginStatus(false)
 }
@@ -53,8 +57,6 @@ async function loginLogoutClick(evt) {
     if (logInWasClicked) {
         //Make the request object
         const loginRequest = {}
-        console.log(userNameInput.value)
-        console.log(passwordInput.value)
         loginRequest.username = userNameInput.value
         loginRequest.password = passwordInput.value
         const options = {
@@ -65,6 +67,7 @@ async function loginLogoutClick(evt) {
         try {
             const res = await fetch(URL, options).then(handleHttpErrors)
             storeLoginDetails(res)
+            window.location.reload();
         } catch (err) {
             console.log(err)
             if (err.apiError) {
@@ -73,45 +76,12 @@ async function loginLogoutClick(evt) {
                 console.log(err.message)
             }
         }
+
     } else {
         //Logout was clicked
         clearLoginDetails()
+        window.location.reload();
     }
 }
 
-export async function checkToken1() {
-    const options = {
-        method: "GET",
-        headers: {"Accept": "application/json"}
-    };
-    if (localStorage.getItem("token") !== null) {
-        const token = localStorage.getItem("token")
-        if (!token) {
-            alert("You must login to use this feature")
-            return
-        }
-        options.headers.Authorization = "Bearer " + token
-    }
-    return options;
-}
-
-export async function checkToken2(object) {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(object)
-    };
-    if (localStorage.getItem("token") !== null) {
-        const token = localStorage.getItem("token")
-        if (!token) {
-            alert("You must login to do this feature")
-            return
-        }
-        options.headers.Authorization = "Bearer " + token
-    }
-    return options;
-}
 
