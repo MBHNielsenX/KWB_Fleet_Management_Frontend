@@ -1,11 +1,11 @@
-import {SERVER_URL} from "../../../settings";
+import {SERVER_URL} from "../../../settings.js";
 
 let specificCarModels = [];
 
 export async function initAllBrands(){
 
     try{
-        specificCarModels = await fetch(SERVER_URL+"specific-car-model")
+        specificCarModels = await fetch(SERVER_URL+"/specific-car-model")
             .then(res => res.json())
     } catch (e){
         console.error(e)
