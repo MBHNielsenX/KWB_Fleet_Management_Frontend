@@ -44,7 +44,14 @@ export async function checkToken2(object) {
 
 export function checkRoleBuyer() {
 
-    if (tokenInfo.roles.split(",")[0] === "BUYER") {
+    if (tokenInfo.roles === null){
+
+        const divs = document.querySelectorAll('.buyer-view');
+        divs.forEach(div => {
+            div.style.display = "none";
+        });
+
+    } else if (tokenInfo.roles.split(",")[0] === "BUYER") {
 
         const divs = document.querySelectorAll('.buyer-view');
         divs.forEach(div => {
@@ -65,7 +72,14 @@ export function checkRoleBuyer() {
 
 export function checkRoleLeaser() {
 
-    if (tokenInfo.roles === "LEASER") {
+    if (tokenInfo.roles === null){
+
+        const divs = document.querySelectorAll('.buyer-view');
+        divs.forEach(div => {
+            div.style.display = "none";
+        });
+
+    } else if (tokenInfo.roles === "LEASER") {
 
         const divs = document.querySelectorAll('.leaser-view');
         divs.forEach(div => {
@@ -86,7 +100,14 @@ export function checkRoleLeaser() {
 
 export function checkRoleEconomy() {
 
-    if (tokenInfo.roles === "ECONOMY") {
+    if (tokenInfo.roles === null){
+
+        const divs = document.querySelectorAll('.buyer-view');
+        divs.forEach(div => {
+            div.style.display = "none";
+        });
+
+    } else if (tokenInfo.roles === "ECONOMY") {
 
         const divs = document.querySelectorAll('.economy-view');
         divs.forEach(div => {
@@ -106,8 +127,14 @@ export function checkRoleEconomy() {
 }
 
 export function checkRoleAdmin() {
+    if (tokenInfo.roles === null){
 
-    if (tokenInfo.roles === "ADMIN") {
+        const divs = document.querySelectorAll('.buyer-view');
+        divs.forEach(div => {
+            div.style.display = "none";
+        });
+
+    } else if (tokenInfo.roles === "ADMIN") {
 
         const divs = document.querySelectorAll('.admin-view');
         divs.forEach(div => {

@@ -67,6 +67,7 @@ async function loginLogoutClick(evt) {
         try {
             const res = await fetch(URL, options).then(handleHttpErrors)
             storeLoginDetails(res)
+            window.location.reload();
         } catch (err) {
             console.log(err)
             if (err.apiError) {
@@ -79,6 +80,7 @@ async function loginLogoutClick(evt) {
     } else {
         //Logout was clicked
         clearLoginDetails()
+        window.location.reload();
     }
 }
 
