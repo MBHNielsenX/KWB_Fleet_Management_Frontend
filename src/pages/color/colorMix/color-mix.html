@@ -1,21 +1,27 @@
 <div class="template">
     <div class="main-container">
         <div class="sessionCheck1">
-            <h1>Get all color mixes</h1>
+            <h1>Colormixes for:</h1>
             <div class="multi-container">
-                <button id="submit">Get all color mixes</button>
+                <button id="get-all">Get all color mixes</button>
             </div>
             <table class="table" id="table">
                 <thead>
                 <tr class="thRow">
                     <th>ID</th>
+                    <th>Color Code</th>
                     <th>Color name</th>
-                    <th>color code</th>
                     <th>color type id</th>
                 </tr>
                 </thead>
                 <tbody id="tbody-all"></tbody>
             </table>
+            <div style="display: flex; flex-direction: row">
+                <input class="input-mix" placeholder="Color Code" type="text" id="if1">
+                <input class="input-mix" placeholder="Color Name" type="text" id="if2">
+                <input class="input-mix" placeholder="Color Type" type="text" id="if3">
+                <button id="submit">Add Colormix</button>
+            </div>
         </div>
     </div>
 </div>

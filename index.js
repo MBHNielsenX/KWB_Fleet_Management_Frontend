@@ -3,7 +3,7 @@ import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./u
 
 import { initViewAllSpecificCars } from "./src/pages/viewAllSpecificCars/viewAllSpecificCars.js"
 import { initLogin } from "./src/pages/login/login.js";
-
+import {initColorMix} from "./src/pages/color/colorMix/colorMixFunctions.js"; //just made
 import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js"
 
 
@@ -39,6 +39,10 @@ window.addEventListener("load", async () => {
       "/color-types": () => {
         renderTemplate(templateColorTypes, "content")
         initColorTypes(router)
+      },
+      "/color-mix": () => { //just made
+        renderTemplate(templateColorMix, "content")
+        initColorMix(router)
       }
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))

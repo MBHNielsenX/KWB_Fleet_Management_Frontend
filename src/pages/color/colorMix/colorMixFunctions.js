@@ -1,22 +1,24 @@
-var URL = "http://localhost:8080/api/colormix"
+var URL = "http://localhost:8080/api/color-mix/{id}"
 let router;
 
 export function initColorMix(navigoRouter) {
 
-    document.getElementById("submit").onclick = getAllColorMixes;
+    document.getElementById("get-all").onclick = getAllColorMixes;
     router = navigoRouter
 }
 
 async function getAllColorMixes() {
+    document.getElementById("tbody-all").innerHTML = ""
     try{
         const data = await fetch(URL).then(res => res.json());
+        console.log(data)
         const tableRowsArray = data.map(
             (colorMix) =>
                 `
         <tr>
             <td>${colorMix.id}</td>
-            <td>${colorMix.colorName}</td>
             <td>${colorMix.colorCode}</td>
+            <td>${colorMix.colorName}</td>
             <td>${colorMix.colorTypeId}</td>
         `
         );
