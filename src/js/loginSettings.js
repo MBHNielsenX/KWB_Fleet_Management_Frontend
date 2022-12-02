@@ -129,7 +129,7 @@ export function checkRoleEconomy() {
 export function checkRoleAdmin() {
     if (tokenInfo.roles === null){
 
-        const divs = document.querySelectorAll('.buyer-view');
+        const divs = document.querySelectorAll('.admin-view');
         divs.forEach(div => {
             div.style.display = "none";
         });
