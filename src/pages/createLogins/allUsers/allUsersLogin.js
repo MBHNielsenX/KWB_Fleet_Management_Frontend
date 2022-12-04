@@ -12,6 +12,7 @@ let URL_LEASER = SERVER_URL + "/users/leaser";
 
 export async function initAllUserLogin(){
     checkRoleAdmin()
+    await getAdminUsers()
     document.getElementById("admin-user-table").onclick = function() {
         openTable(event, 'admin-table-user')
         getAdminUsers()
@@ -33,6 +34,7 @@ export async function initAllUserLogin(){
 
 
 async function getAdminUsers(){
+
     document.getElementById("admin-users-tbody").innerHTML = "";
 
     const allAdminUsers = await fetch(URL_ADMIN,await checkToken1()).then(r => r.json())
@@ -49,7 +51,7 @@ async function getAdminUsers(){
         <td><a href="mailto:${adminUser.email}">${adminUser.email}</a></td>
         <td><button id="${adminUser.id}-edit-btn">3 dot</button></td>
         `
-        
+
         document.getElementById("admin-users-tbody").appendChild(tr)
     })
 
@@ -75,7 +77,6 @@ async function getBuyerUsers(){
 
     document.getElementById("buyer-users-tbody").innerHTML = "";
     const allAdminUsers = await fetch(URL_BUYER,await checkToken1()).then(r => r.json())
-    console.log(allAdminUsers)
     const tr =document.createElement("tr")
     allAdminUsers.forEach(buyerUser => {
         tr.innerHTML = `
