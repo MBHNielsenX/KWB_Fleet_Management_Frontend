@@ -12,6 +12,7 @@ import { initCreateAdminLogin } from "./src/pages/createLogins/userAdmin/adminLo
 import { initCreateBuyerLogin } from "./src/pages/createLogins/userBuyer/buyerLogin.js";
 import { initCreateLeaserLogin } from "./src/pages/createLogins/userLeaser/leaserLogin.js";
 import { initCreateEconomyLogin } from "./src/pages/createLogins/userEconomy/economyLogin.js";
+import { initAllUserLogin } from "./src/pages/createLogins/allUsers/allUsersLogin.js";
 
 
 window.addEventListener("load", async () => {
@@ -26,6 +27,7 @@ window.addEventListener("load", async () => {
   const templateCreateBuyerLogin = await loadHtml("./src/pages/createLogins/userBuyer/buyerLogin.html")
   const templateLeaserLogin = await loadHtml("./src/pages/createLogins/userLeaser/leaserLogin.html")
   const templateEconomyLogin = await loadHtml("./src/pages/createLogins/userEconomy/economyLogin.html")
+  const templateAllUsersLogin = await loadHtml("./src/pages/createLogins/allUsers/allUsersLogin.html")
 
   const router = new Navigo("/", { hash: true });
   window.router = router
@@ -59,6 +61,10 @@ window.addEventListener("load", async () => {
       "/create/login/economy": () => {
         renderTemplate(templateEconomyLogin, "content")
         initCreateEconomyLogin()
+      },
+      "/users/all": () => {
+        renderTemplate(templateAllUsersLogin, "content")
+        initAllUserLogin()
       },
       "/login": () => {
         renderTemplate(templateLogin, "content")
