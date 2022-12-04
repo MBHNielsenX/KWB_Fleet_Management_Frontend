@@ -34,9 +34,13 @@ export async function initAllUserLogin(){
 
 async function getAdminUsers(){
     document.getElementById("admin-users-tbody").innerHTML = "";
+
     const allAdminUsers = await fetch(URL_ADMIN,await checkToken1()).then(r => r.json())
+
     const tr =document.createElement("tr")
+
     allAdminUsers.forEach(adminUser => {
+
         tr.innerHTML = `
         <td>${adminUser.id}</td>
         <td>${adminUser.userName}</td>
@@ -45,6 +49,7 @@ async function getAdminUsers(){
         <td><a href="mailto:${adminUser.email}">${adminUser.email}</a></td>
         <td><button id="${adminUser.id}-edit-btn">3 dot</button></td>
         `
+        
         document.getElementById("admin-users-tbody").appendChild(tr)
     })
 
@@ -119,7 +124,6 @@ async function getLeaserUsers(){
     })
 
 }
-
 function openTable(evt, tableId) {
     let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");

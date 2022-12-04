@@ -19,6 +19,7 @@ export async function checkToken1() {
         }
         options.headers.Authorization = "Bearer " + token
     }
+    //remove big if statement to begin the security process
     return options;
 }
 
@@ -39,6 +40,7 @@ export async function checkToken2(object) {
         }
         options.headers.Authorization = "Bearer " + token
     }
+    //remove big if statement to begin the security process
     return options;
 }
 
