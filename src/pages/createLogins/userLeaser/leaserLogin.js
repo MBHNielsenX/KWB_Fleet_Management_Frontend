@@ -1,5 +1,5 @@
 import {SERVER_URL} from "../../../../settings.js";
-import {checkRoleLeaser, checkToken2} from "../../../js/loginSettings.js";
+import {checkRoleLeaser, checkTokenPost} from "../../../js/loginSettings.js";
 
 let URL = SERVER_URL + "/users/leaser"
 
@@ -40,7 +40,7 @@ async function leaserLogin() {
         country: country.value
     }
 
-    await fetch(URL, await checkToken2(leaserObj))
+    await fetch(URL, await checkTokenPost(leaserObj))
         .then((res) => {
             if (res.status >= 400) {
                 document.getElementById("leaser-response-text-succes").style.display = "none";

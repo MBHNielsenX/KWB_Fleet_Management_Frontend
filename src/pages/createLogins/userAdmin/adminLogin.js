@@ -1,5 +1,5 @@
 import {SERVER_URL} from "../../../../settings.js";
-import {checkRoleAdmin,checkToken2} from "../../../js/loginSettings.js";
+import {checkRoleAdmin,checkTokenPost} from "../../../js/loginSettings.js";
 
 let URL = SERVER_URL + "/users/admin"
 
@@ -26,7 +26,7 @@ async function adminLogin() {
         password: password.value
     }
 
-    await fetch(URL, await checkToken2(adminObj))
+    await fetch(URL, await checkTokenPost(adminObj))
         .then((res) => {
             if (res.status >= 400) {
                 document.getElementById("admin-response-text-succes").style.display = "none";

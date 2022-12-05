@@ -1,5 +1,5 @@
 import {SERVER_URL} from "../../../../settings.js";
-import {checkRoleEconomy,checkToken2} from "../../../js/loginSettings.js";
+import {checkRoleEconomy,checkTokenPost} from "../../../js/loginSettings.js";
 
 let URL = SERVER_URL + "/users/economy"
 
@@ -26,7 +26,7 @@ async function economyLogin() {
         password: password.value
     }
 
-    await fetch(URL, await checkToken2(economyObj))
+    await fetch(URL, await checkTokenPost(economyObj))
         .then((res) => {
             if (res.status >= 400) {
                 document.getElementById("economy-response-text-succes").style.display = "none";

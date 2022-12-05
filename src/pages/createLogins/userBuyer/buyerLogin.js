@@ -1,5 +1,5 @@
 import {SERVER_URL} from "../../../../settings.js";
-import {checkRoleBuyer, checkToken2} from "../../../js/loginSettings.js";
+import {checkRoleBuyer, checkTokenPost} from "../../../js/loginSettings.js";
 
 let URL = SERVER_URL + "/users/buyer"
 
@@ -40,7 +40,7 @@ async function buyerLogin() {
         country: country.value
     }
 
-    await fetch(URL, await checkToken2(buyerObj))
+    await fetch(URL, await checkTokenPost(buyerObj))
         .then((res) => {
             if (res.status >= 400) {
                 document.getElementById("buyer-response-text-succes").style.display = "none";

@@ -1,5 +1,5 @@
 import { SERVER_URL } from "../../../../settings.js";
-import { checkRoleAdmin, checkToken1 } from "../../../js/loginSettings.js";
+import { checkRoleAdmin, checkTokenGet } from "../../../js/loginSettings.js";
 import { paginator } from "../../../../lib/paginator/paginate-bootstrap.js"
 
 let URL_ADMIN = SERVER_URL + "/users/admin";
@@ -37,7 +37,7 @@ async function getAdminUsers(){
 
     document.getElementById("admin-users-tbody").innerHTML = "";
 
-    const allAdminUsers = await fetch(URL_ADMIN,await checkToken1()).then(r => r.json())
+    const allAdminUsers = await fetch(URL_ADMIN,await checkTokenGet()).then(r => r.json())
 
     const tr =document.createElement("tr")
 
@@ -58,7 +58,7 @@ async function getAdminUsers(){
 }
 async function getEconomyUsers(){
     document.getElementById("economy-users-tbody").innerHTML = "";
-    const allAdminUsers = await fetch(URL_ECONOMY,await checkToken1()).then(r => r.json())
+    const allAdminUsers = await fetch(URL_ECONOMY,await checkTokenGet()).then(r => r.json())
     const tr =document.createElement("tr")
     allAdminUsers.forEach(economyUser => {
         tr.innerHTML = `
@@ -76,7 +76,7 @@ async function getEconomyUsers(){
 async function getBuyerUsers(){
 
     document.getElementById("buyer-users-tbody").innerHTML = "";
-    const allAdminUsers = await fetch(URL_BUYER,await checkToken1()).then(r => r.json())
+    const allAdminUsers = await fetch(URL_BUYER,await checkTokenGet()).then(r => r.json())
     const tr =document.createElement("tr")
     allAdminUsers.forEach(buyerUser => {
         tr.innerHTML = `
@@ -102,7 +102,7 @@ async function getBuyerUsers(){
 async function getLeaserUsers(){
 
     document.getElementById("leaser-users-tbody").innerHTML = "";
-    const allAdminUsers = await fetch(URL_LEASER,await checkToken1()).then(r => r.json())
+    const allAdminUsers = await fetch(URL_LEASER,await checkTokenGet()).then(r => r.json())
     const tr =document.createElement("tr")
     allAdminUsers.forEach(leaserUser => {
         tr.innerHTML = `
