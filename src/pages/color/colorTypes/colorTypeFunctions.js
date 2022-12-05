@@ -78,7 +78,7 @@ async function addColorType() {
 
 async function deleteColorType(idToDelete) {
     idToDelete = idToDelete.split('delete')[1]
-    var r = confirm("If you delete this Color Type, all Color Mixes that have this color type will have no color type");
+    var r = confirm("If you delete this Color Type all associated color mixes will be deleted.");
     if (r==true)
     {
         const response = await fetch(URL + "/" + idToDelete, {
