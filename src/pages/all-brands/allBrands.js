@@ -1,11 +1,13 @@
 import {SERVER_URL} from "../../../settings.js";
+let url = SERVER_URL+"/specific-car-model/all-with-color-mix-count"
+import { checkRoleAdmin, checkTokenGet } from "../../js/loginSettings.js";
 
 let specificCarModels = [];
 
 export async function initAllBrands(){
-
+    checkRoleAdmin()
     try{
-        specificCarModels = await fetch(SERVER_URL+"/specific-car-model/all-with-color-mix-count")
+        specificCarModels = await fetch(url, await checkTokenGet())
             .then(res => res.json())
     } catch (e){
         console.error(e)
