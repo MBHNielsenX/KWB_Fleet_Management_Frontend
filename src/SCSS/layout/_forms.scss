@@ -5,15 +5,16 @@
 @include all-text-inputs {
   background-color: var(--white);
   border: solid 1.5px var(--black);
-  @extend .rounded--s;
+  @extend .rounded--xs;
   @extend .pad--xs;
-  margin: var(--space-xs) 0;
   width: 100%;
   font-size: var(--text-m);
-  height: fit-content;
+  height: 100%;
+
   @include placeholder {
-    color: var(--black);
+    font-weight: 300;
     font-size: var(--text-m);
+
   }
   &:focus:valid {
     @include input-validation(valid);
@@ -32,4 +33,120 @@
 @include all-text-inputs(focus) {
   outline: 1px solid var(--primary);
   outline-offset: 0;
+  font-weight: 500;
+}
+
+.create-form {
+  @extend .grid--auto-2;
+  @extend .gap--m;
+
+}
+
+.floating {
+
+  transition: background-color 0.2s ease;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.floating__input {
+  padding: 0.8rem 1rem 0.6rem;
+  border-bottom: 0.1rem solid var(--input__border);
+  transition: border-color 0.2s ease;
+  caret-color: var(--color__accent);
+
+
+}
+
+.floating:hover .floating__input {
+  border-color: var(--input__border--hover);
+
+}
+
+.floating__input::placeholder {
+  color: rgba(0, 0, 0, 0);
+
+}
+
+.floating__input--focus {
+  transform: scale(1.1);
+
+}
+
+.floating__label {
+  position: relative;
+  max-height: 0;
+  font-weight: 500;
+  pointer-events: none;
+  font-size: $text-m;
+  background-color: transparent;
+  color: var(--color__accent);
+}
+
+.floating__label::before {
+  color: var(--black-trans-80);
+  content: attr(data-content);
+  display: inline-block;
+  filter: blur(0);
+  backface-visibility: hidden;
+  transform-origin: left top;
+  transition: transform 0.2s ease;
+  left: 1rem;
+  position: relative;
+  font-size: 14px;
+}
+
+.floating__label::after {
+  bottom: 1rem;
+  content: "";
+  height: 0.1rem;
+  position: absolute;
+  transition: transform 180ms cubic-bezier(0.6, 0, 0.2, 1),
+  opacity 180ms cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+  opacity: 0;
+  left: 0;
+  top: 100%;
+  margin-top: -0.1rem;
+  transform: scale3d(0, 1, 1);
+  width: 100%;
+
+  background-color: var(--color__accent);
+
+}
+
+.floating__input:focus + .floating__label::after {
+
+  color: var(--color__accent);
+  background-color: rgba(255, 255, 255, 0);
+  padding-right: 1px;
+  padding-left: 1px;
+
+}
+
+.floating__input:placeholder-shown + .floating__label::before {
+  transform: translate3d(1rem, -4.7rem, 0) scale3d(1, 1, 1);
+
+}
+
+.floating__label::before,
+.floating__input:focus + .floating__label::before {
+  transform: translate3d(0, -6.5rem, 0) scale3d(0.82, 0.82, 1);
+
+}
+
+.floating__input:focus + .floating__label::before {
+  color: var(--color__accent);
+
+  background-color: transparent;
+  padding-right: 1px;
+  padding-left: 1px;
+}
+
+.floating__input:focus + .floating__label {
+  color: var(--color__accent);
+
+  background-color: transparent;
+  padding-right: 1px;
+  padding-left: 1px;
+
 }

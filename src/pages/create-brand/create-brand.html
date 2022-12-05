@@ -1,9 +1,43 @@
-<div class="template">
-    <div>
-        <input id="input-brand" placeholder="Brand" type="text">
-        <input id="input-model" placeholder="Model" type="text">
-        <input id="input-model-year" placeholder="Model Year" type="text">
-        <button id="btn-create-brand">Create Brand</button>
-        <p id="creation-status"></p>
+<div class="template ct-section">
+    <div class="ct-section-inner-wrap">
+        <div class="hero ">
+
+            <div class="hero__header">
+                <h1>Create Brand</h1>
+            </div>
+
+
+            <div class="nav">
+                <nav class="nav__flow-nav">
+                    <ol class="nav__flow-ol">
+                        <li class="nav__flow-li"><a class="nav__flow-a nav__flow-a--active"
+                                                    href="/create-brand" data-navigo>Create Brand</a></li>
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+                                                    href="/all-brands" data-navigo>All Brands</a></li>
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+                                                    href="/color-types" data-navigo>Colortype</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="create-form">
+            <div class="floating">
+                <input class="floating__input" id="input-brand" required placeholder="Brand" type="text">
+                <label class="floating__label" for="input-brand" data-content="Brand"></label>
+            </div>
+
+            <div class="floating">
+                <input class="floating__input" id="input-model" required placeholder="Model" type="text">
+                <label class="floating__label" for="input-model" data-content="Model"></label>
+            </div>
+
+            <div class="floating">
+                <input class="floating__input" id="input-model-year" required placeholder="Model Year" type="text">
+                <label class="floating__label" for="input-model-year" data-content="Model Year"></label>
+            </div>
+            <button id="btn-create-brand">Create Brand</button>
+
+            <p id="creation-status"></p>
+        </div>
     </div>
 </div>
