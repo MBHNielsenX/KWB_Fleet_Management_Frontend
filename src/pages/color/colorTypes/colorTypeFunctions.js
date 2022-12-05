@@ -40,11 +40,12 @@ async function getAllColorTypes() {
     document.getElementById("tbody-all").innerHTML = ""
     try{
         const data = await fetch(URL).then(res => res.json());
+        //<td id="color-type-id-${colorType.id}" value="${colorType.id}">${colorType.id}</td>
         const tableRowsArray = data.map(
             (colorType) =>
                 `
         <tr>
-            <td id="color-type-id-${colorType.id}" value="${colorType.id}">${colorType.id}</td>
+            
             <td><input readonly type='text' id="text${colorType.id}" value='${colorType.type}'></td>
             <td><button id="delete${colorType.id}">Delete</button></td>
         `
@@ -77,24 +78,24 @@ async function addColorType() {
 
 async function deleteColorType(idToDelete) {
     idToDelete = idToDelete.split('delete')[1]
-    const response = await fetch(URL + "/" + idToDelete, {
-        method: "DELETE",
+    var r = confirm("If you delete this Color Type, all Color Mixes that have this color type will have no color type");
+    if (r==true)
+    {
+        const response = await fetch(URL + "/" + idToDelete, {
+            method: "DELETE",
 
-    }).then((res) => res.json())
-    location.reload();
+        }).then((res) => res.json())
+        location.reload();
+    }
 }
 
-async function editColorType(id) {
-    const idToDelete = id.split('text')[1]
-    const colorTypeId = document.getElementById("color-type-id-"+idToDelete).innerText
-    const colorTypeText = document.getElementById(id).value;
-
+async function editColorType(idFromJs) {
+    const id = idFromJs.split('text')[1]
+    const type = document.getElementById(idFromJs).value;
     const editedColorType = {
-        colorTypeId,
-        colorTypeText
+        id,
+        type
     };
-    console.log(colorTypeId + " id")
-    console.log(editedColorType)
     const data = await fetch(URL, {
         method: "PUT",
         headers: {
@@ -103,37 +104,13 @@ async function editColorType(id) {
         body: JSON.stringify(editedColorType),
     })
         .then((res) => res.json())
+    if(document.getElementById(idFromJs).value === data.type){
+        document.getElementById(idFromJs).style.boxShadow = "0px 0px 20px 1px #00FF00";
+    }else {
+        document.getElementById(idFromJs).style.boxShadow = "0px 0px 20px 1px #FF0000";
+    }
+    setTimeout( () =>{
+        document.getElementById(idFromJs).style.boxShadow = "none";
+    }, 2000);
 
 }
-
-
-
-
-
-/*
-async function editColorMix() {
-    const colorMixId = document.getElementById("if4").value;
-    const colorCode = document.getElementById("if1").value;
-    const colorName = document.getElementById("if2").value;
-    const colorTypeId = document.getElementById("if3").value;
-
-    const editedColorMix = {
-        colorMixId,
-        colorCode,
-        colorTypeId,
-        colorName
-    };
-
-    console.log(editedColorMix)
-    const id = await fetch(URL, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editedColorMix),
-    })
-        .then((res) => res.json())
-}
-*/
-
-
