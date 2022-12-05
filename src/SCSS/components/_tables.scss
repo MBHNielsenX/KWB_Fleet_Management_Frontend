@@ -5,3 +5,34 @@
 .table{
   @include table("trans")
 }
+
+.table-animation{
+  @include table("normal", $tbody-bg: $white, $thead-bg: $primary);
+
+  & thead tr {
+    @include only(1) {
+      background: $secondary;
+      @include loadify(0.0s);
+    }
+  }
+  & thead th {
+    @include only(1) {
+      @include loadify(0.2s);
+    }
+    @include only(2) {
+      @include loadify(0.3s);
+    }
+    @include only(3) {
+      @include loadify(0.4s);
+    }
+    @include only(4) {
+      @include loadify(0.5s);
+    }
+    @include only(5) {
+      @include loadify(0.6s);
+    }
+    @include only(6) {
+      @include loadify(0.7s);
+    }
+  }
+}
