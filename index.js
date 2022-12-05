@@ -38,8 +38,7 @@ window.addEventListener("load", async () => {
   const templateAllUsersLogin = await loadHtml("./src/pages/createLogins/allUsers/allUsersLogin.html")
 
   //black list
-  const templateCreateBlackList = await loadHtml("./src/pages/create-blacklist/createblackList.html")
-
+  const templateCreateBlackList = await loadHtml("./src/pages/create-blacklist/createBlackList.html")
 
   const router = new Navigo("/", { hash: true });
   window.router = router
