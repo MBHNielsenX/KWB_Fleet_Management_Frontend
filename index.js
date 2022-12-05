@@ -1,8 +1,10 @@
 import "https://unpkg.com/navigo"  //Will create the global Navigo object used below
 import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./utils.js"
 
-import { initCreateBrand } from "./src/pages/create-brand/createBrand.js"
+//Brand
+import { initCreateBrand } from "./src/pages/create-brand/createBrand.js";
 import { initAllBrands } from "./src/pages/all-brands/allBrands.js";
+import {initEditBrand} from "./src/pages/edit-brand/editBrand.js";
 import { initLogin } from "./src/pages/login/login.js";
 
 //Color
@@ -15,10 +17,15 @@ import { initCreateLeaserLogin } from "./src/pages/createLogins/userLeaser/lease
 import { initCreateEconomyLogin } from "./src/pages/createLogins/userEconomy/economyLogin.js";
 import { initAllUserLogin } from "./src/pages/createLogins/allUsers/allUsersLogin.js";
 
+
+
+
 window.addEventListener("load", async () => {
   const templateHome = await loadHtml("./src/pages/home/home.html")
+  //brand
   const templateCreateBrand = await loadHtml("./src/pages/create-brand/create-brand.html")
   const templateAllBrands = await loadHtml("./src/pages/all-brands/all-brands.html")
+  const templateEditBrand = await loadHtml("./src/pages/edit-brand/edit-brand.html")
   const templateLogin = await loadHtml("./src/pages/login/login.html")
   const templateColorMix = await loadHtml("./src/pages/color/colorMix/color-mix.html")
   const templateColorTypes = await loadHtml("./src/pages/color/colorTypes/color-types.html")
@@ -82,6 +89,10 @@ window.addEventListener("load", async () => {
         renderTemplate(templateColorTypes, "content")
         initColorTypes(router)
 
+      },
+      "/edit-brand":(match) =>{
+        renderTemplate(templateEditBrand,"content")
+        initEditBrand(match)
       }
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))
