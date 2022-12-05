@@ -40,9 +40,9 @@ window.addEventListener("load", async () => {
         renderTemplate(templateColorTypes, "content")
         initColorTypes(router)
       },
-      "/color-mix": () => { //just made
+      "/color-mix": (match) => { //just made
         renderTemplate(templateColorMix, "content")
-        initColorMix(router)
+        initColorMix(router, match)
       }
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))

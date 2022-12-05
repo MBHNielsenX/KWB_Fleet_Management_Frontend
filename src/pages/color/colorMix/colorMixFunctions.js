@@ -1,10 +1,43 @@
-var URL = "http://localhost:8080/api/color-mix/{id}"
+var URL = "http://localhost:8080/api/color-mix"
 let router;
 
-export function initColorMix(navigoRouter) {
+export function initColorMix(navigoRouter, match) {
+    getSpecific(match)
+    console.log("This is it: " )
+    if (match?.params?.id) {
+        const id = match.params.id
+        try {
+            getSpecific(id)
+        } catch (err) {
 
-    document.getElementById("get-all").onclick = getAllColorMixes;
+        }
+    }
+    //document.getElementById("get-all").onclick = getAllColorMixes;
     router = navigoRouter
+}
+
+async function getSpecific(id) {
+    try {
+        const data = await fetch(URL + "/" + id).then(res => res.json())
+        if (Object.keys(data).length === 0) {
+            throw new Error("No user found for id: " + id)
+        }
+        console.log(data)
+        const tableRowsArray = data.map(
+            (colorMix) =>
+                `
+        <tr>
+            <td>${colorMix.id}</td>
+            <td>${colorMix.colorCode}</td>
+            <td>${colorMix.colorName}</td>
+            <td>${colorMix.colorTypeId}</td>
+            `
+        );
+        const tableRowsString = tableRowsArray.join("\n");
+        document.getElementById("tbody-all").innerHTML = tableRowsString;
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 async function getAllColorMixes() {
