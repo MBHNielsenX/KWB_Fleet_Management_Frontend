@@ -1,24 +1,24 @@
-import {SERVER_URL} from "../../../settings.js"
+var URL = "https://localhost:8080/api/color-mix"
+import {SERVER_URL} from "../../../../settings.js"
 let router;
 
 export function initColorMix(navigoRouter, match) {
-    getSpecific(match)
-    console.log("This is it: " + match.params.id)
+    document.getElementById("get-all").onclick = getAllColorMixes;
+    getAllColorMixes();
     if (match?.params?.id) {
         const id = match.params.id
         try {
-            getSpecific(id)
+            getSpecific(id);
         } catch (err) {
 
         }
     }
-    //document.getElementById("get-all").onclick = getAllColorMixes;
     router = navigoRouter
 }
 
 async function getSpecific(id) {
     try {
-        const data = await fetch(SERVER_URL + "/" + id).then(res => res.json())
+        const data = await fetch(URL + "/" + id).then(res => res.json())
         if (Object.keys(data).length === 0) {
             throw new Error("No user found for id: " + id)
         }

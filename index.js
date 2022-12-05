@@ -54,7 +54,7 @@ window.addEventListener("load", async () => {
     })
     .notFound(() => renderTemplate("No page for this route found", "content"))
     .resolve()
-});})
+});
 
 
 //window.onerror = (e) => alert(e)
