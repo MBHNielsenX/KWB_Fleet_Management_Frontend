@@ -1,3 +1,11 @@
 @use "../abstract/mixins" as *;
 @use "../vendors/mixins-vendor" as *;
 @use "../base/root" as *;
+
+
+.hero__header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: var(--space-xl);
+}
