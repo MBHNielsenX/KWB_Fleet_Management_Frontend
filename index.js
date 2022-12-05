@@ -4,6 +4,7 @@ import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./u
 import { initCreateBrand } from "./src/pages/create-brand/createBrand.js"
 import { initAllBrands } from "./src/pages/all-brands/allBrands.js";
 import { initLogin } from "./src/pages/login/login.js";
+import { initCreateOwnerships } from "./src/pages/ownership/create-ownership.js";
 
 //Color
 import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js"
@@ -22,6 +23,7 @@ window.addEventListener("load", async () => {
   const templateLogin = await loadHtml("./src/pages/login/login.html")
   const templateColorMix = await loadHtml("./src/pages/color/colorMix/color-mix.html")
   const templateColorTypes = await loadHtml("./src/pages/color/colorTypes/color-types.html")
+  const templateCreateOwnerships = await loadHtml("./src/pages/ownership/create-ownership.html")
 
 
   //users
@@ -81,6 +83,10 @@ window.addEventListener("load", async () => {
       "/color-types": () => {
         renderTemplate(templateColorTypes, "content")
         initColorTypes(router)
+      },
+      "/create-ownerships": () => {
+        renderTemplate(templateCreateOwnerships, "content")
+        initCreateOwnerships(router)
 
       }
     })
