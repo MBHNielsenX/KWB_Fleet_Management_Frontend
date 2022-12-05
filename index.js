@@ -15,6 +15,9 @@ import { initCreateLeaserLogin } from "./src/pages/createLogins/userLeaser/lease
 import { initCreateEconomyLogin } from "./src/pages/createLogins/userEconomy/economyLogin.js";
 import { initAllUserLogin } from "./src/pages/createLogins/allUsers/allUsersLogin.js";
 
+//black list
+import { initCreateBlackList } from "./src/pages/create-blacklist/createblackList.js";
+
 window.addEventListener("load", async () => {
   const templateHome = await loadHtml("./src/pages/home/home.html")
   const templateCreateBrand = await loadHtml("./src/pages/create-brand/create-brand.html")
@@ -30,6 +33,9 @@ window.addEventListener("load", async () => {
   const templateLeaserLogin = await loadHtml("./src/pages/createLogins/userLeaser/leaserLogin.html")
   const templateEconomyLogin = await loadHtml("./src/pages/createLogins/userEconomy/economyLogin.html")
   const templateAllUsersLogin = await loadHtml("./src/pages/createLogins/allUsers/allUsersLogin.html")
+
+  //black list
+  const templateCreateBlackList = await loadHtml("./src/pages/create-blacklist/createblackList.html")
 
 
   const router = new Navigo("/", { hash: true });
@@ -57,6 +63,9 @@ window.addEventListener("load", async () => {
       "/create/login/admin": () => {
         renderTemplate(templateCreateAdminLogin, "content")
         initCreateAdminLogin()
+      }, "/create/black-list": () => {
+        renderTemplate(templateCreateBlackList, "content")
+        initCreateBlackList()
       },
       "/create/login/buyer": () => {
         renderTemplate(templateCreateBuyerLogin, "content")
