@@ -1,3 +1,7 @@
 @use "../abstract/mixins" as *;
 @use "../vendors/mixins-vendor" as *;
 @use "../base/root" as *;
+
+.table{
+  @include table("trans")
+}
