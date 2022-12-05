@@ -1,10 +1,13 @@
-var URL = "https://localhost:8080/api/color-mix"
+import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
+let URL = SERVER_URL + "/color-mix/";
 let router;
 
+let colorMix = [];
+
 export function initColorMix(navigoRouter, match) {
-    document.getElementById("get-all").onclick = getAllColorMixes;
-    getAllColorMixes();
+    checkRoleAdmin()
+    //getAllColorMixes();
     if (match?.params?.id) {
         const id = match.params.id
         try {
@@ -18,7 +21,7 @@ export function initColorMix(navigoRouter, match) {
 
 async function getSpecific(id) {
     try {
-        const data = await fetch(URL + "/" + id).then(res => res.json())
+        const data = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
         if (Object.keys(data).length === 0) {
             throw new Error("No user found for id: " + id)
         }
@@ -30,9 +33,9 @@ async function getSpecific(id) {
             <td>${colorMix.id}</td>
             <td>${colorMix.colorCode}</td>
             <td>${colorMix.colorName}</td>
-            <td>${colorMix.colorTypeId}</td>
-            `
-        );
+            <td>${colorMix.colorTypesResponse.id}</td>
+            </tr>
+            `);
         const tableRowsString = tableRowsArray.join("\n");
         document.getElementById("tbody-all").innerHTML = tableRowsString;
     } catch(err) {
@@ -43,7 +46,7 @@ async function getSpecific(id) {
 async function getAllColorMixes() {
     document.getElementById("tbody-all").innerHTML = ""
     try{
-        const data = await fetch(URL).then(res => res.json());
+        const data = await fetch(URL, await checkTokenGet()).then(res => res.json());
         console.log(data)
         const tableRowsArray = data.map(
             (colorMix) =>
