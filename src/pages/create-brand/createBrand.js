@@ -1,6 +1,8 @@
 import {SERVER_URL} from "../../../settings.js"
+import { checkRoleAdmin, checkTokenPost } from "../../js/loginSettings.js";
 
 export async function initCreateBrand(){
+    checkRoleAdmin()
     document.getElementById("btn-create-brand").onclick = addBrand
 }
 
@@ -11,13 +13,7 @@ async function addBrand(){
         modelYear: document.getElementById("input-model-year").value
     };
 
-    const opts = {
-        method: "POST",
-        headers: {"Content-type": "application/json"},
-        body: JSON.stringify(newBrand)
-    };
-
-    await fetch(SERVER_URL+"/specific-car-model", opts)
+    await fetch(SERVER_URL+"/specific-car-model", await checkTokenPost(newBrand))
         .then(response => {
             if (response.status === 200){
                 document.getElementById("creation-status").style.color = "Green"
