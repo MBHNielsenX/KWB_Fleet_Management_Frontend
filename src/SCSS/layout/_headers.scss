@@ -8,4 +8,15 @@
   justify-content: center;
   align-items: center;
   padding-bottom: var(--space-xl);
+  text-transform: capitalize;
+}
+
+
+
+.section-hero__header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-bottom: var(--space-m);
+    text-transform: capitalize;
 }

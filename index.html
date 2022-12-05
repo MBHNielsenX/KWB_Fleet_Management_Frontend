@@ -14,7 +14,9 @@
   <link href="/src/SCSS/main.css" rel="stylesheet"/>
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+  <script src="src/js/sidenav.js" type="module"></script>
   <script src="index.js" type="module"></script>
+
 </head>
 <body>
 <div>
@@ -40,11 +42,11 @@
         <span class="tooltip">Admin Dashboard</span>
       </li>
       <li>
-        <a href="/addEmployee">
+        <a href="/users/create-user" data-navigo>
           <i class='bx bxs-user-detail'></i>
-          <span class="links_name">Admin</span>
+          <span class="links_name">Users</span>
         </a>
-        <span class="tooltip">Administrer Brugere</span>
+        <span class="tooltip">Manage Users</span>
       </li>
       <li>
         <a href="/all-offers">

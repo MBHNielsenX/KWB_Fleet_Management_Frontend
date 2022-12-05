@@ -40,3 +40,21 @@
   padding-top: var(--space-xs);
   padding-bottom: var(--space-l);
 }
+
+.section-hero {
+  display: inline-block;
+  width: var(--width-full);
+  justify-content: center;
+  align-items: center;
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-l);
+}
+
+.section-hero__inner-wrap {
+    display: inline-block;
+    width: var(--width-full);
+    justify-content: center;
+    align-items: center;
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-l);
+}
