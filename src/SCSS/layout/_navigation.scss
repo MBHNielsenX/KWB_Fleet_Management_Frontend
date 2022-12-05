@@ -39,3 +39,11 @@
   color: $black;
   text-decoration: underline;
 }
+li.nav__flow-li::marker {
+  display: flex;
+
+}
+.nav__flow-li--active{
+  color: $black;
+  font-weight: 600;
+}
