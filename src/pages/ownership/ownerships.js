@@ -16,12 +16,13 @@ async function getAllOwnerships() {
             ownership =>
                 `
         <tr>
-            
             <td>${ownership.id}</td>
             <td>${ownership.name}</td>
+            <td>${ownership.abbreviation}</td>
             </tr>
         `
         );
         const tableRowsString = tableRowsArray.join("");
         document.getElementById("tbody-ownership").innerHTML = tableRowsString;
 }
+
