@@ -1,13 +1,17 @@
-var URL = "http://localhost:8080/api/ownerships";
+import { SERVER_URL } from "../../../settings.js";
+import { checkTokenGet, checkRoleAdmin } from "../../js/loginSettings.js";
+let URL = SERVER_URL + "/ownership";
+
 let router;
 export function initOwnerships(navigoRouter) {
+    checkRoleAdmin();
     router = navigoRouter
     getAllOwnerships();
 }
 
 async function getAllOwnerships() {
 
-        const data = await fetch(URL).then(res => res.json());
+        const data = await fetch(URL, await checkTokenGet()).then(res => res.json());
         const tableRowsArray = data.map(
             ownership =>
                 `
