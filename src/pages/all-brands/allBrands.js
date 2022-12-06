@@ -11,10 +11,9 @@ export async function initAllBrands(){
     document.getElementById("table-body").onclick = (element) =>{
         let id = element.target.id
         let brand = element.target.value
-        if (id.startsWith("btn-add-color-mix-")){
-            addColorMixRedirect(id, brand)
+        console.log(brand)
         if (id.startsWith("btn-add-color-mix-") || id.startsWith("link-view-color-mixes")){
-            addColorMixRedirect(id)
+            addColorMixRedirect(id, brand)
         } else if (id.startsWith("btn-kebab-menu-")){
             displayKebabMenu(id)
         } else if (id.startsWith("link-delete-brand-")){
@@ -22,8 +21,8 @@ export async function initAllBrands(){
         } else if (id.startsWith("link-edit-brand-")){
             editBrandRedirect(id)
         }
-
     }
+
     try{
         specificCarModels = await fetch(url, await checkTokenGet())
             .then(res => res.json())
@@ -38,7 +37,7 @@ export async function initAllBrands(){
             <td>${specificCarModel.modelYear}</td>
             <td>${specificCarModel.colorMixAmounts}</td>
             <td><button id="btn-add-color-mix-${specificCarModel.id}" value="${specificCarModel.brand}">Add Colormix</button></td>
-            <td><button id="${specificCarModel.id}">Kebab menu</button></td>
+            <td><button id="btn-kebab-menu-${specificCarModel.id}">...</button></td>
             <ul id="kebab-menu-${specificCarModel.id}"></ul>
         </tr>`)
         .join("")

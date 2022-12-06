@@ -13,6 +13,7 @@ export function initColorMix(navigoRouter, match) {
     if (match?.params?.id) {
         const id = match.params.id
         const brand = match.params.brand
+        console.log(brand)
         try {
             getSpecific(id, brand);
         } catch (err) {
