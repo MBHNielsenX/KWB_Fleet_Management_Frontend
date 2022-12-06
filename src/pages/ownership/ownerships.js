@@ -6,20 +6,18 @@ export function initOwnerships(navigoRouter) {
 }
 
 async function getAllOwnerships() {
-    document.getElementById("tbody-all").innerHTML = ""
-    try{
+
         const data = await fetch(URL).then(res => res.json());
         const tableRowsArray = data.map(
-            (ownership) =>
+            ownership =>
                 `
         <tr>
             
-            <td><input readonly type='text' id="text${ownership.id}" value='${ownership.name}'></td>
+            <td>${ownership.id}</td>
+            <td>${ownership.name}</td>
+            </tr>
         `
         );
-        const tableRowsString = tableRowsArray.join("\n");
-        document.getElementById("tbody-all").innerHTML = tableRowsString;
-    } catch(err) {
-        console.log(err);
-    }
+        const tableRowsString = tableRowsArray.join("");
+        document.getElementById("tbody-ownership").innerHTML = tableRowsString;
 }
