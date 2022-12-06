@@ -1,17 +1,20 @@
 import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
-let URL = SERVER_URL + "/color-mix/";
+
+let URL = SERVER_URL + "/color-mix/c-mix/";
 let router;
 
 let colorMix = [];
+
 
 export function initColorMix(navigoRouter, match) {
     checkRoleAdmin()
     //getAllColorMixes();
     if (match?.params?.id) {
         const id = match.params.id
+        const brand = match.params.brand
         try {
-            getSpecific(id);
+            getSpecific(id, brand);
         } catch (err) {
 
         }
@@ -19,15 +22,15 @@ export function initColorMix(navigoRouter, match) {
     router = navigoRouter
 }
 
-async function getSpecific(id) {
+async function getSpecific(id, brand) {
     try {
         const data = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
         if (Object.keys(data).length === 0) {
-            throw new Error("No user found for id: " + id)
+            throw new Error("No colormix found for id: " + id)
         }
         console.log(data)
         const tableRowsArray = data.map(
-            (colorMix) =>
+            colorMix =>
                 `
         <tr>
             <td>${colorMix.id}</td>
@@ -38,6 +41,7 @@ async function getSpecific(id) {
             `);
         const tableRowsString = tableRowsArray.join("\n");
         document.getElementById("tbody-all").innerHTML = tableRowsString;
+        document.getElementById("header-title").innerHTML = brand;
     } catch(err) {
         console.log(err);
     }

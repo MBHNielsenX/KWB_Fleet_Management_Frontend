@@ -8,8 +8,9 @@ export async function initAllBrands(){
     checkRoleAdmin()
     document.getElementById("table-body").onclick = (element) =>{
         let id = element.target.id
+        let brand = element.target.value
         if (id.startsWith("btn-add-color-mix-")){
-            addColorMixRedirect(id)
+            addColorMixRedirect(id, brand)
         }
 
     }
@@ -26,7 +27,7 @@ export async function initAllBrands(){
             <td>${specificCarModel.model}</td>
             <td>${specificCarModel.modelYear}</td>
             <td>${specificCarModel.colorMixAmounts}</td>
-            <td><button id="btn-add-color-mix-${specificCarModel.id}">Add Colormix</button></td>
+            <td><button id="btn-add-color-mix-${specificCarModel.id}" value="${specificCarModel.brand}">Add Colormix</button></td>
             <td><button id="${specificCarModel.id}">Kebab menu</button></td>
         </tr>`)
         .join("")
@@ -34,7 +35,8 @@ export async function initAllBrands(){
     document.getElementById("table-body").innerHTML=rows
 }
 
-async function addColorMixRedirect(id){
+async function addColorMixRedirect(id, brand){
     id = id.split('-')
-    router.navigate(`color-mix?id=${id}`)
+    id = id[id.length-1]
+    router.navigate(`color-mix/c-mix/?id=${id}&brand=${brand}`)
 }

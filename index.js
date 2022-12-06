@@ -84,7 +84,7 @@ window.addEventListener("load", async () => {
         initColorTypes(router)
 
       },
-      "/color-mix": (match) => { //just made
+      "/color-mix/c-mix": (match) => { //just made
         renderTemplate(templateColorMix, "content")
         initColorMix(router, match)
       }
