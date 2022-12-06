@@ -13,19 +13,6 @@ export async function initAllBrands(){
         let brand = element.target.value
         console.log(brand)
 
-        const onClick = (event) => {
-            if (event.target.id.startsWith("btn-add-color-mix-")  || event.target.id.startsWith("link-view-color-mixes")) {
-                addColorMixRedirect(event.target.id, event.target.value)
-            } else if (event.target.id.startsWith("btn-kebab-menu-")) {
-                displayKebabMenu(event.target.id)
-            } else if (event.target.id.startsWith("link-delete-brand-")) {
-                deleteBrand(event.target.id)
-            } else if (event.target.id.startsWith("link-edit-brand-")) {
-                editBrandRedirect(event.target.id)
-            }
-        }
-        window.addEventListener('click', onClick)
-
        //if (id.startsWith("btn-add-color-mix-") || id.startsWith("link-view-color-mixes")){
        //    addColorMixRedirect(id, brand)
        //} else if (id.startsWith("btn-kebab-menu-")){
@@ -36,6 +23,19 @@ export async function initAllBrands(){
        //    editBrandRedirect(id)
        //}
     }
+    const onClick = (event) => {
+        let id = event.target.id.split('-')[event.target.id.split('-').length-1]
+        if (event.target.id.startsWith("btn-add-color-mix-")  || event.target.id.startsWith("link-view-color-mixes")) {
+            addColorMixRedirect(id, event.target.value)
+        } else if (event.target.id.startsWith("btn-kebab-menu-")) {
+            displayKebabMenu(id)
+        } else if (event.target.id.startsWith("link-delete-brand-")) {
+            deleteBrand(id)
+        } else if (event.target.id.startsWith("link-edit-brand-")) {
+            editBrandRedirect(id)
+        }
+    }
+    window.addEventListener('click', onClick)
 
     try{
         specificCarModels = await fetch(url, await checkTokenGet())
