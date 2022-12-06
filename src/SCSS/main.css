@@ -22211,8 +22211,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+ul, ol {
+  padding-left: 0;
+}
+
+th {
+  border-color: inherit;
+  border-style: none;
+  border-width: 0;
+}
+
 /*
-   Improve media defaults
+ Improve media defaults
 */
 img,
 picture,
@@ -22234,6 +22244,7 @@ h4,
 h5,
 h6 {
   overflow-wrap: break-word;
+  font-weight: 600;
 }
 
 /*
@@ -22242,6 +22253,10 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+.modal-backdrop {
+  z-index: 0;
 }
 
 @keyframes loadify {
@@ -22277,39 +22292,12 @@ button, [type=button], [type=reset], [type=submit] {
   position: relative;
   cursor: pointer;
 }
-button::after, [type=button]::after, [type=reset]::after, [type=submit]::after {
-  background-color: var(--secondary);
-  box-shadow: 0 0 0 1px var(--black);
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  border-radius: 0.35rem;
-  transition: all 0.3s ease-in-out;
-  border: 0;
-  width: 100%;
-  height: 100%;
-}
 button:hover::after, [type=button]:hover::after, [type=reset]:hover::after, [type=submit]:hover::after {
   top: -0.5rem;
   left: -0.5rem;
   width: calc(100% + 1rem);
   height: calc(100% + 1rem);
   border: 1px solid var(--black-trans-10);
-}
-button:focus, [type=button]:focus, [type=reset]:focus, [type=submit]:focus {
-  background-color: rgb(232, 240, 254);
-}
-button:focus::after, [type=button]:focus::after, [type=reset]:focus::after, [type=submit]:focus::after {
-  background-color: #23afaf;
-  top: 0.1rem;
-  left: -0.1rem;
-  width: calc(100% + 0.2rem);
-  height: calc(100% + 1rem);
-  border: 1px solid var(--black);
 }
 
 .section-hero__buttons {
@@ -22360,6 +22348,28 @@ button:focus::after, [type=button]:focus::after, [type=reset]:focus::after, [typ
   width: calc(100% + 0.2rem);
   height: calc(100% + 1rem);
   border: 1px solid var(--black);
+}
+
+.delete-button {
+  width: 100%;
+  background: #b22727;
+  color: #fff;
+  text-transform: capitalize;
+}
+.delete-button:hover {
+  background: #b22727;
+  opacity: 0.9;
+}
+
+.edit-button {
+  width: 100%;
+  background: #ebf1fa;
+  color: #000;
+  text-transform: capitalize;
+}
+.edit-button:hover {
+  background: #ebf1fa;
+  opacity: 0.9;
 }
 
 .section-hero__link {
@@ -22413,6 +22423,7 @@ body.breakpointer::before {
 
 .table td {
   color: #000;
+  vertical-align: middle;
 }
 
 .table-animation tr {
@@ -22423,6 +22434,7 @@ body.breakpointer::before {
 }
 .table-animation td {
   color: #000;
+  vertical-align: middle;
 }
 .table-animation th {
   color: #ebf1fa;

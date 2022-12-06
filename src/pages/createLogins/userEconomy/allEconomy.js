@@ -25,7 +25,7 @@ export async function initGetAllEconomyUsers() {
 
     const rows = economyUsers.map(economyUser =>
         `<tr>      
-         <td>${economyUser.username}</td>
+         <td>${economyUser.userName}</td>
            <td>${economyUser.firstName} ${economyUser.lastName}</td>
         <td><a href="tel:${economyUser.phoneNumber}">${economyUser.phoneNumber}</a </td>
         <td> <a href="mailto:${economyUser.email}">${economyUser.email}</a></td> 
@@ -33,7 +33,7 @@ export async function initGetAllEconomyUsers() {
         <td>${economyUser.status}</td>
                 
             <td>
-                <button id="btn-edit-economy-user-${economyUser.id}" class="btn btn-primary">Edit</button>
+                <button id="${economyUser.id}-column-id" type="button"  class="primary-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button> 
             </td>
         </tr>`
     )
