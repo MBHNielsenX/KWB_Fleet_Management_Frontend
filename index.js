@@ -4,7 +4,6 @@ import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./u
 
 //Brand
 import { initCreateBrand } from "./src/pages/create-brand/createBrand.js"
-
 import { initAllBrands } from "./src/pages/all-brands/allBrands.js";
 import {initEditBrand} from "./src/pages/edit-brand/editBrand.js";
 import { initLogin } from "./src/pages/login/login.js";

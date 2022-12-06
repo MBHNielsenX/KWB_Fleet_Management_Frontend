@@ -23,5 +23,3 @@ async function getAllOwnerships() {
         console.log(err);
     }
 }
-
-
