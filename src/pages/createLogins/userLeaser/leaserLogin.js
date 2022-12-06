@@ -3,8 +3,10 @@ import {checkRoleLeaser, checkTokenPost} from "../../../js/loginSettings.js";
 
 let URL = SERVER_URL + "/users/leaser"
 
+
 export async function initCreateLeaserLogin() {
     checkRoleLeaser();
+    await initGetAllLeaserUsers();
     document.getElementById("leaser-create-login").onclick = leaserLogin
 }
 
@@ -56,3 +58,4 @@ async function leaserLogin() {
             }
         })
 }
+

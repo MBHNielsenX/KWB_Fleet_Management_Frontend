@@ -12,9 +12,17 @@ import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.
 
 //Users
 import { initCreateAdminLogin } from "./src/pages/createLogins/userAdmin/adminLogin.js";
+import { initGetAllAdminUsers } from "./src/pages/createLogins/userAdmin/allAdmins.js";
+
 import { initCreateBuyerLogin } from "./src/pages/createLogins/userBuyer/buyerLogin.js";
+import { initGetAllBuyerUsers } from "./src/pages/createLogins/userBuyer/allBuyers.js";
+
 import { initCreateLeaserLogin } from "./src/pages/createLogins/userLeaser/leaserLogin.js";
+import { initGetAllLeaserUsers } from "./src/pages/createLogins/userLeaser/allLeasers.js";
+
 import { initCreateEconomyLogin } from "./src/pages/createLogins/userEconomy/economyLogin.js";
+import { initGetAllEconomyUsers } from "./src/pages/createLogins/userEconomy/allEconomy.js";
+
 import { initAllUserLogin } from "./src/pages/createLogins/allUsers/allUsersLogin.js";
 
 //black list
@@ -33,6 +41,10 @@ window.addEventListener("load", async () => {
   //users
   const templateCreateAdminLogin = await loadHtml("./src/pages/createLogins/userAdmin/adminLogin.html")
   const templateCreateBuyerLogin = await loadHtml("./src/pages/createLogins/userBuyer/buyerLogin.html")
+  const templateLeaserAll = await loadHtml("./src/pages/createLogins/userLeaser/allLeasers.html")
+  const templateBuyerAll = await loadHtml("./src/pages/createLogins/userBuyer/allBuyers.html")
+  const templateEconomyAll = await loadHtml("./src/pages/createLogins/userEconomy/allEconomy.html")
+  const templateAdminAll = await loadHtml("./src/pages/createLogins/userAdmin/allAdmins.html")
   const templateLeaserLogin = await loadHtml("./src/pages/createLogins/userLeaser/leaserLogin.html")
   const templateEconomyLogin = await loadHtml("./src/pages/createLogins/userEconomy/economyLogin.html")
   const templateAllUsersLogin = await loadHtml("./src/pages/createLogins/allUsers/allUsersLogin.html")
@@ -66,7 +78,12 @@ window.addEventListener("load", async () => {
       "/users/create-admin": () => {
         renderTemplate(templateCreateAdminLogin, "content")
         initCreateAdminLogin()
-      }, "/create/black-list": () => {
+      },
+      "/users/all-admins": () => {
+        renderTemplate(templateAdminAll, "content")
+        initGetAllAdminUsers()
+      },
+      "/create/black-list": () => {
         renderTemplate(templateCreateBlackList, "content")
         initCreateBlackList()
       },
@@ -74,13 +91,25 @@ window.addEventListener("load", async () => {
         renderTemplate(templateCreateBuyerLogin, "content")
         initCreateBuyerLogin()
       },
+      "/users/all-buyers": () => {
+        renderTemplate(templateBuyerAll, "content")
+        initGetAllBuyerUsers()
+      },
       "/users/create-leaser": () => {
         renderTemplate(templateLeaserLogin, "content")
         initCreateLeaserLogin()
       },
+      "/users/all-leasers": () => {
+        renderTemplate(templateLeaserAll, "content")
+        initGetAllLeaserUsers()
+      },
       "/users/create-economy": () => {
         renderTemplate(templateEconomyLogin, "content")
         initCreateEconomyLogin()
+      },
+      "/users/all-economy": () => {
+        renderTemplate(templateEconomyAll, "content")
+        initGetAllEconomyUsers()
       },
       "/users/all": () => {
         renderTemplate(templateAllUsersLogin, "content")
