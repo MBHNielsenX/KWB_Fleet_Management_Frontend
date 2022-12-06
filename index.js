@@ -8,6 +8,7 @@ import { initCreateBrand } from "./src/pages/create-brand/createBrand.js"
 import { initAllBrands } from "./src/pages/all-brands/allBrands.js";
 import {initEditBrand} from "./src/pages/edit-brand/editBrand.js";
 import { initLogin } from "./src/pages/login/login.js";
+import { initOwnerships} from "./src/pages/ownership/ownerships.js";
 
 //Color
 import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js"
@@ -31,6 +32,7 @@ window.addEventListener("load", async () => {
   const templateLogin = await loadHtml("./src/pages/login/login.html")
   const templateColorMix = await loadHtml("./src/pages/color/colorMix/color-mix.html")
   const templateColorTypes = await loadHtml("./src/pages/color/colorTypes/color-types.html")
+  const templateOwnerships = await loadHtml("./src/pages/ownership/ownerships.html")
 
 
   //users
@@ -60,6 +62,10 @@ window.addEventListener("load", async () => {
       "/create-brand": () => {
         renderTemplate(templateCreateBrand, "content")
         initCreateBrand()
+      },
+      "/ownership": () => {
+        renderTemplate(templateOwnerships, "content")
+        initOwnerships()
       },
       "/all-brands": () => {
         renderTemplate(templateAllBrands, "content")
@@ -92,6 +98,11 @@ window.addEventListener("load", async () => {
       "/login": () => {
         renderTemplate(templateLogin, "content")
         initLogin()
+      },
+      "/ownerships": () => {
+        renderTemplate(templateOwnerships, "content")
+        initOwnerships(router)
+
       },
       "/color-types": () => {
         renderTemplate(templateColorTypes, "content")
