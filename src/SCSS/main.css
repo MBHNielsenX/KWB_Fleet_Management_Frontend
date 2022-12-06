@@ -1851,9 +1851,10 @@ h6.text--larger {
   width: 100%;
 }
 
-.grid--auto-2:not(.ct-section), .create-form:not(.ct-section),
+.grid--auto-2:not(.ct-section), .create-form:not(.ct-section), .section-hero__buttons:not(.ct-section),
 .ct-section.grid--auto-2 .ct-section-inner-wrap,
-.ct-section.create-form .ct-section-inner-wrap {
+.ct-section.create-form .ct-section-inner-wrap,
+.ct-section.section-hero__buttons .ct-section-inner-wrap {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(min(40.8026755853rem, 100vw - 6rem), 1fr));
   width: 100%;
@@ -1866,8 +1867,9 @@ h6.text--larger {
   width: 100%;
 }
 
-.grid--auto-4:not(.ct-section),
-.ct-section.grid--auto-4 .ct-section-inner-wrap {
+.grid--auto-4:not(.ct-section), .filter-tabs:not(.ct-section),
+.ct-section.grid--auto-4 .ct-section-inner-wrap,
+.ct-section.filter-tabs .ct-section-inner-wrap {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(min(24.4488977956rem, 100vw - 6rem), 1fr));
   width: 100%;
@@ -2375,16 +2377,18 @@ h6.text--larger {
   gap: clamp(1.6rem, 0.4166666667vw + 1.4666666667rem, 2rem);
 }
 
-.gap--m:not(.ct-section), .create-form:not(.ct-section),
+.gap--m:not(.ct-section), .filter-tabs:not(.ct-section), .create-form:not(.ct-section),
 .ct-section.gap--m > .ct-section-inner-wrap,
+.ct-section.filter-tabs > .ct-section-inner-wrap,
 .ct-section.create-form > .ct-section-inner-wrap {
   gap: 2.4rem;
   gap: calc(2.4rem + 0.6 * (100vw - 32rem) / 96);
   gap: clamp(2.4rem, 0.625vw + 2.2rem, 3rem);
 }
 
-.gap--l:not(.ct-section),
-.ct-section.gap--l > .ct-section-inner-wrap {
+.gap--l:not(.ct-section), .section-hero__buttons:not(.ct-section),
+.ct-section.gap--l > .ct-section-inner-wrap,
+.ct-section.section-hero__buttons > .ct-section-inner-wrap {
   gap: 2.7rem;
   gap: calc(3.1992rem + 1.3008 * (100vw - 32rem) / 96);
   gap: clamp(3.1992rem, 1.355vw + 2.7656rem, 4.5rem);
@@ -12861,9 +12865,10 @@ h6.text--larger {
   width: 100%;
 }
 
-.grid--auto-2:not(.ct-section), .create-form:not(.ct-section),
+.grid--auto-2:not(.ct-section), .create-form:not(.ct-section), .section-hero__buttons:not(.ct-section),
 .ct-section.grid--auto-2 .ct-section-inner-wrap,
-.ct-section.create-form .ct-section-inner-wrap {
+.ct-section.create-form .ct-section-inner-wrap,
+.ct-section.section-hero__buttons .ct-section-inner-wrap {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(min(40.8026755853rem, 100vw - 6rem), 1fr));
   width: 100%;
@@ -12876,8 +12881,9 @@ h6.text--larger {
   width: 100%;
 }
 
-.grid--auto-4:not(.ct-section),
-.ct-section.grid--auto-4 .ct-section-inner-wrap {
+.grid--auto-4:not(.ct-section), .filter-tabs:not(.ct-section),
+.ct-section.grid--auto-4 .ct-section-inner-wrap,
+.ct-section.filter-tabs .ct-section-inner-wrap {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(min(24.4488977956rem, 100vw - 6rem), 1fr));
   width: 100%;
@@ -13385,16 +13391,18 @@ h6.text--larger {
   gap: clamp(1.6rem, 0.4166666667vw + 1.4666666667rem, 2rem);
 }
 
-.gap--m:not(.ct-section), .create-form:not(.ct-section),
+.gap--m:not(.ct-section), .filter-tabs:not(.ct-section), .create-form:not(.ct-section),
 .ct-section.gap--m > .ct-section-inner-wrap,
+.ct-section.filter-tabs > .ct-section-inner-wrap,
 .ct-section.create-form > .ct-section-inner-wrap {
   gap: 2.4rem;
   gap: calc(2.4rem + 0.6 * (100vw - 32rem) / 96);
   gap: clamp(2.4rem, 0.625vw + 2.2rem, 3rem);
 }
 
-.gap--l:not(.ct-section),
-.ct-section.gap--l > .ct-section-inner-wrap {
+.gap--l:not(.ct-section), .section-hero__buttons:not(.ct-section),
+.ct-section.gap--l > .ct-section-inner-wrap,
+.ct-section.section-hero__buttons > .ct-section-inner-wrap {
   gap: 2.7rem;
   gap: calc(3.1992rem + 1.3008 * (100vw - 32rem) / 96);
   gap: clamp(3.1992rem, 1.355vw + 2.7656rem, 4.5rem);
@@ -22094,30 +22102,30 @@ https://docs.gerillass.com/docs/scissors/
   min-height: var(--space-s);
 }
 
-.css-init-table-trans-th, .table {
+.css-init-table-trans-th, .table, .table-strip {
   table-layout: fixed;
   border-collapse: separate;
   width: 100%;
   border-spacing: 0 0.7em;
 }
-.css-init-table-trans-th tr, .table tr {
+.css-init-table-trans-th tr, .table tr, .table-strip tr {
   width: var(--width-full);
   font-size: var(--text-m);
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
-.css-init-table-trans-th thead tr, .table thead tr {
+.css-init-table-trans-th thead tr, .table thead tr, .table-strip thead tr {
   background-color: transparent;
   border: none;
   box-shadow: none;
 }
-.css-init-table-trans-th th, .table th {
+.css-init-table-trans-th th, .table th, .table-strip th {
   padding: var(--space-s);
   text-align: center;
   color: var(--black);
   font-weight: bold;
 }
-.css-init-table-trans-th td, .table td {
+.css-init-table-trans-th td, .table td, .table-strip td {
   font-size: var(--text-s);
   font-weight: 600;
   padding: var(--space-xs);
@@ -22127,18 +22135,18 @@ https://docs.gerillass.com/docs/scissors/
   min-height: var(--space-s);
 }
 
-.css-init-table__multi td:nth-of-type(1), .css-init-table__multi td:nth-of-type(2) {
+.css-init-table__multi td:nth-of-type(1), .table-strip td:nth-of-type(1), .css-init-table__multi td:nth-of-type(2), .table-strip td:nth-of-type(2) {
   padding: revert;
   height: calc(var(--space-xl) / 2);
   max-height: calc(var(--space-xl) / 2);
   min-height: calc(var(--space-s) / 2);
 }
-.css-init-table__multi td:nth-of-type(1) {
+.css-init-table__multi td:nth-of-type(1), .table-strip td:nth-of-type(1) {
   display: block;
   padding-top: var(--space-xs);
   padding-bottom: 0;
 }
-.css-init-table__multi td:nth-of-type(2) {
+.css-init-table__multi td:nth-of-type(2), .table-strip td:nth-of-type(2) {
   display: block;
   padding-top: 0;
 }
@@ -22304,6 +22312,60 @@ button:focus::after, [type=button]:focus::after, [type=reset]:focus::after, [typ
   border: 1px solid var(--black);
 }
 
+.section-hero__buttons {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.primary-button {
+  width: 100%;
+  background: #112945;
+  color: #fff;
+  text-transform: capitalize;
+}
+.primary-button::after {
+  background-color: #f2f2f2;
+  box-shadow: 0 0 0 1px var(--black);
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: 0.35rem;
+  transition: all 0.3s ease-in-out;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+.primary-button:hover {
+  background: #142f50;
+}
+.primary-button:hover::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  width: calc(100% + 1rem);
+  height: calc(100% + 1rem);
+  border: 1px solid var(--black-trans-10);
+}
+.primary-button:focus {
+  background: #142f50;
+}
+.primary-button:focus::after {
+  background-color: #23afaf;
+  top: 0.1rem;
+  left: -0.1rem;
+  width: calc(100% + 0.2rem);
+  height: calc(100% + 1rem);
+  border: 1px solid var(--black);
+}
+
+.section-hero__link {
+  width: 100%;
+}
+
 @media (min-width: 0) {
   body::before {
     content: "xsmall";
@@ -22395,6 +22457,13 @@ body.breakpointer::before {
   animation-duration: 0.5s;
 }
 
+.table-strip tr {
+  background: #fff;
+}
+.table-strip td {
+  color: #000;
+}
+
 .ct-section {
   width: 100%;
   background-size: cover;
@@ -22438,6 +22507,27 @@ body.breakpointer::before {
   align-items: center;
   padding-top: var(--space-xs);
   padding-bottom: var(--space-l);
+}
+
+.section-hero {
+  display: inline-block;
+  width: var(--width-full);
+  justify-content: center;
+  align-items: center;
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-l);
+}
+
+.section-hero__inner-wrap {
+  display: inline-block;
+  width: var(--width-full);
+  justify-content: center;
+  align-items: center;
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-l);
+}
+.section-hero__inner-wrap--small {
+  padding: 0 0 var(--space-s) 0;
 }
 
 [type=color], [type=date], [type=datetime], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=text], [type=time], [type=url], [type=week], input:not([type]), textarea {
@@ -22624,6 +22714,15 @@ body.breakpointer::before {
   font-weight: bold;
   color: #000;
   text-decoration: underline;
+}
+
+li.nav__flow-li::marker {
+  display: flex;
+}
+
+.nav__flow-li--active {
+  color: #000;
+  font-weight: 600;
 }
 
 .sidebar {
@@ -22932,7 +23031,25 @@ body.breakpointer::before {
   justify-content: center;
   align-items: center;
   padding-bottom: var(--space-xl);
-} /* ADD just below - Above responsive/queries */
+  text-transform: capitalize;
+}
+
+.section-hero__header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-bottom: var(--space-m);
+  text-transform: capitalize;
+}
+.section-hero__header--small {
+  padding: 0;
+}
+
+.filter-tabs {
+  padding: 0 0 var(--space-xl) 0;
+}
+
+/* ADD just below - Above responsive/queries */
 /* LAST STYLESHEET SHOULD BE queries */
 /* Either load all pages in main.scss
 OR

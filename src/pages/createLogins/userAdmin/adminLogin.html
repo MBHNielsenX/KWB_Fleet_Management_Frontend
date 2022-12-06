@@ -1,31 +1,56 @@
-<div class="template">
-    <div> <!-- class = "admin-view" -->
-        <div class="main-container" style="margin-left: 10%;">
+<div class="template ct-section">
+    <div> <!-- admin = "admin-view" -->
+        <div class="ct-section-inner-wrap">
+            <div class="hero">
+
+                <div class="hero__header">
+                    <h1>Create Admin User</h1>
+                </div>
+                <div class="nav">
+                    <nav class="nav__flow-nav">
+                        <ol class="nav__flow-ol">
+                            <li class="nav__flow-li nav__flow-li--active"><a class="nav__flow-a nav__flow-a--active"
+                                                                             href="/users/create-admin" data-navigo>Create Admin User</a></li>
+                            <li class="nav__flow-li"><a class="nav__flow-a"
+                                                        href="/users/all-admins" data-navigo>All Admin users</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
 
             <h1 id="admin-response-text-succes" style="display: none"></h1>
             <h1 id="admin-response-text-error" style="display: none"></h1>
 
-            <h1>Create Admin Login</h1>
+            <div class="create-form">
+                <div class="floating">
+                    <input type="text" id="admin-first-name" class="floating__input" placeholder="Firstname" required>
+                    <label for="admin-first-name" class="floating__label" data-content="Firstname"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="admin-last-name" class="floating__input" placeholder="Lastname" required>
+                    <label for="admin-last-name" class="floating__label" data-content="Lastname"></label>
+                </div>
 
-            <label>First Name</label><br>
-            <input type="text" id="admin-first-name" required><br>
+                <div class="floating">
+                    <input type="text" id="admin-phone-number" class="floating__input" placeholder="Phone" required>
+                    <label for="admin-phone-number" class="floating__label" data-content="Phone"></label>
+                </div>
+                <div class="floating">
+                    <input type="email" id="admin-email" class="floating__input" placeholder="eMail" required>
+                    <label for="admin-email" class="floating__label" data-content="eMail"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="admin-username" class="floating__input" placeholder="Username" required>
+                    <label for="admin-username" class="floating__label" data-content="Username"></label>
+                </div>
 
-            <label>Last Name</label><br>
-            <input type="text" id="admin-last-name" required><br>
+                <div class="floating">
+                    <input type="password" id="admin-password" class="floating__input" placeholder="Password" required>
+                    <label for="admin-password" class="floating__label" data-content="Password"></label>
+                </div>
+                <button class="primary-button" type="submit" id="admin-create-login">Create Admin User</button>
 
-            <label>Phone Number</label><br>
-            <input type="text" id="admin-phone-number" required><br>
-
-            <label>E-mail</label><br>
-            <input type="email" id="admin-email" required><br>
-
-            <label>Username</label><br>
-            <input type="text" id="admin-username" required><br>
-
-            <label>password</label><br>
-            <input type="text" id="admin-password" required><br>
-
-            <button type="submit" id="admin-create-login">Create</button>
+            </div>
 
 
         </div>

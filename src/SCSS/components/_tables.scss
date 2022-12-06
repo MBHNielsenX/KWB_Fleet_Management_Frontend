@@ -36,3 +36,11 @@
     }
   }
 }
+.table-strip{
+  @include table("multi-trans", $tbody-bg: $white, $thead-bg: $primary);
+
+}
+.filter-tabs__tab-content{
+
+}
+
