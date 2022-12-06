@@ -12,15 +12,29 @@ export async function initAllBrands(){
         let id = element.target.id
         let brand = element.target.value
         console.log(brand)
-        if (id.startsWith("btn-add-color-mix-") || id.startsWith("link-view-color-mixes")){
-            addColorMixRedirect(id, brand)
-        } else if (id.startsWith("btn-kebab-menu-")){
-            displayKebabMenu(id)
-        } else if (id.startsWith("link-delete-brand-")){
-            deleteBrand(id)
-        } else if (id.startsWith("link-edit-brand-")){
-            editBrandRedirect(id)
+
+        const onClick = (event) => {
+            if (event.target.id.startsWith("btn-add-color-mix-")  || event.target.id.startsWith("link-view-color-mixes")) {
+                addColorMixRedirect(event.target.id, event.target.value)
+            } else if (event.target.id.startsWith("btn-kebab-menu-")) {
+                displayKebabMenu(event.target.id)
+            } else if (event.target.id.startsWith("link-delete-brand-")) {
+                deleteBrand(event.target.id)
+            } else if (event.target.id.startsWith("link-edit-brand-")) {
+                editBrandRedirect(event.target.id)
+            }
         }
+        window.addEventListener('click', onClick)
+
+       //if (id.startsWith("btn-add-color-mix-") || id.startsWith("link-view-color-mixes")){
+       //    addColorMixRedirect(id, brand)
+       //} else if (id.startsWith("btn-kebab-menu-")){
+       //    displayKebabMenu(id)
+       //} else if (id.startsWith("link-delete-brand-")){
+       //    deleteBrand(id)
+       //} else if (id.startsWith("link-edit-brand-")){
+       //    editBrandRedirect(id)
+       //}
     }
 
     try{
