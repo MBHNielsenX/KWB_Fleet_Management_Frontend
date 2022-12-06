@@ -1,0 +1,9 @@
+@use "../abstract/mixins" as *;
+@use "../vendors/mixins-vendor" as *;
+@use "../base/root" as *;
+
+.filter-tabs {
+  padding: 0 0 $space-xl 0;
+  @extend .grid--auto-4;
+  @extend .gap--m;
+}

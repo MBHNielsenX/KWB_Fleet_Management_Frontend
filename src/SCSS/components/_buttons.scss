@@ -14,7 +14,6 @@
   border-radius: 0.35rem;
   position: relative;
   cursor: pointer;
-  margin: var(--space-xs) 0;
   @include after {
     background-color: var(--secondary);
     box-shadow: 0 0 0 1px var(--black);
@@ -49,4 +48,59 @@
       border: 1px solid var(--black);
     }
   }
+}
+
+
+.section-hero__buttons {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    @extend .grid--auto-2;
+    @extend .gap--l;
+}
+
+.primary-button {
+  width: 100%;
+  background: $primary;
+  color: $white;
+  text-transform: capitalize;
+  @include after {
+    background-color: $base;
+    box-shadow: 0 0 0 1px var(--black);
+
+    content: "";
+    @include position(absolute, 0 0 0 0);
+
+    z-index: -1;
+    border-radius: 0.35rem;
+    transition: all 0.3s ease-in-out;
+    border: 0;
+    width: calc(100%);
+    height: calc(100%);
+  }
+  &:hover {
+    background: $primary-hover;
+    @include after {
+      top: -0.5rem;
+      left: -0.5rem;
+      width: calc(100% + 0.5rem * 2);
+      height: calc(100% + 0.5rem * 2);
+      border: 1px solid var(--black-trans-10);
+
+    }
+  }
+  &:focus {
+    background: $primary-hover;
+    @include after {
+      background-color: #23afaf;
+      top: 0.1rem;
+      left: -0.1rem;
+      width: calc(100% + 0.1rem * 2);
+      height: calc(100% + 0.5rem * 2);
+      border: 1px solid var(--black);
+    }
+  }
+}
+.section-hero__link{
+  width: 100%;
 }

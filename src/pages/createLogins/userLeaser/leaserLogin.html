@@ -1,52 +1,83 @@
-<div class="template">
+<div class="template ct-section">
     <div> <!-- class = "leaser-view" -->
-        <div class="main-container" style="margin-left: 10%;">
+        <div class="ct-section-inner-wrap">
+            <div class="hero">
 
+                <div class="hero__header">
+                    <h1>Create Leaser User</h1>
+                </div>
+                <div class="nav">
+                    <nav class="nav__flow-nav">
+                        <ol class="nav__flow-ol">
+                            <li class="nav__flow-li nav__flow-li--active"><a class="nav__flow-a nav__flow-a--active"
+                                                                             href="/users/create-leaser" data-navigo>Create Leaser User</a></li>
+                            <li class="nav__flow-li"><a class="nav__flow-a"
+                                                        href="/users/all-leasers" data-navigo>All Leaser users</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
             <h1 id="leaser-response-text-succes" style="display: none"></h1>
             <h1 id="leaser-response-text-error" style="display: none"></h1>
 
-            <h1>Create Leaser Login</h1>
+            <div class="create-form">
+                <div class="floating">
+                    <input type="text" id="leaser-username" class="floating__input" placeholder="Username" required>
+                    <label for="leaser-username" class="floating__label" data-content="Username"></label>
+                </div>
 
-            <label>First Name</label><br>
-            <input type="text" id="leaser-first-name" required><br>
+                <div class="floating">
+                    <input type="text" id="leaser-email" class="floating__input" placeholder="eMail" required>
+                    <label for="leaser-email" class="floating__label" data-content="eMail"></label>
+                </div>
 
-            <label>Last Name</label><br>
-            <input type="text" id="leaser-last-name" required><br>
 
-            <label>Phone Number</label><br>
-            <input type="text" id="leaser-phone-number" required><br>
+                <div class="floating">
+                    <input type="text" id="leaser-first-name" class="floating__input" placeholder="Firstname" required>
+                    <label for="leaser-first-name" class="floating__label" data-content="Firstname"></label>
+                </div>
 
-            <label>E-mail</label><br>
-            <input type="email" id="leaser-email" required><br>
+                <div class="floating">
+                    <input type="text" id="leaser-last-name" class="floating__input" placeholder="Lastname" required>
+                    <label for="leaser-last-name" class="floating__label" data-content="Lastname"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="leaser-address-line-1" class="floating__input" placeholder="Address 1" required>
+                    <label for="leaser-address-line-1" class="floating__label" data-content="Address 1"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="leaser-address-line-2" class="floating__input" placeholder="Address 2">
+                    <label for="leaser-address-line-2" class="floating__label" data-content="Address 2"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="leaser-company-name" class="floating__input" placeholder="Company Name" required>
+                    <label for="leaser-company-name" class="floating__label" data-content="Company Name"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="leaser-company-eu-vat-number" class="floating__input" placeholder="Company EU VAT Number" required>
+                    <label for="leaser-company-eu-vat-number" class="floating__label" data-content="Company EU VAT Number"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="leaser-phone-number" class="floating__input" placeholder="Phone" required>
+                    <label for="leaser-phone-number" class="floating__label" data-content="Phone"></label>
+                </div>
 
-            <label>Company Name</label><br>
-            <input type="text" id="leaser-company-name" required><br>
+                <div class="floating">
+                    <input type="text" id="leaser-city" class="floating__input" placeholder="City" required>
+                    <label for="leaser-city" class="floating__label" data-content="City"></label>
+                </div>
 
-            <label>Company Eu Vat Number</label><br>
-            <input type="text" id="leaser-company-eu-vat-number" required><br>
+                <div class="floating">
+                    <input type="text" id="leaser-country" class="floating__input" placeholder="Country" required>
+                    <label for="leaser-country" class="floating__label" data-content="Country"></label>
+                </div>
 
-            <label>addressLine 1</label><br>
-            <input type="text" id="leaser-address-line-1" required><br>
-
-            <label>addressLine 2</label><br>
-            <input type="text" id="leaser-address-line-2"><br>
-
-            <label>City</label><br>
-            <input type="text" id="leaser-city" required><br>
-
-            <label>ZipCode</label><br>
-            <input type="text" id="leaser-zip-code" required><br>
-
-            <label>Country</label><br>
-            <input type="text" id="leaser-country" required><br>
-
-            <label>Username</label><br>
-            <input type="text" id="leaser-username" required><br>
-
-            <label>password</label><br>
-            <input type="text" id="leaser-password" required><br>
-
-            <button type="submit" id="leaser-create-login">Create</button>
+                <div class="floating">
+                    <input type="text" id="leaser-zip-code" class="floating__input" placeholder="Zip Code" required>
+                    <label for="leaser-zip-code" class="floating__label" data-content="Zip Code"></label>
+                </div>
+                <button class="primary-button" type="submit" id="leaser-create-login">Create Buyer User</button>
+            </div>
 
 
         </div>

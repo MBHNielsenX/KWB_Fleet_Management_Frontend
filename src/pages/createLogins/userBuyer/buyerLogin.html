@@ -1,53 +1,87 @@
-<div class="template">
+<div class="template ct-section">
     <div> <!-- class = "buyer-view" -->
-        <div class="main-container" style="margin-left: 10%;">
+        <div class="ct-section-inner-wrap">
+            <div class="hero">
+
+                <div class="hero__header">
+                    <h1>Create Buyer User</h1>
+                </div>
+                <div class="nav">
+                    <nav class="nav__flow-nav">
+                        <ol class="nav__flow-ol">
+                            <li class="nav__flow-li nav__flow-li--active"><a class="nav__flow-a nav__flow-a--active"
+                                                                             href="/users/create-buyer" data-navigo>Create Buyer User</a></li>
+                            <li class="nav__flow-li"><a class="nav__flow-a"
+                                                        href="/users/all-buyers" data-navigo>All Buyers users</a></li>
+                            <li class="nav__flow-li"><a class="nav__flow-a"
+                                                        href="/users/all-damagematrixes" data-navigo>All damagematrixes</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
 
             <h1 id="buyer-response-text-succes" style="display: none"></h1>
             <h1 id="buyer-response-text-error" style="display: none"></h1>
 
-            <h1>Create Buyer Login</h1>
 
-            <label>First Name</label><br>
-            <input type="text" id="buyer-first-name" required><br>
+            <div class="create-form">
+                <div class="floating">
+                    <input type="text" id="buyer-username" class="floating__input" placeholder="Username" required>
+                    <label for="buyer-username" class="floating__label" data-content="Username"></label>
+                </div>
 
-            <label>Last Name</label><br>
-            <input type="text" id="buyer-last-name" required><br>
+                <div class="floating">
+                    <input type="text" id="buyer-email" class="floating__input" placeholder="eMail" required>
+                    <label for="buyer-email" class="floating__label" data-content="eMail"></label>
+                </div>
 
-            <label>Phone Number</label><br>
-            <input type="text" id="buyer-phone-number" required><br>
 
-            <label>E-mail</label><br>
-            <input type="email" id="buyer-email" required><br>
+                <div class="floating">
+                    <input type="text" id="buyer-first-name" class="floating__input" placeholder="Firstname" required>
+                    <label for="buyer-first-name" class="floating__label" data-content="Firstname"></label>
+                </div>
 
-            <label>Company Name</label><br>
-            <input type="text" id="buyer-company-name" required><br>
+                <div class="floating">
+                    <input type="text" id="buyer-last-name" class="floating__input" placeholder="Lastname" required>
+                    <label for="buyer-last-name" class="floating__label" data-content="Lastname"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="buyer-address-line-1" class="floating__input" placeholder="Address 1" required>
+                    <label for="buyer-address-line-1" class="floating__label" data-content="Address 1"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="buyer-address-line-2" class="floating__input" placeholder="Address 2">
+                    <label for="buyer-address-line-2" class="floating__label" data-content="Address 2"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="buyer-company-name" class="floating__input" placeholder="Company Name" required>
+                    <label for="buyer-company-name" class="floating__label" data-content="Company Name"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="buyer-company-eu-vat-number" class="floating__input" placeholder="Company EU VAT Number" required>
+                    <label for="buyer-company-eu-vat-number" class="floating__label" data-content="Company EU VAT Number"></label>
+                </div>
+                <div class="floating">
+                    <input type="text" id="buyer-phone-number" class="floating__input" placeholder="Phone" required>
+                    <label for="buyer-phone-number" class="floating__label" data-content="Phone"></label>
+                </div>
 
-            <label>Company Eu Vat Number</label><br>
-            <input type="text" id="buyer-company-eu-vat-number" required><br>
+                <div class="floating">
+                    <input type="text" id="buyer-city" class="floating__input" placeholder="City" required>
+                    <label for="buyer-city" class="floating__label" data-content="City"></label>
+                </div>
 
-            <label>addressLine 1</label><br>
-            <input type="text" id="buyer-address-line-1" required><br>
+                <div class="floating">
+                    <input type="text" id="buyer-country" class="floating__input" placeholder="Country" required>
+                    <label for="buyer-country" class="floating__label" data-content="Country"></label>
+                </div>
 
-            <label>addressLine 2</label><br>
-            <input type="text" id="buyer-address-line-2"><br>
-
-            <label>City</label><br>
-            <input type="text" id="buyer-city" required><br>
-
-            <label>ZipCode</label><br>
-            <input type="text" id="buyer-zip-code" required><br>
-
-            <label>Country</label><br>
-            <input type="text" id="buyer-country" required><br>
-
-            <label>Username</label><br>
-            <input type="text" id="buyer-username" required><br>
-
-            <label>password</label><br>
-            <input type="text" id="buyer-password" required><br>
-
-            <button type="submit" id="buyer-create-login">Create</button>
-
+                <div class="floating">
+                    <input type="text" id="buyer-zip-code" class="floating__input" placeholder="Zip Code" required>
+                    <label for="buyer-zip-code" class="floating__label" data-content="Zip Code"></label>
+                </div>
+                <button class="primary-button" type="submit" id="buyer-create-login">Create Buyer User</button>
+            </div>
 
         </div>
     </div>
