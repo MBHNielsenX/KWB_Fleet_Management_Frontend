@@ -30,22 +30,32 @@ async function insertPlaceholderText(brand){
     document.getElementById("input-model-year").value = brand.modelYear
 }
 
+async function updatePlaceholderText(brand){
+    document.getElementById("model-info-header").innerHTML = brand.modelYear+", "+brand.brand+" "+brand.model;
+    document.getElementById("input-brand").value = "";
+    document.getElementById("input-model").value = "";
+    document.getElementById("input-model-year").value = "";
+}
+
 async function editBrand(id){
-    const inputBrand = document.getElementById("input-brand").value
-    const inputModel = document.getElementById("input-model").value
-    const inputModelYear = document.getElementById("input-model-year").value
+    const oldBrand = await fetch(url+id, await checkTokenGet()).then(res => res.json())
+
+    const inputBrand = document.getElementById("input-brand").value;
+    const inputModel = document.getElementById("input-model").value;
+    const inputModelYear = document.getElementById("input-model-year").value;
 
     const updatedBrand = {
         id: id,
         brand: inputBrand,
         model: inputModel,
         modelYear: inputModelYear
-    }
+    };
 
     try {
         await fetch(url, await checkTokenPut(updatedBrand))
         await insertPlaceholderText(updatedBrand)
-        document.getElementById("brand-status").innerHTML = "Model with id: "+id+" was successfully updated"
+        document.getElementById("brand-status").innerHTML = "Model with id: "+id+" was successfully updated from "+oldBrand.modelYear+", "+oldBrand.brand+" "+oldBrand.model+" to "
+        +updatedBrand.modelYear+", "+updatedBrand.brand+" "+updatedBrand.model
     }catch (e) {
         console.log(e)
         document.getElementById("brand-status").innerHTML = "An error occurred while trying to edit brand with id: "+id;
