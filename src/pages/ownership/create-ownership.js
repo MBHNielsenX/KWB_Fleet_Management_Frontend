@@ -8,7 +8,7 @@ let router;
 export function initCreateOwnership(navigoRouter) {
     checkRoleAdmin();
     router = navigoRouter
-    addOwnership()
+    document.getElementById("create-ownership").onclick = addOwnership
 }
 
 async function addOwnership() {
