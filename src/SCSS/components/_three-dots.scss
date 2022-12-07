@@ -1,3 +1,22 @@
 @use "../abstract/mixins" as *;
 @use "../vendors/mixins-vendor" as *;
 @use "../base/root" as *;
+
+
+.three-dots{
+ display: inline-block;
+  vertical-align: unset;
+
+  height: 100%;
+  padding: 0;
+}
+
+.three-dots__dot{
+  padding: 0;
+  height: 12px;
+
+}
+
+.three-dots__dot::marker{
+  font-size: 1.8rem;
+}
