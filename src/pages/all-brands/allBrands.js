@@ -13,9 +13,9 @@ export async function initAllBrands(){
 
     const onClick = (event) => {
         let id = event.target.id.split('-')[event.target.id.split('-').length-1]
-        let brand = event.target.value
+
         if (event.target.id.startsWith("btn-add-color-mix-")  || event.target.id.startsWith("link-view-color-mixes")) {
-            addColorMixRedirect(id, brand)
+            addColorMixRedirect(id)
         } else if (event.target.id.startsWith("btn-kebab-menu-")) {
             displayKebabMenu(id)
         } else if (event.target.id.startsWith("link-delete-brand-")) {
@@ -39,7 +39,7 @@ export async function initAllBrands(){
             <td>${specificCarModel.model}</td>
             <td>${specificCarModel.modelYear}</td>
             <td>${specificCarModel.colorMixAmounts}</td>
-            <td><button id="btn-add-color-mix-${specificCarModel.id}" value="${specificCarModel.brand}">Add Colormix</button></td>
+            <td><button id="btn-add-color-mix-${specificCarModel.id}" >Add Colormix</button></td>
             <td><button id="btn-kebab-menu-${specificCarModel.id}">...</button></td>
             <ul id="kebab-menu-${specificCarModel.id}"></ul>
         </tr>`)
@@ -48,8 +48,8 @@ export async function initAllBrands(){
     document.getElementById("table-body").innerHTML=rows
 }
 
-async function addColorMixRedirect(id, brand){
-    router.navigate(`color-mix/c-mix?id=${id}&brand=${brand}`)
+async function addColorMixRedirect(id){
+    router.navigate(`color-mix/c-mix?id=${id}`)
 }
 
 async function editBrandRedirect(id){

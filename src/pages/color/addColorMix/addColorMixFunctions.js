@@ -1,28 +1,24 @@
 import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
+import {initColorMix} from "../colorMix/colorMixFunctions.js";
 
 let URL = SERVER_URL + "/color-mix/add/";
+let allColorMixURL = SERVER_URL + "/color-mix/"
 let ColorTypeURL = SERVER_URL + "/color-types"
 let router;
 
 let id
-let brand
+
 
 export function initAddColorMix(navigoRouter, match) {
     checkRoleAdmin()
-    if (match?.params?.id) {
-        id = match.params.id
-        brand = match.params.brand
-        console.log(brand)
         try {
-            getSpecific(id, brand);
+            initColorMix(navigoRouter, match)
             getColorTypes();
+            getPreExistingColorMix()
         } catch (err) {
-
-        }
     }
     const onClick = (event) => {
-        let id = event.target.id.split('-')[event.target.id.split('-').length-1]
         if (event.target.id.startsWith("submit")) {
             addColorMix()
         }
@@ -30,6 +26,22 @@ export function initAddColorMix(navigoRouter, match) {
     window.addEventListener('click', onClick)
     router = navigoRouter
 }
+async function getPreExistingColorMix() {
+    try {
+        const data = await fetch(allColorMixURL, await checkTokenGet()).then(res => res.json())
+        console.log(data)
+        const optionsArray = data.map(
+            colorMix =>
+                `
+                <option>${colorMix.colorCode} ${colorMix.colorTypesResponse.type}</option>
+                `);
+        const optionString = optionsArray.join("\n");
+        document.getElementById("if0").innerHTML = optionString;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 async function getColorTypes() {
     try {
         const data = await fetch(ColorTypeURL, await checkTokenGet()).then(res => res.json())
@@ -46,32 +58,7 @@ async function getColorTypes() {
     }
 }
 
-async function getSpecific(id, brand) {
-    try {
-        const data = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
-        if (Object.keys(data).length === 0) {
-            throw new Error("No colormix found for id: " + id)
-        }
-        console.log(data)
-        const tableRowsArray = data.map(
-            colorMix =>
-                `
-        <tr>
-            <td>${colorMix.id}</td>
-            <td>${colorMix.colorCode}</td>
-            <td>${colorMix.colorName}</td>
-            <td>${colorMix.colorTypesResponse.id}</td>
-            </tr>
-            `);
-        const tableRowsString = tableRowsArray.join("\n");
-        document.getElementById("tbody-all").innerHTML = tableRowsString;
-        document.getElementById("header-title").innerHTML = brand;
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-async function deleteColorMix(id, brand) {
+async function deleteColorMix(id) {
     const idDelete = document.getElementById("if1").value;
     URL = URL + "/" + idDelete
     console.log(URL)
@@ -79,7 +66,7 @@ async function deleteColorMix(id, brand) {
         method: "DELETE",
 
     }).then((res) => res.json()).then
-    getSpecific(id, brand)
+    getSpecific(id)
 }
 
 
@@ -129,5 +116,5 @@ async function addColorMix() {
     })
         .then((res) => res.json())
 
-    getSpecific(id, brand)
+    getSpecific(id)
 }

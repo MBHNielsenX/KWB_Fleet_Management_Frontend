@@ -2,34 +2,49 @@ import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
 
 let URL = SERVER_URL + "/color-mix/c-mix/";
+let specificCarURL = SERVER_URL + "/specific-car-model/"
+let allColorMix = SERVER_URL + "/color-mix/"
+let ColorTypeURL = SERVER_URL + "/color-types"
 let router;
 
 let id
-let brand
+
 
 export function initColorMix(navigoRouter, match) {
     checkRoleAdmin()
     if (match?.params?.id) {
         id = match.params.id
-        brand = match.params.brand
-        console.log(brand)
         try {
-            getSpecific(id, brand);
+            getSpecificCar(id);
         } catch (err) {
 
         }
     }
     const onClick = (event) => {
-        let id = event.target.id.split('-')[event.target.id.split('-').length-1]
         if (event.target.id.startsWith("submit")) {
-            addColorMixRedirect(id, brand)
+            addColorMixRedirect(id)
         }
     }
     window.addEventListener('click', onClick)
     router = navigoRouter
 }
 
-async function getSpecific(id, brand) {
+async function getSpecificCar(id) {
+    try {
+        const data = await fetch(specificCarURL + id, await checkTokenGet()).then(res => res.json())
+        if (Object.keys(data).length === 0) {
+            throw new Error("No colormix found for id: " + id)
+        }
+        console.log(data)
+        document.getElementById("header-title").innerHTML ="Colormixes for: " + data.brand + " " + data.model + " " + data.modelYear;
+    } catch (err) {
+        console.log(err)
+    }
+    getColormixes(id)
+}
+
+
+async function getColormixes(id) {
     try {
         const data = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
         if (Object.keys(data).length === 0) {
@@ -48,7 +63,6 @@ async function getSpecific(id, brand) {
             `);
         const tableRowsString = tableRowsArray.join("\n");
         document.getElementById("tbody-all").innerHTML = tableRowsString;
-        document.getElementById("header-title").innerHTML = brand;
     } catch(err) {
         console.log(err);
     }
@@ -113,6 +127,6 @@ async function editColorMix() {
 }
 
 
-async function addColorMixRedirect(id, brand) {
-    router.navigate(`color-mix/add?id=${id}&brand=${brand}`)
+async function addColorMixRedirect(id) {
+    router.navigate(`color-mix/add?id=${id}`)
 }
