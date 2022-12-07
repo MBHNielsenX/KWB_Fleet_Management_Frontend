@@ -9,24 +9,13 @@ let specificCarModels = [];
 export async function initAllBrands(){
     checkRoleAdmin()
     document.getElementById("table-body").onclick = (element) =>{
-        let id = element.target.id
-        let brand = element.target.value
-        console.log(brand)
-
-       //if (id.startsWith("btn-add-color-mix-") || id.startsWith("link-view-color-mixes")){
-       //    addColorMixRedirect(id, brand)
-       //} else if (id.startsWith("btn-kebab-menu-")){
-       //    displayKebabMenu(id)
-       //} else if (id.startsWith("link-delete-brand-")){
-       //    deleteBrand(id)
-       //} else if (id.startsWith("link-edit-brand-")){
-       //    editBrandRedirect(id)
-       //}
     }
+
     const onClick = (event) => {
         let id = event.target.id.split('-')[event.target.id.split('-').length-1]
+        let brand = event.target.value
         if (event.target.id.startsWith("btn-add-color-mix-")  || event.target.id.startsWith("link-view-color-mixes")) {
-            addColorMixRedirect(id, event.target.value)
+            addColorMixRedirect(id, brand)
         } else if (event.target.id.startsWith("btn-kebab-menu-")) {
             displayKebabMenu(id)
         } else if (event.target.id.startsWith("link-delete-brand-")) {
@@ -59,17 +48,12 @@ export async function initAllBrands(){
     document.getElementById("table-body").innerHTML=rows
 }
 
-async function getId(id){
-    id = id.split('-')
-    return id[id.length-1]
-}
-
 async function addColorMixRedirect(id, brand){
-    router.navigate(`color-mix?id=${await getId(id)}&brand=${brand}`)
+    router.navigate(`color-mix/c-mix?id=${id}&brand=${brand}`)
 }
 
 async function editBrandRedirect(id){
-    router.navigate(`edit-brand?id=${await getId(id)}`)
+    router.navigate(`edit-brand?id=${id}`)
 }
 
 async function displayKebabMenu(id){
@@ -81,10 +65,10 @@ async function displayKebabMenu(id){
 }
 
 async function deleteBrand(id){
-    const confirmDeletion = confirm("Are you sure you wish to delete brand with id: " + await getId(id)+"?");
+    const confirmDeletion = confirm("Are you sure you wish to delete brand with id: " + id+"?");
     try {
         if (confirmDeletion === true) {
-            await fetch(deleteUrl + await getId(id), await checkTokenDelete())
+            await fetch(deleteUrl + id, await checkTokenDelete())
             location.reload()
         }
     } catch (e){

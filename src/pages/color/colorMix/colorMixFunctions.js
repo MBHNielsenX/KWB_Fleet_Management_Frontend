@@ -4,15 +4,14 @@ import {SERVER_URL} from "../../../../settings.js"
 let URL = SERVER_URL + "/color-mix/c-mix/";
 let router;
 
-let colorMix = [];
-
+let id
+let brand
 
 export function initColorMix(navigoRouter, match) {
     checkRoleAdmin()
-    //getAllColorMixes();
     if (match?.params?.id) {
-        const id = match.params.id
-        const brand = match.params.brand
+        id = match.params.id
+        brand = match.params.brand
         console.log(brand)
         try {
             getSpecific(id, brand);
@@ -20,6 +19,13 @@ export function initColorMix(navigoRouter, match) {
 
         }
     }
+    const onClick = (event) => {
+        let id = event.target.id.split('-')[event.target.id.split('-').length-1]
+        if (event.target.id.startsWith("submit")) {
+            addColorMixRedirect(id, brand)
+        }
+    }
+    window.addEventListener('click', onClick)
     router = navigoRouter
 }
 
@@ -107,24 +113,6 @@ async function editColorMix() {
 }
 
 
-async function addColorMix() {
-    const colorCode = document.getElementById("if1").value;
-    const colorName = document.getElementById("if2").value;
-    const colorTypeId = document.getElementById("if3").value;
-
-    const newColorMix = {
-        colorCode,
-        colorTypeId,
-        colorName
-    };
-    console.log(newColorMix)
-
-    const id = await fetch(URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newColorMix),
-    })
-        .then((res) => res.json())
+async function addColorMixRedirect(id, brand) {
+    router.navigate(`color-mix/add?id=${id}&brand=${brand}`)
 }
