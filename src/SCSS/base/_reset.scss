@@ -6,8 +6,16 @@
 body {
   -webkit-font-smoothing: antialiased;
 }
+ul,ol{
+  padding-left: 0;
+}
+th{
+  border-color: inherit;
+  border-style: none;
+  border-width: 0;
+}
 /*
-   Improve media defaults
+ Improve media defaults
 */
 img,
 picture,
@@ -28,6 +36,7 @@ h4,
 h5,
 h6 {
   overflow-wrap: break-word;
+  font-weight: 600;
 }
 /*
   Create a root stacking context
@@ -35,4 +44,7 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+.modal-backdrop{
+  z-index: 0;
 }
