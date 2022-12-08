@@ -22349,6 +22349,67 @@ button:hover::after, [type=button]:hover::after, [type=reset]:hover::after, [typ
   width: 100%;
 }
 
+.filter-tabs__tab-links {
+  background-color: #fff;
+  border: solid 1px #000;
+  color: #000;
+  font-weight: 600;
+  outline: 0;
+  padding: var(--space-xs) var(--space-l);
+  font-size: var(--text-m);
+  letter-spacing: 0.08rem;
+  border-radius: 0.35rem;
+  position: relative;
+  cursor: pointer;
+  margin: var(--space-xs) 0;
+}
+.filter-tabs__tab-links::after {
+  background-color: var(--secondary);
+  box-shadow: 0px 0px 0px 1px var(--black);
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: 0.35rem;
+  transition: all 0.3s ease-in-out;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+.filter-tabs__tab-links:hover::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  width: calc(100% + 1rem);
+  height: calc(100% + 1rem);
+  border: 1px solid var(--black-trans-10);
+}
+.filter-tabs__tab-links:focus {
+  background-color: rgb(232, 240, 254);
+}
+.filter-tabs__tab-links:focus::after {
+  background-color: #23afaf;
+  top: 0.1rem;
+  left: -0.1rem;
+  width: calc(100% + 0.2rem);
+  height: calc(100% + 1rem);
+  border: 1px solid var(--black);
+}
+
+.filter-tabs__tab-links--focus {
+  background-color: rgb(232, 240, 254);
+}
+.filter-tabs__tab-links--focus::after {
+  background-color: #23afaf;
+  top: 0.1rem;
+  left: -0.1rem;
+  width: calc(100% + 0.2rem);
+  height: calc(100% + 1rem);
+  border: 1px solid var(--black);
+}
+
 @media (min-width: 0) {
   body::before {
     content: "xsmall";
