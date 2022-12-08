@@ -20,11 +20,11 @@
                 </div>
             </div>
 
-            <div class="filter-tabs">
-                <button class="filter-tabs__tab-links" id="admin-user-table">Admin Users</button>
-                <button class="filter-tabs__tab-links" id="economy-user-table">Economy Users</button>
-                <button class="filter-tabs__tab-links" id="leaser-user-table">Leaser Users</button>
-                <button class="filter-tabs__tab-links" id="buyer-user-table">Buyer Users</button>
+            <div id="buttons-children" class="filter-tabs">
+                <button style="opacity: 1" class="filter-tabs__tab-links" id="admin-user-table">Admin Users</button>
+                <button style="opacity: 1" class="filter-tabs__tab-links" id="economy-user-table">Economy Users</button>
+                <button style="opacity: 1" class="filter-tabs__tab-links" id="leaser-user-table">Leaser Users</button>
+                <button style="opacity: 1" class="filter-tabs__tab-links" id="buyer-user-table">Buyer Users</button>
             </div>
 
             <div id="admin-table-user" class="filter-tabs__tab-content" style="display: none;">
@@ -45,6 +45,55 @@
                     <tbody id="admin-users-tbody">
                     </tbody>
                 </table>
+                <div
+                        class="modal fade"
+                        id="exampleModalAdmin"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabelAdmin">See, Edit Or Delete</h5>
+                                <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                ></button>
+                                <p hidden class="inner-content" id="idAdmin"></p>
+                            </div>
+
+                            <div class="modal-footer grid--auto-1 gap--xs">
+                                <button
+                                        type="button"
+                                        id="seeAdmin"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    See
+                                </button>
+                                <button
+                                        type="button"
+                                        id="editAdmin"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                        type="button"
+                                        id="deleteAdmin"
+                                        data-bs-dismiss="modal"
+                                        class="delete-button"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="economy-table-user" class="filter-tabs__tab-content" style="display: none;">
@@ -66,6 +115,55 @@
                     <tbody id="economy-users-tbody">
                     </tbody>
                 </table>
+                <div
+                        class="modal fade"
+                        id="exampleModalEconomy"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabelEconomy">See, Edit Or Delete</h5>
+                                <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                ></button>
+                                <p hidden class="inner-content" id="idEconomy"></p>
+                            </div>
+
+                            <div class="modal-footer grid--auto-1 gap--xs">
+                                <button
+                                        type="button"
+                                        id="seeEconomy"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    See
+                                </button>
+                                <button
+                                        type="button"
+                                        id="editEconomy"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                        type="button"
+                                        id="deleteEconomy"
+                                        data-bs-dismiss="modal"
+                                        class="delete-button"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="leaser-table-user" class="filter-tabs__tab-content" style="display: none;">
@@ -91,6 +189,55 @@
                     <tbody id="leaser-users-tbody">
                     </tbody>
                 </table>
+                <div
+                        class="modal fade"
+                        id="exampleModalLeaser"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabelLeaser">See, Edit Or Delete</h5>
+                                <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                ></button>
+                                <p hidden class="inner-content" id="id"></p>
+                            </div>
+
+                            <div class="modal-footer grid--auto-1 gap--xs">
+                                <button
+                                        type="button"
+                                        id="seeLeaser"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    See
+                                </button>
+                                <button
+                                        type="button"
+                                        id="editLeaser"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                        type="button"
+                                        id="deleteLeaser"
+                                        data-bs-dismiss="modal"
+                                        class="delete-button"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -117,6 +264,55 @@
                     <tbody id="buyer-users-tbody">
                     </tbody>
                 </table>
+                <div
+                        class="modal fade"
+                        id="exampleModalBuyer"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">See, Edit Or Delete</h5>
+                                <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                ></button>
+                                <p hidden class="inner-content" id="idBuyer"></p>
+                            </div>
+
+                            <div class="modal-footer grid--auto-1 gap--xs">
+                                <button
+                                        type="button"
+                                        id="seeBuyer"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    See
+                                </button>
+                                <button
+                                        type="button"
+                                        id="editBuyer"
+                                        data-bs-dismiss="modal"
+                                        class="primary-button"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                        type="button"
+                                        id="deleteBuyer"
+                                        data-bs-dismiss="modal"
+                                        class="delete-button"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

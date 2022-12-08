@@ -1,6 +1,13 @@
 import { SERVER_URL } from "../../../../settings.js";
 import { checkRoleAdmin, checkTokenGet } from "../../../js/loginSettings.js";
 import { paginator } from "../../../../lib/paginator/paginate-bootstrap.js"
+import {
+    rowHighlight,
+    rowHighlightAdmin,
+    rowHighlightBuyer,
+    rowHighlightEconomy,
+    rowHighlightLeaser
+} from "../../../js/modulLoad.js";
 
 let URL_ADMIN = SERVER_URL + "/users/admin";
 let URL_ECONOMY = SERVER_URL + "/users/economy";
@@ -50,10 +57,18 @@ async function getAdminUsers(){
         <td><a href="tel:${adminUser.phoneNumber}">${adminUser.phoneNumber}</a></td>  
         <td> <a href="mailto:${adminUser.email}">${adminUser.email}</a></td>
         <td>${adminUser.status}</td>
-        <td><button class="btn--xs" id="${adminUser.id}-edit-btn">3 dot</button></td>
+        <td id="admin-menu">
+             <ul data-bs-toggle="modal" data-bs-target="#exampleModalAdmin" class="three-dots" >
+                                    <li id="${adminUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${adminUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${adminUser.id}-column-id"  class="three-dots__dot"></li>
+                                    
+             </ul>
+            </td>
         `
 
         document.getElementById("admin-users-tbody").appendChild(tr)
+        rowHighlightAdmin()
     })
 
 }
@@ -69,9 +84,17 @@ async function getEconomyUsers(){
         <td><a href="mailto:${economyUser.email}">${economyUser.email}</a></td> 
         <td>${economyUser.ownership}</td>
         <td>${economyUser.status}</td>
-        <td><button class="btn--xs" id="${economyUser.id}-edit-btn">3 dot</button></td>
+        <td id="economy-menu">
+             <ul data-bs-toggle="modal" data-bs-target="#exampleModalEconomy" class="three-dots" >
+                                    <li id="${economyUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${economyUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${economyUser.id}-column-id"  class="three-dots__dot"></li>
+                                    
+             </ul>
+            </td>
         `
         document.getElementById("economy-users-tbody").appendChild(tr)
+        rowHighlightEconomy()
     })
 
 }
@@ -81,6 +104,7 @@ async function getBuyerUsers(){
     const allAdminUsers = await fetch(URL_BUYER,await checkTokenGet()).then(r => r.json())
     const tr =document.createElement("tr")
     allAdminUsers.forEach(buyerUser => {
+
         tr.innerHTML = `
        <td>${buyerUser.companyName}</td>
         <td>${buyerUser.companyEuVatNumber}</td>
@@ -92,9 +116,17 @@ async function getBuyerUsers(){
         <td>${buyerUser.addressLine2}</td>
         <td>${buyerUser.viewableCarModels}</td>
         <td>${buyerUser.status}</td>
-       <td><button class="btn--xs" id="${buyerUser.id}-edit-btn">3 dot</button></td>
+        <td id="buyer-menu">
+             <ul data-bs-toggle="modal" data-bs-target="#exampleModalBuyer" class="three-dots" >
+                                    <li id="${buyerUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${buyerUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${buyerUser.id}-column-id"  class="three-dots__dot"></li>
+                                    
+             </ul>
+            </td>
         `
         document.getElementById("buyer-users-tbody").appendChild(tr)
+        rowHighlightBuyer()
     })
 
 }
@@ -103,7 +135,9 @@ async function getLeaserUsers(){
     document.getElementById("leaser-users-tbody").innerHTML = "";
     const allAdminUsers = await fetch(URL_LEASER,await checkTokenGet()).then(r => r.json())
     const tr =document.createElement("tr")
+
     allAdminUsers.forEach(leaserUser => {
+
         tr.innerHTML = `
         <td>${leaserUser.companyName}</td>
         <td>${leaserUser.companyEuVatNumber}</td>
@@ -115,9 +149,17 @@ async function getLeaserUsers(){
         <td>${leaserUser.addressLine2}</td>
         <td>${leaserUser.ownership}</td>
         <td>${leaserUser.status}</td>
-       <td><button class="btn--xs" id="${leaserUser.id}-edit-btn">3 dot</button></td>
+       <td id="leaser-menu">
+             <ul data-bs-toggle="modal" data-bs-target="#exampleModalLeaser" class="three-dots" >
+                                    <li id="${leaserUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${leaserUser.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${leaserUser.id}-column-id"  class="three-dots__dot"></li>
+                                    
+             </ul>
+            </td>
         `
         document.getElementById("leaser-users-tbody").appendChild(tr)
+        rowHighlightLeaser()
     })
 
 }
