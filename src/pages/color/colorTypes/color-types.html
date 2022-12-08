@@ -1,68 +1,82 @@
-<div class="template">
-    <div class="sessionCheck1">
-      <h1>See all color types</h1>
-      <table class="table" id="table">
-        <thead>
-        <tr class="thRow">
-<!--          <th>ID</th>-->
-          <th>Type</th>
-          <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody id="tbody-all"></tbody>
-      </table>
-        <div
-                class="modal fade"
-                    id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-        >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">See, Edit Or Delete</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                        ></button>
-                        <p hidden class="inner-content" id="id"></p>
-                    </div>
+<div class="template ct-section">
+    <div class="ct-section-inner-wrap">
+        <div class="hero">
 
-                    <div class="modal-footer grid--auto-1 gap--xs">
-                        <button
-                                type="button"
-                                id="see"
-                                data-bs-dismiss="modal"
-                                class="primary-button"
-                        >
-                            See
-                        </button>
-                        <button
-                                type="button"
-                                id="edit"
-                                data-bs-dismiss="modal"
-                                class="primary-button"
-                        >
-                            Edit
-                        </button>
-                        <button
-                                type="button"
-                                id="delete"
-                                data-bs-dismiss="modal"
-                                class="delete-button"
-                        >
-                            Delete
-                        </button>
+            <div class="hero__header">
+                <h1>Color Types</h1>
+            </div>
+
+
+            <div class="nav">
+                <nav class="nav__flow-nav">
+                    <ol class="nav__flow-ol">
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+                                                    href="/create-brand" data-navigo>Create Brand</a></li>
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+
+                                                                         href="/all-brands" data-navigo>All Brands</a></li>
+                        <li class="nav__flow-li nav__flow-li--active"><a class="nav__flow-a nav__flow-a--active"
+                                                    href="/color-types" data-navigo>Colortype</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div>
+            <table class="table-animation">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody id="table-body-test">
+                </tbody>
+            </table>
+            <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog" id="modal-content">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">See, Edit Or Delete</h5>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                            <p hidden class="inner-content" id="id"></p>
+                        </div>
+
+                        <div class="modal-footer grid--auto-1 gap--xs">
+                            <button
+                                    type="button"
+                                    id="edit"
+                                    data-bs-dismiss="modal"
+                                    class="primary-button"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                    type="button"
+                                    id="delete"
+                                    data-bs-dismiss="modal"
+                                    class="delete-button"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div style="display: flex; flex-direction:row">
+                <input class="input-big" placeholder="Type tekst" type="text" id="if1"/>
+                <button id="submit-new-color-type">Tilføj ny</button>
+            </div>
         </div>
-      <div style="display: flex; flex-direction:row">
-        <input class="input-big" placeholder="Type tekst" type="text" id="if1"/>
-        <button id="submit-new-color-type">Tilføj ny</button>
-      </div>
     </div>
 </div>
