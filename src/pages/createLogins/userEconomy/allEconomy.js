@@ -1,5 +1,6 @@
 import {SERVER_URL} from "../../../../settings.js";
 import {checkRoleEconomy, checkTokenGet} from "../../../js/loginSettings.js";
+import {rowHighlight} from "../../../js/modulLoad.js";
 
 let URL = SERVER_URL + "/users/economy"
 
@@ -45,7 +46,7 @@ export async function initGetAllEconomyUsers() {
     )
 
     document.getElementById("table-body").innerHTML = rows.join("")
-
+    rowHighlight();
 
 
 
