@@ -72,7 +72,7 @@ window.addEventListener("load", async () => {
       before(done, match) {
         setActiveLink("topnav", match.url)
         done()
-      }
+      },
     })
     .on({
       "/": () => renderTemplate(templateHome, "content"),
@@ -102,9 +102,9 @@ window.addEventListener("load", async () => {
         renderTemplate(templateCreateBuyerLogin, "content")
         initCreateBuyerLogin()
       },
-      "/users/all-buyers": () => {
+      "/users/all-buyers": (match) => {
         renderTemplate(templateBuyerAll, "content")
-        initGetAllBuyerUsers()
+        initGetAllBuyerUsers(match,router)
       },
       "/users/create-leaser": () => {
         renderTemplate(templateLeaserLogin, "content")

@@ -16,7 +16,7 @@ export function rowHighlight() {
     }
 
 
-    document.getElementById("exampleModalColorType").addEventListener("hidden.bs.modal", () => {
+    document.getElementById("exampleModal").addEventListener("hidden.bs.modal", () => {
             let rows = document.getElementById("table-body").children
             for (let i = 0; i < rows.length; i++) {
                 rows[i].style.opacity = "1"
