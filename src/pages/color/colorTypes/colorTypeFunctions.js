@@ -1,5 +1,3 @@
-import {rowHighlight} from "../../../js/modulLoad.js";
-
 var URL = "http://localhost:8080/api/color-types"
 let router;
 let tableId = "table-body-test"
@@ -74,8 +72,8 @@ async function getAllColorTypes() {
         <tr>
             <td>${colorType.type}</td>
           
-             <td>
-             <ul data-bs-toggle="modal" data-bs-target="#exampleModal" class="three-dots" >
+             <td id="${colorType.id}-menu" data-bs-toggle="modal" data-bs-target="#exampleModal">
+             <ul  class="three-dots" >
                                     <li id="${colorType.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${colorType.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${colorType.id}-column-id"  class="three-dots__dot"></li>
@@ -86,7 +84,7 @@ async function getAllColorTypes() {
         );
         const tableRowsString = tableRowsArray.join("\n");
         document.getElementById(tableId).innerHTML = tableRowsString;
-        rowHighlight("table-body");
+        rowHighlightColorType();
 
     } catch(err) {
         console.log(err);
@@ -154,4 +152,32 @@ async function editColorType(idFromJs) {
         document.getElementById(idFromJs).style.boxShadow = "none";
     }, 2000);
 
+}
+
+function rowHighlightColorType() {
+    document.getElementById(tableId).onclick = (element) => {
+        let id = element.target.id
+        if (id.endsWith("-column-id") || id.endsWith("-menu")) {
+            // the clicked row
+            let row = document.getElementById(id).closest("tr")
+            // the other rows
+            let rows = document.getElementById(tableId).children
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i] !== row) {
+                    rows[i].style.opacity = "0.5"
+                }
+            }
+        }
+
+    }
+
+
+    document.getElementById("exampleModal").addEventListener("hidden.bs.modal", () => {
+            let rows = document.getElementById(tableId).children
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].style.opacity = "1"
+            }
+
+        }
+    )
 }
