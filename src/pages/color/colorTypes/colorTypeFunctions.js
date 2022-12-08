@@ -1,16 +1,32 @@
 var URL = "http://localhost:8080/api/color-types"
 let router;
 
-export function initColorTypes(navigoRouter) {
-    getAllColorTypes();
-    router = navigoRouter
-    document.getElementById("submit").onclick = addColorType;
+let colorTypes = []
+
+export async function initColorTypes(navigatorRouter) {
+    getAllColorTypes()
+    router = navigatorRouter
+    document.getElementById("submit-new-color-type").onclick = (element) =>{
+        addColorType();
+    }
     document.getElementById("table").onclick = (element) =>{
         let id = element.target.id
+        if(id.includes("3dots")){
+            //document.getElementById()
+        }
+        /*
         if(id.includes("delete")) {
             deleteColorType(id);
         }
+
+         */
     }
+
+    document.getElementById("exampleModal").onclick = (element) =>{
+
+    }
+
+
     document.getElementById("table").ondblclick = (element) =>{
         let id = element.target.id
         if(id.includes("text")){
@@ -39,15 +55,22 @@ function changeTdToInput(id){
 async function getAllColorTypes() {
     document.getElementById("tbody-all").innerHTML = ""
     try{
-        const data = await fetch(URL).then(res => res.json());
-        //<td id="color-type-id-${colorType.id}" value="${colorType.id}">${colorType.id}</td>
-        const tableRowsArray = data.map(
+        colorTypes = await fetch(URL).then(res => res.json());
+        const tableRowsArray = colorTypes.map(
             (colorType) =>
                 `
         <tr>
             
             <td><input readonly type='text' id="text${colorType.id}" value='${colorType.type}'></td>
-            <td><button id="delete${colorType.id}">Delete</button></td>
+           
+             <td>
+             <ul data-bs-toggle="modal" data-bs-target="#exampleModal" class="three-dots" >
+                                    <li id="3dots${colorType.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="3dots${colorType.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="3dots${colorType.id}-column-id"  class="three-dots__dot"></li>
+                                    
+             </ul>
+            </td>
         `
         );
         const tableRowsString = tableRowsArray.join("\n");
@@ -64,7 +87,7 @@ async function addColorType() {
         type
     };
 
-    await fetch(URL, {
+    const response = await fetch(URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -72,8 +95,11 @@ async function addColorType() {
         body: JSON.stringify(newColorType),
     })
         .then((res) => res.json())
+    //window.location.reload();
+    if(response.ok){
+        colorTypes.add(response)
+    }
     getAllColorTypes()
-
 }
 
 async function deleteColorType(idToDelete) {
@@ -85,7 +111,10 @@ async function deleteColorType(idToDelete) {
             method: "DELETE",
 
         }).then((res) => res.json())
-        location.reload();
+        if(response.ok){
+            colorTypes = colorTypes.filter(type => type.id !== response.id);
+        }
+        getAllColorTypes()
     }
 }
 

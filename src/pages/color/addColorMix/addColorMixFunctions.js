@@ -160,5 +160,4 @@ async function deleteColorMix(id) {
         method: "DELETE",
 
     }).then((res) => res.json()).then
-    getSpecific(id)
 }
