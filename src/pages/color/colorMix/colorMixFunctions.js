@@ -1,15 +1,78 @@
-var URL = "http://localhost:8080/api/colormix"
+import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
+import {SERVER_URL} from "../../../../settings.js"
+
+let URL = SERVER_URL + "/color-mix/c-mix/";
+let specificCarURL = SERVER_URL + "/specific-car-model/"
+let allColorMix = SERVER_URL + "/color-mix/"
+let ColorTypeURL = SERVER_URL + "/color-types"
 let router;
 
-export function initColorMix(navigoRouter) {
+let id
 
-    document.getElementById("submit").onclick = getAllColorMixes;
+
+export function initColorMix(navigoRouter, match) {
+    checkRoleAdmin()
+    if (match?.params?.id) {
+        id = match.params.id
+        try {
+            getSpecificCar(id);
+        } catch (err) {
+
+        }
+    }
+    const onClick = (event) => {
+        if (event.target.id.startsWith("submit")) {
+            addColorMixRedirect(id)
+        }
+    }
+    window.addEventListener('click', onClick)
     router = navigoRouter
 }
 
+async function getSpecificCar(id) {
+    try {
+        const data = await fetch(specificCarURL + id, await checkTokenGet()).then(res => res.json())
+        if (Object.keys(data).length === 0) {
+            throw new Error("No colormix found for id: " + id)
+        }
+        console.log(data)
+        document.getElementById("header-title").innerHTML ="Colormixes for: " + data.brand + " " + data.model + " " + data.modelYear;
+    } catch (err) {
+        console.log(err)
+    }
+    getColormixes(id)
+}
+
+
+async function getColormixes(id) {
+    try {
+        const data = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
+        if (Object.keys(data).length === 0) {
+            throw new Error("No colormix found for id: " + id)
+        }
+        console.log(data)
+        const tableRowsArray = data.map(
+            colorMix =>
+                `
+        <tr>
+            <td>${colorMix.id}</td>
+            <td>${colorMix.colorCode}</td>
+            <td>${colorMix.colorName}</td>
+            <td>${colorMix.colorTypesResponse.type}</td>
+            </tr>
+            `);
+        const tableRowsString = tableRowsArray.join("\n");
+        document.getElementById("tbody-all").innerHTML = tableRowsString;
+    } catch(err) {
+        console.log(err);
+    }
+}
+
 async function getAllColorMixes() {
+    document.getElementById("tbody-all").innerHTML = ""
     try{
-        const data = await fetch(URL).then(res => res.json());
+        const data = await fetch(URL, await checkTokenGet()).then(res => res.json());
+        console.log(data)
         const tableRowsArray = data.map(
             (colorMix) =>
                 `
@@ -64,24 +127,6 @@ async function editColorMix() {
 }
 
 
-async function addColorMix() {
-    const colorCode = document.getElementById("if1").value;
-    const colorName = document.getElementById("if2").value;
-    const colorTypeId = document.getElementById("if3").value;
-
-    const newColorMix = {
-        colorCode,
-        colorTypeId,
-        colorName
-    };
-    console.log(newColorMix)
-
-    const id = await fetch(URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newColorMix),
-    })
-        .then((res) => res.json())
+async function addColorMixRedirect(id) {
+    router.navigate(`color-mix/add?id=${id}`)
 }
