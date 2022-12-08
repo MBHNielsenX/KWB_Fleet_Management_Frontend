@@ -2,15 +2,18 @@ import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
 import {initColorMix} from "../colorMix/colorMixFunctions.js";
 
-let URL = SERVER_URL + "/color-mix/add/";
-let allColorMixURL = SERVER_URL + "/color-mix/"
+let URL = SERVER_URL + "/color-mix/"
+let brandColorMixURL = SERVER_URL + "/brand-color-mix/"
 let ColorTypeURL = SERVER_URL + "/color-types"
 let router;
-
+let colorMixData = []
 let id
 
 
 export function initAddColorMix(navigoRouter, match) {
+    if (match?.params?.id) {
+        id = match.params.id
+    }
     checkRoleAdmin()
         try {
             initColorMix(navigoRouter, match)
@@ -19,8 +22,11 @@ export function initAddColorMix(navigoRouter, match) {
         } catch (err) {
     }
     const onClick = (event) => {
-        if (event.target.id.startsWith("submit")) {
+        if (event.target.id.startsWith("submit-color-mix")) {
             addColorMix()
+        } else if (event.target.id.startsWith("pre-existing-submit")){
+            const colorMixId = document.getElementById("if0").value
+            createBrandColorMix(colorMixId)
         }
     }
     window.addEventListener('click', onClick)
@@ -28,12 +34,13 @@ export function initAddColorMix(navigoRouter, match) {
 }
 async function getPreExistingColorMix() {
     try {
-        const data = await fetch(allColorMixURL, await checkTokenGet()).then(res => res.json())
+        const data = await fetch(URL, await checkTokenGet()).then(res => res.json())
+        colorMixData = data
         console.log(data)
         const optionsArray = data.map(
             colorMix =>
                 `
-                <option>${colorMix.colorCode} ${colorMix.colorTypesResponse.type}</option>
+                <option value="${colorMix.id}">${colorMix.colorCode}   (${colorMix.colorTypesResponse.type})</option>
                 `);
         const optionString = optionsArray.join("\n");
         document.getElementById("if0").innerHTML = optionString;
@@ -49,7 +56,7 @@ async function getColorTypes() {
         const optionsArray = data.map(
             colorType =>
                 `
-                <option>${colorType.type}</option>
+                <option value="${colorType.id}">${colorType.type}</option>
                 `);
         const optionString = optionsArray.join("\n");
         document.getElementById("if3").innerHTML = optionString;
@@ -58,15 +65,66 @@ async function getColorTypes() {
     }
 }
 
-async function deleteColorMix(id) {
-    const idDelete = document.getElementById("if1").value;
-    URL = URL + "/" + idDelete
-    console.log(URL)
-    await fetch(URL, {
-        method: "DELETE",
 
-    }).then((res) => res.json()).then
-    getSpecific(id)
+
+async function addColorMix() {
+    const colorCode = document.getElementById("if1").value.trim();
+    const colorName = document.getElementById("if2").value.trim();
+    const colorTypeId = document.getElementById("if3").value;
+    let colorMixExists = false
+    for (let i = 0; i < colorMixData.length; i++) {
+        console.log(colorMixData[i].colorCode)
+        console.log(colorMixData[i].colorName)
+        console.log(colorMixData[i].colorTypesResponse.id)
+        if (colorCode === colorMixData[i].colorCode && colorTypeId === colorMixData[i].colorTypeId && colorName === colorMixData[i].colorName) {
+            colorMixExists = true
+        }
+    }
+    if(!colorMixExists){
+        console.log("colorcode "+ colorCode)
+        if(colorCode !== "" && colorName !== ""){
+            const newColorMix = {
+                colorCode,
+                colorTypeId,
+                colorName
+            };
+            console.log(newColorMix)
+
+            const data = await fetch(URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newColorMix),
+            })
+                .then((res) => res.json())
+
+            console.log(data)
+            createBrandColorMix(data.id)
+        }
+    }
+
+
+
+}
+
+async function createBrandColorMix(colorMixId) {
+    const specificCarModelId = id
+    const brandColorMix = {
+        specificCarModelId,
+        colorMixId
+    };
+    console.log(brandColorMix)
+
+    await fetch(brandColorMixURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(brandColorMix),
+    })
+        .then((res) => res.json())
+
 }
 
 
@@ -94,27 +152,13 @@ async function editColorMix() {
         .then((res) => res.json())
 }
 
-
-async function addColorMix() {
-    const colorCode = document.getElementById("if1").value;
-    const colorName = document.getElementById("if2").value;
-    const colorTypeId = document.getElementById("if3").value;
-
-    const newColorMix = {
-        colorCode,
-        colorTypeId,
-        colorName
-    };
-    console.log(newColorMix)
-
+async function deleteColorMix(id) {
+    const idDelete = document.getElementById("if1").value;
+    URL = URL + "/" + idDelete
+    console.log(URL)
     await fetch(URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newColorMix),
-    })
-        .then((res) => res.json())
+        method: "DELETE",
 
+    }).then((res) => res.json()).then
     getSpecific(id)
 }

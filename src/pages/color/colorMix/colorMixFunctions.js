@@ -58,7 +58,7 @@ async function getColormixes(id) {
             <td>${colorMix.id}</td>
             <td>${colorMix.colorCode}</td>
             <td>${colorMix.colorName}</td>
-            <td>${colorMix.colorTypesResponse.id}</td>
+            <td>${colorMix.colorTypesResponse.type}</td>
             </tr>
             `);
         const tableRowsString = tableRowsArray.join("\n");
