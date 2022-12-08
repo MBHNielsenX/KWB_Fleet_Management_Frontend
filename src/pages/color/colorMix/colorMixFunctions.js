@@ -5,6 +5,7 @@ let URL = SERVER_URL + "/color-mix/c-mix/";
 let specificCarURL = SERVER_URL + "/specific-car-model/"
 let allColorMix = SERVER_URL + "/color-mix/"
 let ColorTypeURL = SERVER_URL + "/color-types"
+let deleteURL = SERVER_URL + "/brand-color-mix/"
 let router;
 
 let id
@@ -23,6 +24,12 @@ export function initColorMix(navigoRouter, match) {
     const onClick = (event) => {
         if (event.target.id.startsWith("submit")) {
             addColorMixRedirect(id)
+        } else if (event.target.id.endsWith("-edit-link")) {
+
+        } else if (event.target.id.endsWith("-delete-link")) {
+            const deleteId = event.target.id.split('-delete-link')[0]
+            console.log(deleteId)
+            checkBrandColorMix(deleteId)
         }
     }
     window.addEventListener('click', onClick)
@@ -59,6 +66,8 @@ async function getColormixes(id) {
             <td>${colorMix.colorCode}</td>
             <td>${colorMix.colorName}</td>
             <td>${colorMix.colorTypesResponse.type}</td>
+            <td></td>
+            
             </tr>
             `);
         const tableRowsString = tableRowsArray.join("\n");
@@ -90,12 +99,16 @@ async function getAllColorMixes() {
     }
 }
 
+async function checkBrandColorMix() {
+    const data = await fetch(deleteURL + "all", await checkTokenGet()).then(res => res.json());
 
-async function deleteColorMix() {
-    const id = document.getElementById("if1").value;
-    URL = URL + "/" + id
-    console.log(URL)
-    await fetch(URL, {
+
+
+}
+
+
+async function deleteColorMix(id) {
+    await fetch(deleteURL + id, {
         method: "DELETE",
 
     }).then((res) => res.json()).then
