@@ -1,6 +1,6 @@
-import { SERVER_URL } from "../../../../settings.js";
-import { checkRoleAdmin, checkTokenGet } from "../../../js/loginSettings.js";
-import { paginator } from "../../../../lib/paginator/paginate-bootstrap.js"
+import {SERVER_URL} from "../../../../settings.js";
+import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
+import {paginator} from "../../../../lib/paginator/paginate-bootstrap.js"
 import {
     rowHighlight,
     rowHighlightAdmin,
@@ -15,24 +15,22 @@ let URL_BUYER = SERVER_URL + "/users/buyer";
 let URL_LEASER = SERVER_URL + "/users/leaser";
 
 
-
-
-export async function initAllUserLogin(){
+export async function initAllUserLogin() {
     checkRoleAdmin()
     await getAdminUsers()
-    document.getElementById("admin-user-table").onclick = function() {
+    document.getElementById("admin-user-table").onclick = function () {
         openTable(event, 'admin-table-user')
         getAdminUsers()
     }
-    document.getElementById("leaser-user-table").onclick = function() {
+    document.getElementById("leaser-user-table").onclick = function () {
         openTable(event, 'leaser-table-user')
         getLeaserUsers()
     }
-    document.getElementById("buyer-user-table").onclick = function() {
+    document.getElementById("buyer-user-table").onclick = function () {
         openTable(event, 'buyer-table-user')
         getBuyerUsers()
     }
-    document.getElementById("economy-user-table").onclick = function() {
+    document.getElementById("economy-user-table").onclick = function () {
         openTable(event, 'economy-table-user')
         getEconomyUsers()
     }
@@ -40,16 +38,15 @@ export async function initAllUserLogin(){
 }
 
 
-async function getAdminUsers(){
+async function getAdminUsers() {
 
     document.getElementById("admin-users-tbody").innerHTML = "";
 
-    const allAdminUsers = await fetch(URL_ADMIN,await checkTokenGet()).then(r => r.json())
+    const allAdminUsers = await fetch(URL_ADMIN, await checkTokenGet()).then(r => r.json())
 
-    const tr =document.createElement("tr")
 
     allAdminUsers.forEach(adminUser => {
-
+        const tr = document.createElement("tr")
         tr.innerHTML = `
 
         <td>${adminUser.userName}</td> 
@@ -57,8 +54,8 @@ async function getAdminUsers(){
         <td><a href="tel:${adminUser.phoneNumber}">${adminUser.phoneNumber}</a></td>  
         <td> <a href="mailto:${adminUser.email}">${adminUser.email}</a></td>
         <td>${adminUser.status}</td>
-        <td id="admin-menu">
-             <ul data-bs-toggle="modal" data-bs-target="#exampleModalAdmin" class="three-dots" >
+        <td id="${adminUser.id}-admin-menu" data-bs-toggle="modal" data-bs-target="#exampleModalAdmin">
+             <ul class="three-dots" >
                                     <li id="${adminUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${adminUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${adminUser.id}-column-id"  class="three-dots__dot"></li>
@@ -72,39 +69,43 @@ async function getAdminUsers(){
     })
 
 }
-async function getEconomyUsers(){
+
+async function getEconomyUsers() {
     document.getElementById("economy-users-tbody").innerHTML = "";
-    const allAdminUsers = await fetch(URL_ECONOMY,await checkTokenGet()).then(r => r.json())
-    const tr =document.createElement("tr")
-    allAdminUsers.forEach(economyUser => {
-        tr.innerHTML = `
+    const allEconomyUsers = await fetch(URL_ECONOMY, await checkTokenGet()).then(r => r.json())
+
+    const rows = allEconomyUsers.map(economyUser =>
+        `
+        <tr>
         <td>${economyUser.userName}</td>
         <td>${economyUser.firstName} ${economyUser.lastName}</td>
         <td><a href="tel:${economyUser.phoneNumber}">${economyUser.phoneNumber}</a></td> 
         <td><a href="mailto:${economyUser.email}">${economyUser.email}</a></td> 
         <td>${economyUser.ownership}</td>
         <td>${economyUser.status}</td>
-        <td id="economy-menu">
-             <ul data-bs-toggle="modal" data-bs-target="#exampleModalEconomy" class="three-dots" >
+        <td id="${economyUser.id}-economy-menu" data-bs-toggle="modal" data-bs-target="#exampleModalEconomy" >
+             <ul class="three-dots" >
                                     <li id="${economyUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${economyUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${economyUser.id}-column-id"  class="three-dots__dot"></li>
                                     
              </ul>
             </td>
-        `
-        document.getElementById("economy-users-tbody").appendChild(tr)
-        rowHighlightEconomy()
-    })
+            </tr>
+        `)
+    document.getElementById("economy-users-tbody").innerHTML = rows.join("")
+    rowHighlightEconomy()
+
 
 }
-async function getBuyerUsers(){
+
+async function getBuyerUsers() {
 
     document.getElementById("buyer-users-tbody").innerHTML = "";
-    const allAdminUsers = await fetch(URL_BUYER,await checkTokenGet()).then(r => r.json())
-    const tr =document.createElement("tr")
-    allAdminUsers.forEach(buyerUser => {
+    const allAdminUsers = await fetch(URL_BUYER, await checkTokenGet()).then(r => r.json())
 
+    allAdminUsers.forEach(buyerUser => {
+        const tr = document.createElement("tr")
         tr.innerHTML = `
        <td>${buyerUser.companyName}</td>
         <td>${buyerUser.companyEuVatNumber}</td>
@@ -116,8 +117,8 @@ async function getBuyerUsers(){
         <td>${buyerUser.addressLine2}</td>
         <td>${buyerUser.viewableCarModels}</td>
         <td>${buyerUser.status}</td>
-        <td id="buyer-menu">
-             <ul data-bs-toggle="modal" data-bs-target="#exampleModalBuyer" class="three-dots" >
+        <td id="${buyerUser.id}-buyer-menu" data-bs-toggle="modal" data-bs-target="#exampleModalBuyer">
+             <ul class="three-dots" >
                                     <li id="${buyerUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${buyerUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${buyerUser.id}-column-id"  class="three-dots__dot"></li>
@@ -130,14 +131,15 @@ async function getBuyerUsers(){
     })
 
 }
-async function getLeaserUsers(){
+
+async function getLeaserUsers() {
 
     document.getElementById("leaser-users-tbody").innerHTML = "";
-    const allAdminUsers = await fetch(URL_LEASER,await checkTokenGet()).then(r => r.json())
-    const tr =document.createElement("tr")
+    const allAdminUsers = await fetch(URL_LEASER, await checkTokenGet()).then(r => r.json())
+
 
     allAdminUsers.forEach(leaserUser => {
-
+        const tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${leaserUser.companyName}</td>
         <td>${leaserUser.companyEuVatNumber}</td>
@@ -149,8 +151,8 @@ async function getLeaserUsers(){
         <td>${leaserUser.addressLine2}</td>
         <td>${leaserUser.ownership}</td>
         <td>${leaserUser.status}</td>
-       <td id="leaser-menu">
-             <ul data-bs-toggle="modal" data-bs-target="#exampleModalLeaser" class="three-dots" >
+       <td id="${leaserUser.id}-leaser-menu" data-bs-toggle="modal" data-bs-target="#exampleModalLeaser">
+             <ul  class="three-dots" >
                                     <li id="${leaserUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${leaserUser.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${leaserUser.id}-column-id"  class="three-dots__dot"></li>
@@ -163,6 +165,7 @@ async function getLeaserUsers(){
     })
 
 }
+
 function openTable(evt, tableId) {
     let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("filter-tabs__tab-content");

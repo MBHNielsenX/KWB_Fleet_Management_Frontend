@@ -29,7 +29,7 @@ export function rowHighlight(tableId) {
 export function rowHighlightAdmin() {
     document.getElementById("admin-users-tbody").onclick = (element) => {
         let id = element.target.id
-        if (id.endsWith("-column-id")) {
+        if (id.endsWith("-column-id") || id.endsWith("-admin-menu")) {
             // the clicked row
             let row = document.getElementById(id).closest("tr")
             // the other rows
@@ -39,24 +39,18 @@ export function rowHighlightAdmin() {
                     rows[i].style.opacity = "0.5"
                 }
             }
-        }
+            let button = document.getElementById("admin-user-table")
+            let buttons = document.getElementById("buttons-children").children
+            for (let i = 0; i < buttons.length; i++) {
+                if (buttons[i] !== button) {
+                    buttons[i].style.background = "#979797"
 
-
-    }
-
-    document.getElementById("admin-menu").onclick = () => {
-        let button = document.getElementById("admin-user-table")
-        let buttons = document.getElementById("buttons-children").children
-        for (let i = 0; i < buttons.length; i++) {
-            if (buttons[i] !== button) {
-                buttons[i].style.background = "#979797"
-
+                }
             }
+
+            button.classList.add("filter-tabs__tab-links--focus")
         }
-
-        button.classList.add("filter-tabs__tab-links--focus")
     }
-
 
     document.getElementById("exampleModalAdmin").addEventListener("hidden.bs.modal", () => {
             let rows = document.getElementById("admin-users-tbody").children
@@ -77,7 +71,7 @@ export function rowHighlightAdmin() {
 export function rowHighlightEconomy() {
     document.getElementById("economy-users-tbody").onclick = (element) => {
         let id = element.target.id
-        if (id.endsWith("-column-id")) {
+        if (id.endsWith("-column-id") || id.endsWith("-economy-menu")) {
             // the clicked row
             let row = document.getElementById(id).closest("tr")
             // the other rows
@@ -87,25 +81,19 @@ export function rowHighlightEconomy() {
                     rows[i].style.opacity = "0.5"
                 }
             }
-        }
 
 
-    }
-    document.getElementById("economy-menu").onclick = () => {
-        let button = document.getElementById("economy-user-table")
-        let buttons = document.getElementById("buttons-children").children
-        for (let i = 0; i < buttons.length; i++) {
-            if (buttons[i] !== button) {
-                buttons[i].style.background = "#979797"
+            let button = document.getElementById("economy-user-table")
+            let buttons = document.getElementById("buttons-children").children
+            for (let i = 0; i < buttons.length; i++) {
+                if (buttons[i] !== button) {
+                    buttons[i].style.background = "#979797"
 
+                }
             }
+            button.classList.add("filter-tabs__tab-links--focus")
         }
-
-        button.classList.add("filter-tabs__tab-links--focus")
     }
-
-
-
     document.getElementById("exampleModalEconomy").addEventListener("hidden.bs.modal", () => {
             let rows = document.getElementById("economy-users-tbody").children
             for (let i = 0; i < rows.length; i++) {
@@ -125,7 +113,7 @@ export function rowHighlightEconomy() {
 export function rowHighlightLeaser() {
     document.getElementById("leaser-users-tbody").onclick = (element) => {
         let id = element.target.id
-        if (id.endsWith("-column-id")) {
+        if (id.endsWith("-leaser-menu") || id.endsWith("-column-id")) {
             // the clicked row
             let row = document.getElementById(id).closest("tr")
             // the other rows
@@ -135,23 +123,17 @@ export function rowHighlightLeaser() {
                     rows[i].style.opacity = "0.5"
                 }
             }
-        }
+            let button = document.getElementById("leaser-user-table")
+            let buttons = document.getElementById("buttons-children").children
+            for (let i = 0; i < buttons.length; i++) {
+                if (buttons[i] !== button) {
+                    buttons[i].style.background = "#979797"
 
-
-    }
-    document.getElementById("leaser-menu").onclick = () => {
-        let button = document.getElementById("leaser-user-table")
-        let buttons = document.getElementById("buttons-children").children
-        for (let i = 0; i < buttons.length; i++) {
-            if (buttons[i] !== button) {
-                buttons[i].style.background = "#979797"
-
+                }
             }
+            button.classList.add("filter-tabs__tab-links--focus")
         }
-
-        button.classList.add("filter-tabs__tab-links--focus")
     }
-
 
     document.getElementById("exampleModalLeaser").addEventListener("hidden.bs.modal", () => {
             let rows = document.getElementById("leaser-users-tbody").children
@@ -174,7 +156,7 @@ export function rowHighlightLeaser() {
 export function rowHighlightBuyer() {
     document.getElementById("buyer-users-tbody").onclick = (element) => {
         let id = element.target.id
-        if (id.endsWith("-column-id")) {
+        if (id.endsWith("-buyer-menu") || id.endsWith("-column-id")) {
             // the clicked row
             let row = document.getElementById(id).closest("tr")
             // the other rows
@@ -184,28 +166,17 @@ export function rowHighlightBuyer() {
                     rows[i].style.opacity = "0.5"
                 }
             }
+            let button = document.getElementById("buyer-user-table")
+            let buttons = document.getElementById("buttons-children").children
+            for (let i = 0; i < buttons.length; i++) {
+                if (buttons[i] !== button) {
+                    buttons[i].style.background = "#979797"
 
-
-        }
-
-
-    }
-
-    document.getElementById("buyer-menu").onclick = (element) => {
-        let button = document.getElementById("buyer-user-table")
-        let buttons = document.getElementById("buttons-children").children
-        for (let i = 0; i < buttons.length; i++) {
-            if (buttons[i] !== button) {
-                buttons[i].style.background = "#979797"
-
+                }
             }
+            button.classList.add("filter-tabs__tab-links--focus")
         }
-
-        button.classList.add("filter-tabs__tab-links--focus")
     }
-
-
-
     document.getElementById("exampleModalBuyer").addEventListener("hidden.bs.modal", () => {
             let rows = document.getElementById("buyer-users-tbody").children
             for (let i = 0; i < rows.length; i++) {
