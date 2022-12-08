@@ -8,7 +8,7 @@ let router;
 export function initCreateOwnership(navigoRouter) {
     checkRoleAdmin();
     router = navigoRouter
-    document.getElementById("create-ownership").onclick = addOwnership
+    document.getElementById("submit-ownership").onclick = addOwnership()
 }
 
 async function addOwnership() {
@@ -26,7 +26,7 @@ async function addOwnership() {
         body: raw,
         redirect: 'follow'
     };
-    fetch("http://localhost:8080/api/ownership", requestOptions)
+    await fetch("http://localhost:8080/api/ownership", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
