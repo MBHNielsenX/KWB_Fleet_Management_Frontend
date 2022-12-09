@@ -1,9 +1,37 @@
-<div class="template">
-  <div>
-    <h1 id="model-info-header"></h1>
-    <input id="hidden" type="hidden">
-    <input id="input-type" type="text">
-    <button id="btn-edit-color-type">Edit Type</button>
-    <p id="type-status"></p>
+<div class="template ct-section">
+  <div class="ct-section-inner-wrap">
+    <div class="hero">
+
+      <div class="hero__header">
+        <h1>Edit Color Type</h1>
+      </div>
+
+      <div class="nav">
+        <nav class="nav__flow-nav">
+          <ol class="nav__flow-ol">
+            <li class="nav__flow-li"><a class="nav__flow-a"
+                                        href="/create-brand" data-navigo>Create Brand</a></li>
+            <li class="nav__flow-li"><a class="nav__flow-a"
+
+                                        href="/all-brands" data-navigo>All Brands</a></li>
+            <li class="nav__flow-li nav__flow-li--active"><a class="nav__flow-a nav__flow-a--active"
+                                                             href="/color-types" data-navigo>Colortypes</a></li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div>
+      <table class="table-animation" >
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Options</th>
+        </tr>
+        </thead>
+        <tbody id="table-body-test">
+        </tbody>
+      </table>
+      <p id="type-status"></p>
+    </div>
   </div>
 </div>

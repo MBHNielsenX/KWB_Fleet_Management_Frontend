@@ -1,13 +1,11 @@
 import {checkRoleAdmin, checkTokenGet, checkTokenPut} from "../../../js/loginSettings.js";
 var URL = "http://localhost:8080/api/color-types/"
-
+let tableId = "table-body-test"
+let id
 export async function initEditColorTypes(match){
     document.getElementById("type-status").innerHTML = ""
-    let id
     if (match?.params?.id) {
         id = match.params.id
-        document.getElementById("hidden").value = id
-        console.log("id" + id)
         try {
             await fetchColorType(id);
         } catch (err) {
@@ -15,29 +13,40 @@ export async function initEditColorTypes(match){
         }
     }
 
-    document.getElementById("btn-edit-color-type").onclick = (element) => {
+    document.getElementById("edit-color-type").onclick = (element) => {
         editBrand()
     }
 }
 
 async function fetchColorType(id){
-    console.log(URL + id)
+    document.getElementById(tableId).innerHTML = ""
+    let data = []
     try{
         const colorType = await fetch(URL + id).then(res => res.json())
-        await insertPlaceholderText(colorType.type)
+        data.push(colorType)
+        const tableRowsArray = data.map(
+            (colorType) =>
+                `
+        <tr>
+            
+            <td><input placeholder="${colorType.type}" type="text" id="if1"></td>
+            <td><button id="edit-color-type">Edit</button></td>
+            
+        `
+        );
+        document.getElementById(tableId).innerHTML = tableRowsArray.join("\n");
     }catch (e){
         console.log(e)
         document.getElementById("brand-status").innerHTML = "Brand with id: "+id+" could not be found."
     }
 }
 
-async function insertPlaceholderText(text){
-    document.getElementById("input-type").placeholder = text
-}
+
+
+
 
 async function editBrand(){
-    let id = document.getElementById("hidden").value
-    const typeInput = document.getElementById("input-type").value;
+    const typeInput = document.getElementById("if1").value;
 
     const updatedType = {
         id: id,
@@ -46,7 +55,6 @@ async function editBrand(){
 
     try {
         await fetch(URL, await checkTokenPut(updatedType))
-        await insertPlaceholderText(updatedType)
         document.getElementById("type-status").innerHTML = "ColorType with id: "+id+" was successfully updated to " + typeInput
         setTimeout( () =>{
             router.navigate(`color-types`)
