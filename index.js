@@ -3,16 +3,18 @@ import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./u
 
 
 //Brand
-import { initCreateBrand } from "./src/pages/create-brand/createBrand.js"
+import { initCreateBrand } from "./src/pages/create-brand/createBrand.js";
 
 import { initAllBrands } from "./src/pages/all-brands/allBrands.js";
 import {initEditBrand} from "./src/pages/edit-brand/editBrand.js";
 import { initLogin } from "./src/pages/login/login.js";
 
 //Color
-import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js"
+import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js";
 import {initColorMix} from "./src/pages/color/colorMix/colorMixFunctions.js";
 import {initAddColorMix} from "./src/pages/color/addColorMix/addColorMixFunctions.js";
+import {initEditColorTypes} from "./src/pages/color/colorTypes/editColorTypes.js";
+
 
 //Users
 import { initCreateAdminLogin } from "./src/pages/createLogins/userAdmin/adminLogin.js";
@@ -44,6 +46,7 @@ window.addEventListener("load", async () => {
   const templateColorMix = await loadHtml("./src/pages/color/colorMix/color-mix.html")
   const templateAddColorMix = await loadHtml("./src/pages/color/addColorMix/add-color-mix.html")
   const templateColorTypes = await loadHtml("./src/pages/color/colorTypes/color-types.html")
+  const templateEditColorTypes = await loadHtml("./src/pages/color/colorTypes/edit-color-types.html")
 
 
   //users
@@ -69,7 +72,7 @@ window.addEventListener("load", async () => {
       before(done, match) {
         setActiveLink("topnav", match.url)
         done()
-      }
+      },
     })
     .on({
       "/": () => renderTemplate(templateHome, "content"),
@@ -99,9 +102,9 @@ window.addEventListener("load", async () => {
         renderTemplate(templateCreateBuyerLogin, "content")
         initCreateBuyerLogin()
       },
-      "/users/all-buyers": () => {
+      "/users/all-buyers": (match) => {
         renderTemplate(templateBuyerAll, "content")
-        initGetAllBuyerUsers()
+        initGetAllBuyerUsers(match,router)
       },
       "/users/create-leaser": () => {
         renderTemplate(templateLeaserLogin, "content")
@@ -130,6 +133,11 @@ window.addEventListener("load", async () => {
       "/color-types": () => {
         renderTemplate(templateColorTypes, "content")
         initColorTypes(router)
+
+      },
+      "/edit-color-types": (match) => {
+        renderTemplate(templateEditColorTypes, "content")
+        initEditColorTypes(match)
 
       },
       "/color-mix/c-mix": (match) => { //just made
