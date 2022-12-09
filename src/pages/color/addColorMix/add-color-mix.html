@@ -36,7 +36,7 @@
                     <th>color type id</th>
                 </tr>
                 </thead>
-                <tbody id="tbody-all"></tbody>
+                <tbody id="table-body"></tbody>
             </table>
             <div style="display: flex; flex-direction: row">
                 <select name="pre-existing-color-mix" class="input-mix" id="if0">
@@ -44,6 +44,7 @@
                 </select>
                 <button id="pre-existing-submit">Add pre-existing</button>
             </div>
+
             <div style="display: flex; flex-direction: row">
 
                 <input class="input-mix" placeholder="Color Code" type="text" id="if1">
@@ -54,6 +55,48 @@
                 </select>
                 <button id="submit-color-mix">Add Colormix</button>
             </div>
+            <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">See, Edit Or Delete</h5>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                            <p hidden class="inner-content" id="id"></p>
+                        </div>
+
+                        <div class="modal-footer grid--auto-1 gap--xs">
+                            <button
+                                    type="button"
+                                    id="edit"
+                                    data-bs-dismiss="modal"
+                                    class="primary-button"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                    type="button"
+                                    id="delete"
+                                    data-bs-dismiss="modal"
+                                    class="delete-button"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>

@@ -9,6 +9,7 @@ let ColorTypeURL = SERVER_URL + "/color-types"
 let deleteURL = SERVER_URL + "/brand-color-mix/"
 let router;
 
+let tableId
 let id
 
 
@@ -27,10 +28,11 @@ export function initColorMix(navigoRouter, match) {
             addColorMixRedirect(id)
         } else if (event.target.id.endsWith("-edit-link")) {
 
-        } else if (event.target.id.endsWith("-delete-link")) {
-            const deleteId = event.target.id.split('-delete-link')[0]
+        } else if (event.target.id.endsWith("delete")) {
+            console.log(event.target.id.endsWith("delete"))
+            const deleteId = event.target.id.split('delete')[0]
             console.log(deleteId)
-            checkBrandColorMix(deleteId)
+            checkBrandColorMix(id, deleteId)
         }
     }
     window.addEventListener('click', onClick)
@@ -109,8 +111,18 @@ async function getAllColorMixes() {
     }
 }
 
-async function checkBrandColorMix() {
-    const data = await fetch(deleteURL + "all", await checkTokenGet()).then(res => res.json());
+async function checkBrandColorMix(specificCarId, colorMixId) {
+    const data = await fetch(deleteURL + specificCarId + "&" + colorMixId, await checkTokenGet()).then(res => res.json());
+    if (Object.keys(data).length === 0) {
+        throw new Error("No BrandColorMix found")
+    } else {
+        console.log(data.id)
+        deleteColorMix(data.id)
+    }
+
+
+
+
 
 
 
