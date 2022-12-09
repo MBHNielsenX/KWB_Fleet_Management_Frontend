@@ -13,18 +13,9 @@ export async function initColorTypes(navigatorRouter) {
         addColorType();
     }
 
-    document.getElementById(tableId).onclick = (element) =>{
-        let id = element.target.id
-
-        if(id.includes("-column-id")){
-            targetId = id.replace("-column-id", "")
-        }
-    }
-
-
-
     document.getElementById("modal-content").onclick = (element) =>{
         let id = element.target.id
+        console.log(targetId)
 
         if(id.includes("delete")){
             deleteColorType(targetId)
@@ -34,31 +25,12 @@ export async function initColorTypes(navigatorRouter) {
         }
     }
 
-    /*
-    document.getElementById("table").ondblclick = (element) =>{
-        let id = element.target.id
-        if(id.includes("text")){
-            changeTdToInput(id);
-        }
-        var el = document.getElementById(id);
-        el.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                console.log("Enter clicked "  + id)
-                let field = document.getElementById(id)
-                field.readOnly = true
-                editColorType(id)
-            }
-        });
-    }
 
-     */
 
 }
 
-function changeTdToInput(id){
-    const field = document.getElementById(id)
-    field.readOnly = false
-}
+
+
 
 
 
@@ -77,7 +49,7 @@ async function getAllColorTypes() {
                                     <li id="${colorType.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${colorType.id}-column-id"  class="three-dots__dot"></li>
                                     <li id="${colorType.id}-column-id"  class="three-dots__dot"></li>
-                                    
+                                   
              </ul>
             </td>
         `
@@ -158,6 +130,8 @@ function rowHighlightColorType() {
     document.getElementById(tableId).onclick = (element) => {
         let id = element.target.id
         if (id.endsWith("-column-id") || id.endsWith("-menu")) {
+            targetId = id.split('-column-id')[0]
+
             // the clicked row
             let row = document.getElementById(id).closest("tr")
             // the other rows
@@ -180,4 +154,11 @@ function rowHighlightColorType() {
 
         }
     )
+
+
+
+
+
+
+
 }
