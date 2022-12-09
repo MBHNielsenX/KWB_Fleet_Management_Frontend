@@ -1,5 +1,6 @@
 import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
+import {rowHighlight} from "../../../js/modulLoad.js";
 
 let URL = SERVER_URL + "/color-mix/c-mix/";
 let specificCarURL = SERVER_URL + "/specific-car-model/"
@@ -52,6 +53,7 @@ async function getSpecificCar(id) {
 
 
 async function getColormixes(id) {
+    document.getElementById("table-body").innerHTML = ""
     try {
         const data = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
         if (Object.keys(data).length === 0) {
@@ -66,19 +68,27 @@ async function getColormixes(id) {
             <td>${colorMix.colorCode}</td>
             <td>${colorMix.colorName}</td>
             <td>${colorMix.colorTypesResponse.type}</td>
-            <td></td>
+            <td>
+               <ul data-bs-toggle="modal" data-bs-target="#exampleModal" class="three-dots" >
+                                    <li id="${colorMix.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${colorMix.id}-column-id"  class="three-dots__dot"></li>
+                                    <li id="${colorMix.id}-column-id"  class="three-dots__dot"></li>
+                                    
+             </ul>
+            </td>
             
-            </tr>
+        </tr>
             `);
         const tableRowsString = tableRowsArray.join("\n");
-        document.getElementById("tbody-all").innerHTML = tableRowsString;
+        document.getElementById("table-body").innerHTML = tableRowsString;
+        rowHighlight();
     } catch(err) {
         console.log(err);
     }
 }
 
 async function getAllColorMixes() {
-    document.getElementById("tbody-all").innerHTML = ""
+    document.getElementById("table-body").innerHTML = ""
     try{
         const data = await fetch(URL, await checkTokenGet()).then(res => res.json());
         console.log(data)
@@ -93,7 +103,7 @@ async function getAllColorMixes() {
         `
         );
         const tableRowsString = tableRowsArray.join("\n");
-        document.getElementById("tbody-all").innerHTML = tableRowsString;
+        document.getElementById("table-body").innerHTML = tableRowsString;
     } catch(err) {
         console.log(err);
     }
