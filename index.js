@@ -85,10 +85,7 @@ window.addEventListener("load", async () => {
         renderTemplate(templateCreateBrand, "content")
         initCreateBrand()
       },
-      "/ownership": () => {
-        renderTemplate(templateOwnerships, "content")
-        initOwnerships()
-      },
+
       "/all-brands": () => {
         renderTemplate(templateAllBrands, "content")
         initAllBrands()
@@ -138,7 +135,7 @@ window.addEventListener("load", async () => {
         renderTemplate(templateLogin, "content")
         initLogin()
       },
-      "/ownerships": () => {
+      "/ownership": () => {
         renderTemplate(templateOwnerships, "content")
         initOwnerships(router)
 

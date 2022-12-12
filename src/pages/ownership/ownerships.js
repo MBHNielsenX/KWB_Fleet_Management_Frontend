@@ -6,7 +6,8 @@ let router;
 export function initOwnerships(navigoRouter) {
     checkRoleAdmin();
     router = navigoRouter
-    getAllOwnerships();
+    getAllOwnerships()
+    document.getElementById
 }
 
 async function getAllOwnerships() {
@@ -24,5 +25,25 @@ async function getAllOwnerships() {
         );
         const tableRowsString = tableRowsArray.join("");
         document.getElementById("tbody-ownership").innerHTML = tableRowsString;
+}
+
+function deleteOwnership(id) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        "id": document.getElementById("id").value
+    });
+
+    var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch(`${URL}/${id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 }
 
