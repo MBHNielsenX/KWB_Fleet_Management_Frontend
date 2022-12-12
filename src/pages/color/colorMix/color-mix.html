@@ -23,6 +23,8 @@
                 </nav>
             </div>
         </div>
+        <h2 id="response-text-succes" style="display: none"></h2>
+        <h2 id="response-text-error" style="display: none"></h2>
         <div class="sessionCheck1">
             <h1 id="header-title">Colormixes for:</h1>
             <div class="multi-container">
@@ -59,13 +61,18 @@
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
                             ></button>
-                            <p hidden class="inner-content" id="id"></p>
                         </div>
+                        <div class="modal-body">
+                            <div id="movie-content">
+                                <p class="inner-content" id="name"></p>
+                                <p hidden class="inner-content" id="id"></p>
 
+                            </div>
+                        </div>
                         <div class="modal-footer grid--auto-1 gap--xs">
                             <button
                                     type="button"
-                                    id="edit"
+                                    id="edit-color-mix"
                                     data-bs-dismiss="modal"
                                     class="primary-button"
                             >
@@ -73,7 +80,7 @@
                             </button>
                             <button
                                     type="button"
-                                    id="delete"
+                                    id="delete-color-mix"
                                     data-bs-dismiss="modal"
                                     class="delete-button"
                             >

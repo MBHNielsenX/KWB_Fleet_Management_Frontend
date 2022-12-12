@@ -1,6 +1,7 @@
 import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
 import {rowHighlight} from "../../../js/modulLoad.js";
+import {getBuyerUsers} from "../../createLogins/userBuyer/allBuyers";
 
 let URL = SERVER_URL + "/color-mix/c-mix/";
 let specificCarURL = SERVER_URL + "/specific-car-model/"
@@ -15,6 +16,10 @@ let id
 
 export function initColorMix(navigoRouter, match) {
     checkRoleAdmin()
+
+    document.getElementById("edit-color-mix").onclick = editColorMix()
+    document.getElementById("delete-color-mix").onclick = checkBrandColorMix()
+
     if (match?.params?.id) {
         id = match.params.id
         try {
@@ -111,29 +116,45 @@ async function getAllColorMixes() {
     }
 }
 
-async function checkBrandColorMix(specificCarId, colorMixId) {
-    const data = await fetch(deleteURL + specificCarId + "&" + colorMixId, await checkTokenGet()).then(res => res.json());
+async function checkBrandColorMix() {
+    const colorMixId = document.getElementById("id").innerText;
+    const data = await fetch(deleteURL + id + "&" + colorMixId, await checkTokenGet()).then(res => res.json());
     if (Object.keys(data).length === 0) {
         throw new Error("No BrandColorMix found")
     } else {
         console.log(data.id)
         deleteColorMix(data.id)
     }
-
-
-
-
-
-
-
 }
 
 
-async function deleteColorMix(id) {
-    await fetch(deleteURL + id, {
+async function deleteColorMix(brandColorMixId) {
+    const options = {
         method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        const response = await fetch(deleteURL + brandColorMixId, options);
+        if (response.status === 200) {
+            document.getElementById("response-text-succes").style.display = "block";
+            document.getElementById("response-text-error").style.display = "none";
+            document.getElementById("response-text-succes").style.color = 'green'
+            document.getElementById("response-text-succes").innerText = "BrandColorMix deleted";
+            setTimeout(() => {
+                getBuyerUsers();
+            }, 300);
 
-    }).then((res) => res.json()).then
+        } else {
+            document.getElementById("response-text-succes").style.display = "none";
+            document.getElementById("response-text-error").style.display = "block";
+            document.getElementById("response-text-error").innerText = "Failed to delete BrandColorMix";
+            document.getElementById("response-text-error").style.color = 'red';
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 

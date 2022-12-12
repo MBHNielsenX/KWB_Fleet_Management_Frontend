@@ -45,7 +45,6 @@ export function rowHighlightAdmin() {
             for (let i = 0; i < buttons.length; i++) {
                 if (buttons[i] !== button) {
                     buttons[i].style.background = "#979797"
-
                 }
             }
 
