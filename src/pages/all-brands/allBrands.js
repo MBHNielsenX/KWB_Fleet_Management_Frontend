@@ -9,17 +9,22 @@ let specificCarModels = [];
 export async function initAllBrands(){
     checkRoleAdmin()
     document.getElementById("table-body").onclick = (element) =>{
-        let id = element.target.id
-        if (id.startsWith("btn-add-color-mix-") || id.startsWith("link-view-color-mixes")){
+    }
+
+    const onClick = (event) => {
+        let id = event.target.id.split('-')[event.target.id.split('-').length-1]
+
+        if (event.target.id.startsWith("btn-add-color-mix-")  || event.target.id.startsWith("link-view-color-mixes")) {
             addColorMixRedirect(id)
-        } else if (id.startsWith("btn-kebab-menu-")){
+        } else if (event.target.id.startsWith("btn-kebab-menu-")) {
             displayKebabMenu(id)
-        } else if (id.startsWith("link-delete-brand-")){
+        } else if (event.target.id.startsWith("link-delete-brand-")) {
             deleteBrand(id)
-        } else if (id.startsWith("link-edit-brand-")){
+        } else if (event.target.id.startsWith("link-edit-brand-")) {
             editBrandRedirect(id)
         }
     }
+    window.addEventListener('click', onClick)
 
     try{
         specificCarModels = await fetch(url, await checkTokenGet())
@@ -34,7 +39,7 @@ export async function initAllBrands(){
             <td>${specificCarModel.model}</td>
             <td>${specificCarModel.modelYear}</td>
             <td>${specificCarModel.colorMixAmounts}</td>
-            <td><button id="btn-add-color-mix-${specificCarModel.id}">Add Colormix</button></td>
+            <td><button id="btn-add-color-mix-${specificCarModel.id}" >Add Colormix</button></td>
             <td><button id="btn-kebab-menu-${specificCarModel.id}">...</button></td>
             <ul id="kebab-menu-${specificCarModel.id}"></ul>
         </tr>`)
@@ -43,17 +48,12 @@ export async function initAllBrands(){
     document.getElementById("table-body").innerHTML=rows
 }
 
-async function getId(id){
-    id = id.split('-')
-    return id[id.length-1]
-}
-
 async function addColorMixRedirect(id){
-    router.navigate(`color-mix?id=${await getId(id)}`)
+    router.navigate(`color-mix/c-mix?id=${id}`)
 }
 
 async function editBrandRedirect(id){
-    router.navigate(`edit-brand?id=${await getId(id)}`)
+    router.navigate(`edit-brand?id=${id}`)
 }
 
 async function displayKebabMenu(id){
@@ -65,10 +65,10 @@ async function displayKebabMenu(id){
 }
 
 async function deleteBrand(id){
-    const confirmDeletion = confirm("Are you sure you wish to delete brand with id: " + await getId(id)+"?");
+    const confirmDeletion = confirm("Are you sure you wish to delete brand with id: " + id+"?");
     try {
         if (confirmDeletion === true) {
-            await fetch(deleteUrl + await getId(id), await checkTokenDelete())
+            await fetch(deleteUrl + id, await checkTokenDelete())
             location.reload()
         }
     } catch (e){

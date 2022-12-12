@@ -3,7 +3,8 @@ import {loadHtml, adjustForMissingHash, setActiveLink, renderTemplate} from "./u
 
 
 //Brand
-import { initCreateBrand } from "./src/pages/create-brand/createBrand.js"
+import { initCreateBrand } from "./src/pages/create-brand/createBrand.js";
+
 import { initAllBrands } from "./src/pages/all-brands/allBrands.js";
 import {initEditBrand} from "./src/pages/edit-brand/editBrand.js";
 import { initLogin } from "./src/pages/login/login.js";
@@ -11,7 +12,11 @@ import { initOwnerships} from "./src/pages/ownership/ownerships.js";
 import { initCreateOwnership} from "./src/pages/ownership/create-ownership.js";
 
 //Color
-import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js"
+import { initColorTypes } from "./src/pages/color/colorTypes/colorTypeFunctions.js";
+import {initColorMix} from "./src/pages/color/colorMix/colorMixFunctions.js";
+import {initAddColorMix} from "./src/pages/color/addColorMix/addColorMixFunctions.js";
+import {initEditColorTypes} from "./src/pages/color/colorTypes/editColorTypes.js";
+
 
 //Users
 import { initCreateAdminLogin } from "./src/pages/createLogins/userAdmin/adminLogin.js";
@@ -38,8 +43,12 @@ window.addEventListener("load", async () => {
   const templateAllBrands = await loadHtml("./src/pages/all-brands/all-brands.html")
   const templateEditBrand = await loadHtml("./src/pages/edit-brand/edit-brand.html")
   const templateLogin = await loadHtml("./src/pages/login/login.html")
+
+  //color
   const templateColorMix = await loadHtml("./src/pages/color/colorMix/color-mix.html")
+  const templateAddColorMix = await loadHtml("./src/pages/color/addColorMix/add-color-mix.html")
   const templateColorTypes = await loadHtml("./src/pages/color/colorTypes/color-types.html")
+  const templateEditColorTypes = await loadHtml("./src/pages/color/colorTypes/edit-color-types.html")
   const templateOwnerships = await loadHtml("./src/pages/ownership/ownerships.html")
   const templateCreateOwnership = await loadHtml("./src/pages/ownership/create-ownership.html")
 
@@ -67,7 +76,7 @@ window.addEventListener("load", async () => {
       before(done, match) {
         setActiveLink("topnav", match.url)
         done()
-      }
+      },
     })
     .on({
       "/": () => renderTemplate(templateHome, "content"),
@@ -101,9 +110,9 @@ window.addEventListener("load", async () => {
         renderTemplate(templateCreateBuyerLogin, "content")
         initCreateBuyerLogin()
       },
-      "/users/all-buyers": () => {
+      "/users/all-buyers": (match) => {
         renderTemplate(templateBuyerAll, "content")
-        initGetAllBuyerUsers()
+        initGetAllBuyerUsers(match,router)
       },
       "/users/create-leaser": () => {
         renderTemplate(templateLeaserLogin, "content")
@@ -144,6 +153,19 @@ window.addEventListener("load", async () => {
         initColorTypes(router)
 
       },
+      "/edit-color-types": (match) => {
+        renderTemplate(templateEditColorTypes, "content")
+        initEditColorTypes(match)
+
+      },
+      "/color-mix/c-mix": (match) => { //just made
+        renderTemplate(templateColorMix, "content")
+        initColorMix(router, match)
+      },
+       "/color-mix/add": (match) => { //just made
+         renderTemplate(templateAddColorMix, "content")
+         initAddColorMix(router, match)
+       },
       "/edit-brand":(match) =>{
         renderTemplate(templateEditBrand,"content")
         initEditBrand(match)
