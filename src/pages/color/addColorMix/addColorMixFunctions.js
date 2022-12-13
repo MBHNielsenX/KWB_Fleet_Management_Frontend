@@ -2,6 +2,7 @@ import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
 import {initColorMix} from "../colorMix/colorMixFunctions.js";
 
+
 let URL = SERVER_URL + "/color-mix/"
 let brandColorMixURL = SERVER_URL + "/brand-color-mix/"
 let ColorTypeURL = SERVER_URL + "/color-types"
@@ -14,6 +15,7 @@ export function initAddColorMix(navigoRouter, match) {
     if (match?.params?.id) {
         id = match.params.id
     }
+
     checkRoleAdmin()
         try {
             initColorMix(navigoRouter, match)
