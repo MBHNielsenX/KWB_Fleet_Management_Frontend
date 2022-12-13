@@ -28,6 +28,7 @@ import { initEditBuyer } from "./src/pages/createLogins/userBuyer/editBuyer.js";
 
 import { initCreateLeaserLogin } from "./src/pages/createLogins/userLeaser/leaserLogin.js";
 import { initGetAllLeaserUsers } from "./src/pages/createLogins/userLeaser/allLeasers.js";
+import { initEditLeaser } from "./src/pages/createLogins/userLeaser/editLeaser.js";
 
 import { initCreateEconomyLogin } from "./src/pages/createLogins/userEconomy/economyLogin.js";
 import { initGetAllEconomyUsers } from "./src/pages/createLogins/userEconomy/allEconomy.js";
@@ -65,6 +66,7 @@ window.addEventListener("load", async () => {
   const templateEconomyLogin = await loadHtml("./src/pages/createLogins/userEconomy/economyLogin.html")
   const templateAllUsersLogin = await loadHtml("./src/pages/createLogins/allUsers/allUsersLogin.html")
   const templateEditBuyer = await loadHtml("./src/pages/createLogins/userBuyer/editBuyer.html")
+  const templateEditLeaser = await loadHtml("./src/pages/createLogins/userLeaser/editLeaser.html")
 
   //black list
   const templateCreateBlackList = await loadHtml("./src/pages/create-blacklist/createBlackList.html")
@@ -121,9 +123,13 @@ window.addEventListener("load", async () => {
         renderTemplate(templateLeaserLogin, "content")
         initCreateLeaserLogin()
       },
-      "/users/all-leasers": () => {
+      "/users/all-leasers": (match) => {
         renderTemplate(templateLeaserAll, "content")
-        initGetAllLeaserUsers()
+        initGetAllLeaserUsers(match,router)
+      },
+      "/users/edit-leaser": (match) => {
+        renderTemplate(templateEditLeaser, "content")
+        initEditLeaser(match)
       },
       "/users/create-economy": () => {
         renderTemplate(templateEconomyLogin, "content")

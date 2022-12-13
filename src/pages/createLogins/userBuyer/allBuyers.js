@@ -82,7 +82,7 @@ async function getIdFromModule(evt) {
     }
     const id = target.id.replace("-menu", "");
     if (target.classList.contains("other-page")) {
-        router.navigate("movie-title?id=" + id);
+        router.navigate("buyer?id=" + id);
 
     } else {
 

@@ -1,20 +1,37 @@
 import {SERVER_URL} from "../../../../settings.js";
-import {checkRoleLeaser, checkTokenGet} from "../../../js/loginSettings.js";
+import {checkRoleLeaser, checkTokenDelete, checkTokenGet} from "../../../js/loginSettings.js";
+import {rowHighlight} from "../../../js/modulLoad.js";
 
-let URL = SERVER_URL + "/users/leaser"
+
+
+let URL = SERVER_URL + "/users/leaser/"
 
 let leaserUsers = []
 
+let router;
 
-export async function initGetAllLeaserUsers() {
+export async function initGetAllLeaserUsers(match, navigoRouter) {
+    router = navigoRouter;
     checkRoleLeaser();
-    document.getElementById("table-body").onclick = (element) => {
-        let id = element.target.id
-        if (id.startsWith("btn-edit-leaser-user-")) {
-            editLeaserUserRedirect(id)
-        }
+    getLeaserUsers()
+    // get last td in row and add event listener to it
+    document.getElementById("editLeaser").onclick = toEditPage;
+    document.getElementById("deleteLeaser").onclick = deleteLeaser;
 
+    router = navigoRouter;
+    if (match?.params?.id) {
+        const id = match.params.id;
+        try {
+            getLeaserUsers();
+
+        } catch (error) {
+            document.getElementById("error").innerHTML = "Could not find Leaser: " + id;
+        }
     }
+}
+export async function getLeaserUsers() {
+
+
     try {
         leaserUsers = await fetch(URL, await checkTokenGet())
             .then(res => res.json())
@@ -35,17 +52,74 @@ export async function initGetAllLeaserUsers() {
         <td>${leaserUser.addressLine2}</td>
         <td>${leaserUser.ownership}</td>
         <td>${leaserUser.status}</td>
-                
-            <td>
-                <button id="btn-edit-leaser-user-${leaserUser.id}" class="btn btn-primary">Edit</button>
+        <td id="${leaserUser.id}-menu" data-bs-toggle="modal" data-bs-target="#exampleModal" class="click-event">
+             <ul class="three-dots" >
+                                    <li id="${leaserUser.id}-menu"  class="three-dots__dot"></li>
+                                    <li id="${leaserUser.id}-menu"  class="three-dots__dot"></li>
+                                    <li id="${leaserUser.id}-menu"  class="three-dots__dot"></li>
+                                    
+             </ul>
             </td>
         </tr>`
     )
     document.getElementById("table-body").innerHTML = rows.join("")
+    let clickEvent = document.querySelectorAll(".click-event")
+    // get all rows in table
+    let rowsInTable = document.querySelectorAll("tr")
+    // add event listener to all rows
+
+
+    rowsInTable.forEach(row => row.addEventListener("click", rowHighlight))
+
+    clickEvent.forEach(row => row.addEventListener("click", getIdFromModule))
+}
+
+async function getIdFromModule(evt) {
+    const target = evt.target;
+    if (!target.id.includes("-menu")) {
+        return;
+
+    }
+    const id = target.id.replace("-menu", "");
+    if (target.classList.contains("other-page")) {
+        router.navigate("leaser?id=" + id);
+
+    } else {
+
+        const leaser = await fetch(URL + id).then((res) => res.json());
+        document.getElementById("name").innerText = leaser.companyName;
+        document.getElementById("id").innerText = leaser.id;
+        console.log(id)
+    }
 
 }
 
-function editLeaserUserRedirect(id) {
-    let leaserUserId = id.split("-").pop()
-    window.location.href = "/editLeaserUser?id=" + leaserUserId
+function toEditPage() {
+    const id = document.getElementById("id").innerText;
+    router.navigate("/users/edit-leaser?id=" + id);
+}
+
+async function deleteLeaser(id) {
+    id = document.getElementById("id").innerText;
+
+    try {
+        const response = await fetch(URL + id, await checkTokenDelete(id));
+        if (response.status === 200) {
+            document.getElementById("response-text-succes").style.display = "block";
+            document.getElementById("response-text-error").style.display = "none";
+            document.getElementById("response-text-succes").style.color = 'green'
+            document.getElementById("response-text-succes").innerText = "Leaser deleted";
+            setTimeout(() => {
+                getLeaserUsers();
+            }, 300);
+
+        } else {
+            document.getElementById("response-text-succes").style.display = "none";
+            document.getElementById("response-text-error").style.display = "block";
+            document.getElementById("response-text-error").innerText = "Failed to delete leaser";
+            document.getElementById("response-text-error").style.color = 'red';
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
