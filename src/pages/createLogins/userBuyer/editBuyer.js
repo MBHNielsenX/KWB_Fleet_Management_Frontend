@@ -144,7 +144,9 @@ async function editBuyer() {
     console.log(updatedBuyer)
     try {
         await fetch(URL, await checkTokenPut(updatedBuyer))
-        document.getElementById("response-text-succes").innerHTML = "Buyer with id: " + id + " was successfully updated to ";
+
+        router.navigate("/users/all-buyers")
+        document.getElementById("response-text-succes").innerHTML = "Buyer: " + companyNameInput + " was successfully updated";
 
     } catch (e) {
         console.log(e)
