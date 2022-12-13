@@ -1,8 +1,10 @@
 import {checkRoleAdmin, checkTokenGet, checkTokenPut} from "../../../js/loginSettings.js";
-var URL = "http://localhost:8080/api/color-types/"
+import { SERVER_URL } from "../../../../settings.js";
+let URL = SERVER_URL + "/color-types/"
 let tableId = "table-body-test"
 let id
 export async function initEditColorTypes(match){
+    checkRoleAdmin()
     document.getElementById("type-status").innerHTML = ""
     if (match?.params?.id) {
         id = match.params.id
@@ -22,7 +24,7 @@ async function fetchColorType(id){
     document.getElementById(tableId).innerHTML = ""
     let data = []
     try{
-        const colorType = await fetch(URL + id).then(res => res.json())
+        const colorType = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
         data.push(colorType)
         const tableRowsArray = data.map(
             (colorType) =>
