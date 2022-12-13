@@ -9,6 +9,7 @@ export function initOwnerships(navigoRouter) {
     getAllOwnerships()
     document.getElementById
 }
+//pull
 
 async function getAllOwnerships() {
 
