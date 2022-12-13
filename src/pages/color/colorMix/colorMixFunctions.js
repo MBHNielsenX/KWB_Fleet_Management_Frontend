@@ -1,16 +1,13 @@
 import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
 import {rowHighlight} from "../../../js/modulLoad.js";
-import {getBuyerUsers} from "../../createLogins/userBuyer/allBuyers.js";
 
 let URL = SERVER_URL + "/color-mix/c-mix/";
 let specificCarURL = SERVER_URL + "/specific-car-model/"
 let specificColorMix = SERVER_URL + "/color-mix/"
-let ColorTypeURL = SERVER_URL + "/color-types"
 let deleteURL = SERVER_URL + "/brand-color-mix/"
 let router;
 
-let tableId
 let id
 
 
@@ -29,9 +26,9 @@ export function initColorMix(navigoRouter, match) {
         if (event.target.id.startsWith("submit")) {
             addColorMixRedirect(id)
         } else if (event.target.id.endsWith("edit-color-mix")) {
-            editColorMix()
+
         } else if (event.target.id.endsWith("delete-color-mix")) {
-            checkBrandColorMix()
+
         }
     }
     window.addEventListener('click', onClick)
@@ -90,27 +87,6 @@ async function getColormixes(id) {
     }
 }
 
-async function getAllColorMixes() {
-    document.getElementById("table-body").innerHTML = ""
-    try{
-        const data = await fetch(URL, await checkTokenGet()).then(res => res.json());
-        console.log(data)
-        const tableRowsArray = data.map(
-            (colorMix) =>
-                `
-        <tr>
-            <td>${colorMix.id}</td>
-            <td>${colorMix.colorName}</td>
-            <td>${colorMix.colorCode}</td>
-            <td>${colorMix.colorTypeId}</td>
-        `
-        );
-        const tableRowsString = tableRowsArray.join("\n");
-        document.getElementById("table-body").innerHTML = tableRowsString;
-    } catch(err) {
-        console.log(err);
-    }
-}
 
 async function checkBrandColorMix() {
     const colorMixId = document.getElementById("hidden-id").innerText;
