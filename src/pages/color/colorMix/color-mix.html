@@ -1,5 +1,30 @@
-<div class="template">
-    <div class="main-container">
+<div class="template ct-section">
+    <div class="ct-section-inner-wrap">
+        <div class="hero">
+
+            <div class="hero__header">
+                <h1>See colormix</h1>
+            </div>
+            <div class="nav">
+                <nav class="nav__flow-nav">
+                    <ol class="nav__flow-ol">
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+                                                    href="/create-brand" data-navigo>Create Brand</a></li>
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+                                                    href="/all-brands" data-navigo>All Brands</a></li>
+                        <li class="nav__flow-li nav__flow-li--active"><a class="nav__flow-a nav__flow-a--active"
+                                                                         href="/color-mix/c-mix" data-navigo>See Colormix</a></li>
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+                                                   href="/color-types" data-navigo>Create colortype</a></li>
+                        <li class="nav__flow-li"><a class="nav__flow-a"
+                                                    href="/color-types" data-navigo>All colortypes</a></li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <h2 id="response-text-succes" style="display: none"></h2>
+        <h2 id="response-text-error" style="display: none"></h2>
         <div class="sessionCheck1">
             <h1 id="header-title">Colormixes for:</h1>
             <div class="multi-container">
@@ -11,12 +36,59 @@
                     <th>Color Code</th>
                     <th>Color name</th>
                     <th>color type id</th>
+                    <th>Options</th>
                 </tr>
                 </thead>
-                <tbody id="tbody-all"></tbody>
+                <tbody id="table-body"></tbody>
             </table>
             <div style="display: flex; flex-direction: row">
                 <button id="submit">Add Colormix</button>
+            </div>
+            <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Or Delete</h5>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="movie-content">
+                                <p class="inner-content" id="hidden-name"></p>
+                                <p hidden class="inner-content" id="hidden-id"></p>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer grid--auto-1 gap--xs">
+                            <button
+                                    type="button"
+                                    id="edit-color-mix"
+                                    data-bs-dismiss="modal"
+                                    class="primary-button"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                    type="button"
+                                    id="delete-color-mix"
+                                    data-bs-dismiss="modal"
+                                    class="delete-button"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

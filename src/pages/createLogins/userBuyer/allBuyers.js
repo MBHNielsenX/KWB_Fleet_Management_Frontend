@@ -124,7 +124,6 @@ async function deleteBuyer(id) {
             document.getElementById("response-text-error").innerText = "Failed to delete buyer";
             document.getElementById("response-text-error").style.color = 'red';
         }
-
     } catch (error) {
         console.log(error);
     }

@@ -1,12 +1,17 @@
-var URL = "http://localhost:8080/api/color-types"
+import {checkRoleAdmin, checkTokenGet, checkTokenPost, checkTokenDelete} from "../../../js/loginSettings.js";
+
+import { SERVER_URL } from "../../../../settings.js";
+let URL = SERVER_URL + "/color-types/"
+
 let router;
-let tableId = "table-body-test"
+let tableId = "table-body"
 
 let colorTypes = []
 let targetId
 
 export async function initColorTypes(navigatorRouter) {
-    getAllColorTypes()
+    checkRoleAdmin()
+    await getAllColorTypes()
     router = navigatorRouter
 
     document.getElementById("submit-new-color-type").onclick = () =>{
@@ -25,19 +30,14 @@ export async function initColorTypes(navigatorRouter) {
         }
     }
 
-
-
 }
-
-
-
 
 
 
 async function getAllColorTypes() {
     document.getElementById(tableId).innerHTML = ""
     try{
-        colorTypes = await fetch(URL).then(res => res.json());
+        colorTypes = await fetch(URL, checkTokenGet).then(res => res.json());
         const tableRowsArray = colorTypes.map(
             (colorType) =>
                 `
@@ -70,68 +70,38 @@ async function addColorType() {
         type
     };
 
-    const response = await fetch(URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newColorType),
-    })
+    const response = await fetch(URL, await checkTokenPost(newColorType))
         .then((res) => res.json())
     //window.location.reload();
     if(response.ok){
         colorTypes.add(response)
     }
-    getAllColorTypes()
+    await getAllColorTypes()
 }
 
 async function deleteColorType(idToDelete) {
     var r = confirm("If you delete this Color Type all associated color mixes will be deleted.");
     if (r==true)
     {
-        const response = await fetch(URL + "/" + idToDelete, {
-            method: "DELETE",
-
-        }).then((res) => res.json())
+        const response = await fetch(URL + idToDelete, await checkTokenDelete()).then((res) => res.json())
         if(response.ok){
             colorTypes = colorTypes.filter(type => type.id !== response.id);
         }
-        getAllColorTypes()
+        await getAllColorTypes()
     }
-}
-
-async function editColorType(idFromJs) {
-    const id = idFromJs.split('text')[1]
-    const type = document.getElementById(idFromJs).value;
-    const editedColorType = {
-        id,
-        type
-    };
-    const data = await fetch(URL, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editedColorType),
-    })
-        .then((res) => res.json())
-    if(document.getElementById(idFromJs).value === data.type){
-        document.getElementById(idFromJs).style.boxShadow = "0px 0px 20px 1px #00FF00";
-    }else {
-        document.getElementById(idFromJs).style.boxShadow = "0px 0px 20px 1px #FF0000";
-    }
-    setTimeout( () =>{
-        document.getElementById(idFromJs).style.boxShadow = "none";
-    }, 2000);
-
 }
 
 function rowHighlightColorType() {
     document.getElementById(tableId).onclick = (element) => {
         let id = element.target.id
         if (id.endsWith("-column-id") || id.endsWith("-menu")) {
-            targetId = id.split('-column-id')[0]
-
+            if(id.endsWith("-column-id")){
+                targetId = id.split('-column-id')[0]
+            }
+            else{
+                targetId = id.split('-menu')[0]
+            }
+            console.log(targetId)
             // the clicked row
             let row = document.getElementById(id).closest("tr")
             // the other rows
@@ -145,7 +115,6 @@ function rowHighlightColorType() {
 
     }
 
-
     document.getElementById("exampleModal").addEventListener("hidden.bs.modal", () => {
             let rows = document.getElementById(tableId).children
             for (let i = 0; i < rows.length; i++) {
@@ -154,11 +123,5 @@ function rowHighlightColorType() {
 
         }
     )
-
-
-
-
-
-
 
 }

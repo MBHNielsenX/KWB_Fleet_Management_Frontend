@@ -1,10 +1,11 @@
 import {checkRoleAdmin, checkTokenGet} from "../../../js/loginSettings.js";
 import {SERVER_URL} from "../../../../settings.js"
+import {rowHighlight} from "../../../js/modulLoad.js";
 
 let URL = SERVER_URL + "/color-mix/c-mix/";
 let specificCarURL = SERVER_URL + "/specific-car-model/"
-let allColorMix = SERVER_URL + "/color-mix/"
-let ColorTypeURL = SERVER_URL + "/color-types"
+let specificColorMix = SERVER_URL + "/color-mix/"
+let deleteURL = SERVER_URL + "/brand-color-mix/"
 let router;
 
 let id
@@ -12,6 +13,7 @@ let id
 
 export function initColorMix(navigoRouter, match) {
     checkRoleAdmin()
+
     if (match?.params?.id) {
         id = match.params.id
         try {
@@ -23,6 +25,10 @@ export function initColorMix(navigoRouter, match) {
     const onClick = (event) => {
         if (event.target.id.startsWith("submit")) {
             addColorMixRedirect(id)
+        } else if (event.target.id.endsWith("edit-color-mix")) {
+
+        } else if (event.target.id.endsWith("delete-color-mix")) {
+
         }
     }
     window.addEventListener('click', onClick)
@@ -45,6 +51,7 @@ async function getSpecificCar(id) {
 
 
 async function getColormixes(id) {
+    document.getElementById("table-body").innerHTML = ""
     try {
         const data = await fetch(URL + id, await checkTokenGet()).then(res => res.json())
         if (Object.keys(data).length === 0) {
@@ -59,46 +66,87 @@ async function getColormixes(id) {
             <td>${colorMix.colorCode}</td>
             <td>${colorMix.colorName}</td>
             <td>${colorMix.colorTypesResponse.type}</td>
-            </tr>
+            <td id="${colorMix.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class="click-event">
+               <ul  class="three-dots" >
+                                    <li id="${colorMix.id}-menu"  class="three-dots__dot"></li>
+                                    <li id="${colorMix.id}-menu"  class="three-dots__dot"></li>
+                                    <li id="${colorMix.id}-menu"  class="three-dots__dot"></li>
+                                    
+             </ul>
+            </td>
+            
+        </tr>
             `);
-        const tableRowsString = tableRowsArray.join("\n");
-        document.getElementById("tbody-all").innerHTML = tableRowsString;
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-async function getAllColorMixes() {
-    document.getElementById("tbody-all").innerHTML = ""
-    try{
-        const data = await fetch(URL, await checkTokenGet()).then(res => res.json());
-        console.log(data)
-        const tableRowsArray = data.map(
-            (colorMix) =>
-                `
-        <tr>
-            <td>${colorMix.id}</td>
-            <td>${colorMix.colorName}</td>
-            <td>${colorMix.colorCode}</td>
-            <td>${colorMix.colorTypeId}</td>
-        `
-        );
-        const tableRowsString = tableRowsArray.join("\n");
-        document.getElementById("tbody-all").innerHTML = tableRowsString;
+        document.getElementById("table-body").innerHTML = tableRowsArray.join("\n");
+        let clickEvent = document.querySelectorAll(".click-event")
+        let rowsInTable = document.querySelectorAll("tr")
+        rowsInTable.forEach(row => row.addEventListener("click", rowHighlight))
+        clickEvent.forEach(row => row.addEventListener("click", getIdFromModule))
     } catch(err) {
         console.log(err);
     }
 }
 
 
-async function deleteColorMix() {
-    const id = document.getElementById("if1").value;
-    URL = URL + "/" + id
-    console.log(URL)
-    await fetch(URL, {
+async function checkBrandColorMix() {
+    const colorMixId = document.getElementById("hidden-id").innerText;
+    const data = await fetch(deleteURL + id + "/" + colorMixId, await checkTokenGet()).then(res => res.json());
+    if (Object.keys(data).length === 0) {
+        throw new Error("No BrandColorMix found")
+    } else {
+        console.log(data.id)
+        deleteColorMix(data.id)
+    }
+}
+
+async function getIdFromModule(evt) {
+    const target = evt.target;
+    if (!target.id.includes("-menu")) {
+        return;
+    }
+    const id = target.id.replace("-menu", "");
+    if (target.classList.contains("other-page")) {
+        addColorMixRedirect(id)
+
+    } else {
+
+        const colorMix = await fetch(specificColorMix + id).then((res) => res.json());
+        console.log(colorMix)
+        document.getElementById("hidden-name").innerText = colorMix.colorName;
+        document.getElementById("hidden-id").innerText = colorMix.id;
+        console.log(id)
+    }
+
+}
+
+
+async function deleteColorMix(brandColorMixId) {
+    const options = {
         method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        const response = await fetch(deleteURL + brandColorMixId, options);
+        if (response.status === 200) {
+            document.getElementById("response-text-succes").style.display = "block";
+            document.getElementById("response-text-error").style.display = "none";
+            document.getElementById("response-text-succes").style.color = 'green'
+            document.getElementById("response-text-succes").innerText = "BrandColorMix deleted";
+            setTimeout(() => {
+                getBuyerUsers();
+            }, 300);
 
-    }).then((res) => res.json()).then
+        } else {
+            document.getElementById("response-text-succes").style.display = "none";
+            document.getElementById("response-text-error").style.display = "block";
+            document.getElementById("response-text-error").innerText = "Failed to delete BrandColorMix";
+            document.getElementById("response-text-error").style.color = 'red';
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
