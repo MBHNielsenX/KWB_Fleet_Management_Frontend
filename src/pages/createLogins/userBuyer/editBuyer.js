@@ -2,7 +2,7 @@ import {SERVER_URL} from "../../../../settings.js";
 import {checkRoleBuyer, checkTokenGet} from "../../../js/loginSettings.js";
 
 
-let URL = SERVER_URL + "/users/buyer/"
+let URL = SERVER_URL + "/users/buyer"
 
 let id;
 let tableId = "edit-form"
@@ -18,17 +18,19 @@ export async function initEditBuyer(match) {
         }
     }
 
-    document.getElementById("edit").onclick = (element) => {
+    document.getElementById("edit").onclick = () => {
+        console.log("edit is clicked")
         editBuyer()
     }
 
 }
 
 async function fetchBuyerData() {
+
     document.getElementById(tableId).innerHTML = ""
     let data = []
     try {
-        const buyerUser = await fetch(URL + id).then(res => res.json())
+        const buyerUser = await fetch(URL + "/" + id).then(res => res.json())
         data.push(buyerUser)
         const tableRowsArray = data.map(
             (buyerUser) =>
@@ -95,7 +97,9 @@ async function fetchBuyerData() {
             
         `
         );
+
         document.getElementById(tableId).innerHTML = tableRowsArray.join("\n");
+
     } catch (e) {
         console.log(e)
         document.getElementById("response-text-succes").innerHTML = "Buyer with id: " + id + " could not be found."
@@ -134,14 +138,14 @@ async function editBuyer() {
         country: countryInput,
         zipCode: zipCodeInput
 
+
     };
 
+    console.log(updatedBuyer)
     try {
         await fetch(URL, await checkTokenGet(updatedBuyer))
         document.getElementById("response-text-succes").innerHTML = "Buyer with id: " + id + " was successfully updated to ";
-        setTimeout(() => {
-            router.navigate(`users/all-buyers`)
-        }, 2000)
+
     } catch (e) {
         console.log(e)
     }

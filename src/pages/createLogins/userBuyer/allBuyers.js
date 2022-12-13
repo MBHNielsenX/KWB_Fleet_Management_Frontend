@@ -65,8 +65,11 @@ export async function getBuyerUsers() {
     // get all rows in table
     let rowsInTable = document.querySelectorAll("tr")
     // add event listener to all rows
-    rowsInTable.forEach(row => row.addEventListener("click", rowHighlight))
-    clickEvent.forEach(row => row.addEventListener("click", getIdFromModule))
+
+
+        rowsInTable.forEach(row => row.addEventListener("click", rowHighlight))
+
+        clickEvent.forEach(row => row.addEventListener("click", getIdFromModule))
 
 
 }
