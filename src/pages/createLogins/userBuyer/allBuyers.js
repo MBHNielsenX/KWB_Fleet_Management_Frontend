@@ -93,7 +93,7 @@ async function getIdFromModule(evt) {
 
 function toEditPage() {
     const id = document.getElementById("id").innerText;
-    router.navigate("create-buyer?id=" + id);
+    router.navigate("/users/edit-buyer?id=" + id);
 }
 
 async function deleteBuyer(id) {
