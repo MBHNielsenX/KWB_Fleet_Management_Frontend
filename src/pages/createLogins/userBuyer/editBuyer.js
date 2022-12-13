@@ -1,5 +1,5 @@
 import {SERVER_URL} from "../../../../settings.js";
-import {checkRoleBuyer, checkTokenGet} from "../../../js/loginSettings.js";
+import {checkRoleBuyer, checkTokenGet, checkTokenPut} from "../../../js/loginSettings.js";
 
 
 let URL = SERVER_URL + "/users/buyer"
@@ -143,7 +143,7 @@ async function editBuyer() {
 
     console.log(updatedBuyer)
     try {
-        await fetch(URL, await checkTokenGet(updatedBuyer))
+        await fetch(URL, await checkTokenPut(updatedBuyer))
         document.getElementById("response-text-succes").innerHTML = "Buyer with id: " + id + " was successfully updated to ";
 
     } catch (e) {
